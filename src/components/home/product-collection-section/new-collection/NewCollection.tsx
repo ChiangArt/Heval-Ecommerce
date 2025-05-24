@@ -23,7 +23,7 @@ export default function NewCollection() {
             Edición limitada para papás únicos
           </span>
         </p>
-        <p className="z-20">
+        <p className="z-0">
           <span className="inline-block text-xl bg-[#FFF2D9] px-2 py-1">
             Especial día del padre
           </span>

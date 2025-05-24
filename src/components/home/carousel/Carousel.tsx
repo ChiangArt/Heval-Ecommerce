@@ -38,7 +38,7 @@ export default function Carousel() {
             </div>
           ))}
         </div>
-        <h2 className="absolute z-2 text-center right-0 left-0 bottom-4 bg-turquesa opacity-80 text-[white] p-4">
+        <h2 className="absolute z-0 text-center right-0 left-0 bottom-4 bg-turquesa opacity-80 text-[white] p-4">
           COMPRAR AHORA
         </h2>
       </Link>

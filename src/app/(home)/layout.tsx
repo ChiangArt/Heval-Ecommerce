@@ -2,7 +2,7 @@ import ConsumerInformation from "@/components/home/consumer-information/Consumer
 import SocialNetworks from "@/components/home/social-networks/SocialNetworks";
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import News from "@/components/ui/footer/News";
-import ScrollEffect from "@/components/ui/scroll-effect/ScrollEffect";
+import { Sidebar } from "@/components/ui/side-bar/SideBar";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
 
 export default function ShopLayout({
@@ -13,14 +13,13 @@ export default function ShopLayout({
   return (
     <main className="min-h-screen overflow-hidden">
       <AnnouncementBar />
-      <ScrollEffect>
-        <TopMenu />
-      </ScrollEffect>
+      <TopMenu />
+      <Sidebar/>
       {children}
       <footer className="p-10 flex flex-wrap gap-10 bg-[#F7F3F3]">
         <News />
-        <ConsumerInformation/>
-        <SocialNetworks/>
+        <ConsumerInformation />
+        <SocialNetworks />
       </footer>
     </main>
   );
