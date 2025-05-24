@@ -35,7 +35,7 @@ export const Sidebar = () => {
       {/* Sidemenu */}
       <nav
         className={clsx(
-          "fixed p-5 left-0 top-0 w-[400px] h-screen bg-turquesa text-white z-20 shadow-2xl transform transition-all duration-300",
+          "fixed p-5 left-0 top-0 w-[90%] h-screen bg-turquesa text-white z-20 shadow-2xl transform transition-all duration-300",
           {
             "-translate-x-full": !isSideMenuOpen,
           }
@@ -49,7 +49,10 @@ export const Sidebar = () => {
 
         {/* Input */}
         <div className="relative mt-14">
-          <IoSearchOutline size={20} className="absolute text-turquesa top-2 left-2" />
+          <IoSearchOutline
+            size={20}
+            className="absolute text-turquesa top-2 left-2"
+          />
           <input
             type="text"
             placeholder="Buscar"
