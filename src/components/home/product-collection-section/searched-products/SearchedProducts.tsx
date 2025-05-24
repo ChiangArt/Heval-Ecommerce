@@ -1,0 +1,56 @@
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+const products = [
+  {
+    id: 1,
+    title: "Gorra Denim",
+    price: "s/ 50.00",
+    discount: "15%",
+    image: "/20f6810715e48062c065ecc8e9429ccbe3bfe544.jpg",
+  },
+  {
+    id: 2,
+    title: "Gorra Denim",
+    price: "s/ 50.00",
+    discount: "15%",
+    image: "/482021385_122110669598786935_6815489652951560821_n.jpg",
+  },
+];
+
+export default function SearchedProducts() {
+  return (
+    <div className="w-full pt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+      {products.map((product) => (
+        <div key={product.id}>
+          <div className="relative w-full aspect-[7/6] overflow-hidden group">
+            <Image
+              src={product.image}
+              alt="producto"
+              fill
+              className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+            <Image
+              src={product.image}
+              alt="producto"
+              fill
+              className="object-cover scale-200 transition-opacity duration-600 opacity-0 group-hover:opacity-100"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+            <div className="absolute right-0 p-5 select-none">
+              <span className="bg-tahiti p-2">-{product.discount}</span>
+            </div>
+            <Link
+              href={"/"}
+              className="absolute bottom-0 left-0 right-0 text-center text-[white] bg-turquesa py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            >
+              AGREGAR AL CARRITO
+            </Link>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
