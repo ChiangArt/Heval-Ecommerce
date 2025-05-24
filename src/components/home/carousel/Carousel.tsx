@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 
 const images = [
   "/20f6810715e48062c065ecc8e9429ccbe3bfe544.jpg",
-  "/482021385_122110669598786935_6815489652951560821_n.jpg",
-  "/images.jpg",
+  "/banner1 (2).jpg",
+  "/banner2 (2).jpg",
 ];
 
 export default function Carousel() {

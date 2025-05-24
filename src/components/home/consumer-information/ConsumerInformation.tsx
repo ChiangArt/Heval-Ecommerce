@@ -22,7 +22,9 @@ export default function ConsumerInformation() {
           <Link href={"/"}>Términos y condiciones de compra</Link>
         </div>
         <div className="flex flex-col gap-3">
-          <p className="font-extrabold pb-10">Información util para el cliente</p>
+          <p className="font-extrabold pb-10">
+            Información util para el cliente
+          </p>
           <Link href={"/"}>Envíos y devoluciones</Link>
           <Link href={"/"}>Seguimiento de pedidos</Link>
         </div>
