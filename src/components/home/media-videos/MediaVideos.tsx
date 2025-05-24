@@ -21,7 +21,7 @@ const videos = [
 
 export default function MediaVideos() {
   return (
-    <div className="px-30 py-10">
+    <div className="px-10 py-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {videos.map((video) => (
           <div key={video.id} className="flex flex-col items-center">
