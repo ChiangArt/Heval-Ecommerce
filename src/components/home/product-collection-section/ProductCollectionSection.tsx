@@ -6,6 +6,7 @@ import SearchedProducts from "./searched-products/SearchedProducts";
 import Information from "../information/Information";
 import BannerMediaVideos from "../banner-media-videos/BannerMediaVideos";
 import MediaVideos from "../media-videos/MediaVideos";
+import Contact from "../contact/Contact";
 
 export default function ProductCollectionSection() {
   return (
@@ -21,6 +22,7 @@ export default function ProductCollectionSection() {
       <Information/>
       <BannerMediaVideos/>
       <MediaVideos/>
+      <Contact/>
     </div>
   );
 }

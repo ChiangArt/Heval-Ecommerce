@@ -10,7 +10,7 @@
 }
 
 @theme {
-  --color-*: initial;
+  /* --color-*: initial; */
   --color-cielo: #DCF3FF;
   --color-turquesa: #042E2D;
   --color-midnight: #121063;

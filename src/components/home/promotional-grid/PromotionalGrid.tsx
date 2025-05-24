@@ -13,7 +13,7 @@ export default function PromotionalGrid() {
         <Link
           key={link.id}
           href={link.href}
-          className="text-2xl bg-[#FFF2D9] text-white p-6 shadow-lg flex items-center justify-center text-center"
+          className="text-2xl bg-[#FFF2D9] p-6 shadow-lg flex items-center justify-center text-center"
         >
           {link.title}
         </Link>

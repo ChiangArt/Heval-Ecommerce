@@ -71,7 +71,7 @@ export default function NewProducts() {
 
               <Link
                 href={"/"}
-                className="bg-[#FFF2D9] hover:bg-[orange] text-white p-4 rounded-full transition duration-300"
+                className="bg-[#FFF2D9] hover:bg-[orange] p-4 rounded-full transition duration-300"
               >
                 <TbArrowRightDashed size={30} />
               </Link>

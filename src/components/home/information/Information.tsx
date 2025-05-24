@@ -17,7 +17,7 @@ export default function Information() {
             entregas y una comunicación constante durante todo el proceso.
           </p>
         </div>
-        <Link className="bg-turquesa p-4 px-30  text-[white]" href={"/"}>
+        <Link className="bg-turquesa p-4 px-30  text-white hover:opacity-75" href={"/"}>
           VER MÁS
         </Link>
       </div>

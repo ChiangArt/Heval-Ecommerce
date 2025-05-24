@@ -1,74 +1,45 @@
-"use client";
-import React, { useEffect } from "react";
+import Link from "next/link";
+import React from "react";
+
+const videos = [
+  {
+    id: "7360038628120792346",
+    url: "/WhatsApp Video 2025-05-21 at 7.16.22 PM.mp4",
+    title: "SÍGUENOS EN TIK TOK",
+  },
+  {
+    id: "7357224721908249857",
+    url: "/WhatsApp Video 2025-05-21 at 7.16.22 PM (2).mp4",
+    title: "SÍGUENOS EN FACEBOOK",
+  },
+  {
+    id: "7355124855013305601",
+    url: "/WhatsApp Video 2025-05-21 at 7.21.04 PM.mp4",
+    title: "SÍGUENOS EN INSTAGRAM",
+  },
+];
 
 export default function MediaVideos() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://www.tiktok.com/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
-
   return (
-    <div className="p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* TikTok Video */}
-        <div className="flex flex-col items-center">
-          <blockquote
-            className="tiktok-embed"
-            cite="https://www.tiktok.com/@scout2015/video/7360038628120792346"
-            data-video-id="7360038628120792346"
-            style={{ width: "100%", maxWidth: "325px", height: "574px" }}
-          >
-            <section>Loading...</section>
-          </blockquote>
-          <a
-            href="https://www.tiktok.com/@scout2015/video/7360038628120792346"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition"
-          >
-            Ver en TikTok
-          </a>
-        </div>
+    <div className="px-30 py-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {videos.map((video) => (
+          <div key={video.id} className="flex flex-col items-center">
+            <video
+              src={video.url}
+              autoPlay
+              loop
+              className="w-full h-auto"
+            />
 
-        {/* YouTube Video 1 */}
-        <div className="flex flex-col items-center">
-          <iframe
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&rel=0&showinfo=0"
-            title="YouTube"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            className="w-full h-[315px] rounded-lg"
-          ></iframe>
-          <a
-            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition"
-          >
-            Ver en YouTube
-          </a>
-        </div>
-
-        {/* YouTube Video 2 */}
-        <div className="flex flex-col items-center">
-          <iframe
-            src="https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1&mute=1&controls=0&rel=0&showinfo=0"
-            title="YouTube"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            className="w-full h-[315px] rounded-lg"
-          ></iframe>
-          <a
-            href="https://www.youtube.com/watch?v=3JZ_D3ELwOQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition"
-          >
-            Ver en YouTube
-          </a>
-        </div>
+            <Link
+              href={video.url}
+              className="mt-2 bg-[#042E2D] w-full text-center text-white p-5 hover:opacity-75 transition"
+            >
+              {video.title}
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
