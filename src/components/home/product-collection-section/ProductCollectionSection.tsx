@@ -11,14 +11,14 @@ import Contact from "../contact/Contact";
 export default function ProductCollectionSection() {
   return (
     <div>
-      <div className=" p-15 w-full h-full">
+      <div className="p-5 md:p-15 w-full h-full">
         <hr className="my-8 border-t border-gray-300 " />
         <NewCollection />
         <hr className="my-8 border-t border-gray-300 " />
         <NewProducts />
       </div>
       <BannerCollection />
-      <SearchedProducts />
+      <SearchedProducts />  
       <Information/>
       <BannerMediaVideos/>
       <MediaVideos/>

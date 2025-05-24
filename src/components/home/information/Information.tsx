@@ -3,10 +3,12 @@ import React from "react";
 
 export default function Information() {
   return (
-    <div className="py-4">
-      <div className="w-full vh-100 bg-[#F7F3F3] p-20 text-center">
-        <h1 className="font-inter font-black text-5xl">¿Quiénes somos?</h1>
-        <div className="px-80 py-4 font-bold mb-7 text-xl">
+    <div className="my-10">
+      <div className="w-full h-full bg-[#F7F3F3] text-center">
+        <h1 className="font-inter py-6 font-black text-lg md:text-5xl">
+          ¿Quiénes somos?
+        </h1>
+        <div className="px-10 font-bold mb-7 text-sm sm:px-50 lg:px-100 md:text-xl">
           <p>
             Heval, nos especializamos en la confección de gorras con un bordado
             de alta calidad elaborado con precisión y cuidado en cada detalle
@@ -17,9 +19,14 @@ export default function Information() {
             entregas y una comunicación constante durante todo el proceso.
           </p>
         </div>
-        <Link className="bg-turquesa p-4 px-30  text-white hover:opacity-75" href={"/"}>
-          VER MÁS
-        </Link>
+        <div className="flex justify-center pb-6">
+          <Link
+            className="bg-turquesa py-3 px-20 text-white hover:opacity-75"
+            href={"/"}
+          >
+            VER MÁS
+          </Link>
+        </div>
       </div>
     </div>
   );

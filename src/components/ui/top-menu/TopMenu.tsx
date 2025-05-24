@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -62,10 +61,10 @@ export default function TopMenu() {
         </div>
 
         <div className="flex gap-6">
-          <Link href={"/"}>
+          <Link className="hidden md:block" href={"/"}>
             <FaSearch />
           </Link>
-          <Link href={"/"}>
+          <Link className="hidden md:block" href={"/"}>
             <FaUser />
           </Link>
           <Link href="/shop">

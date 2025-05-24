@@ -9,13 +9,13 @@ const collectionHeaderItems = [
 export default function NewCollection() {
   return (
     <div className="bg-[#F7F3F3] font-bold w-full p-10 h-full">
-      <div className="flex justify-between pb-10 text-xl">
+      <div className="flex justify-between pb-10 text-xs md:text-sm">
         {collectionHeaderItems.map(({ title }) => (
           <h3 key={title}>{title}</h3>
         ))}
       </div>
       <div className="flex flex-col text-center">
-        <p className="font-inter text-5xl font-extrabold">
+        <p className="font-inter text-sm md:text-5xl font-extrabold">
           Lo que papá realmente quiere
         </p>
         <p>

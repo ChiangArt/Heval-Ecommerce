@@ -5,7 +5,7 @@ import React from "react";
 export default function ConsumerInformation() {
   return (
     <section className="py-30  bg-white w-full text-center">
-      <div className=" grid grid-cols-4">
+      <div className="grid grid-cols-1 gap-20  sm:grid-cols-2 md:grid-cols-4 md:gap-0">
         <div className="flex flex-col items-center gap-10">
           <Image
             width={110}

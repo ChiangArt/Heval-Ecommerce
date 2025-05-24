@@ -8,12 +8,12 @@ const links = [
 
 export default function PromotionalGrid() {
   return (
-    <div className="font-inter mt-7 font-bold grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="font-inter mt-7 font-bold grid grid-cols-2 md:grid-cols-2 gap-4">
       {links.map((link) => (
         <Link
           key={link.id}
           href={link.href}
-          className="text-2xl bg-[#FFF2D9] p-6 shadow-lg flex items-center justify-center text-center"
+          className="text-sm md:text-2xl bg-[#FFF2D9] p-6 shadow-lg flex items-center justify-center text-center"
         >
           {link.title}
         </Link>

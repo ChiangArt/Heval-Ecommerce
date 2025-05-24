@@ -16,7 +16,7 @@ export default function ShopLayout({
       <TopMenu />
       <Sidebar/>
       {children}
-      <footer className="p-10 flex flex-wrap gap-10 bg-[#F7F3F3]">
+      <footer className="p-5 md:p-10 flex flex-wrap gap-10 bg-[#F7F3F3]">
         <News />
         <ConsumerInformation />
         <SocialNetworks />
