@@ -1,6 +1,6 @@
 import React from "react";
 import NewCollection from "./new-collection/NewCollection";
-import NewProducts from "./new-products/NewProducts";
+import NewProducts from "./new-products/NewProduct";
 import BannerCollection from "./banner-collection/BannerCollection";
 import SearchedProducts from "./searched-products/SearchedProducts";
 import Information from "../information/Information";

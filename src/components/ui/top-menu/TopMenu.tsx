@@ -7,7 +7,7 @@ import { FiMenu } from "react-icons/fi";
 import { useUIStore } from "@/store/ui/ui-store";
 
 const links = [
-  { id: 1, href: "/Tienda", nombre: "TIENDA" },
+  { id: 1, href: "/shop", nombre: "TIENDA" },
   { id: 2, href: "/Colecciones", nombre: "COLECCIONES" },
   { id: 3, href: "/Nosotros", nombre: "NOSOTROS" },
 ];

@@ -2,16 +2,8 @@
 
 import Link from "next/link";
 import clsx from "clsx";
-import {
-  IoCloseOutline,
-  IoLogInOutline,
-  IoLogOutOutline,
-  IoPersonOutline,
-  IoSearchOutline,
-  IoShirtOutline,
-  IoTicketOutline,
-} from "react-icons/io5";
 import { useUIStore } from "@/store/ui/ui-store";
+import { IoCloseOutline } from "react-icons/io5";
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
@@ -35,7 +27,7 @@ export const Sidebar = () => {
       {/* Sidemenu */}
       <nav
         className={clsx(
-          "fixed p-5 left-0 top-0 w-[90%] h-screen bg-turquesa text-white z-20 shadow-2xl transform transition-all duration-300",
+          "fixed p-5 left-0 top-0 w-[90%] pt-10 h-screen bg-turquesa text-white z-20 shadow-2xl transform transition-all duration-300",
           {
             "-translate-x-full": !isSideMenuOpen,
           }
@@ -47,50 +39,31 @@ export const Sidebar = () => {
           onClick={() => closeMenu()}
         />
 
-        {/* Input */}
-        <div className="relative mt-14">
-          <IoSearchOutline
-            size={20}
-            className="absolute text-turquesa top-2 left-2"
-          />
-          <input
-            type="text"
-            placeholder="Buscar"
-            className="w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"
-          />
-        </div>
-
-        {/* Menú */}
-
         <Link
           href="/"
-          className="flex items-center mt-10 p-2 hover:bg-emerald-900 rounded transition-all"
+          className="flex items-center mt-10 p-2  rounded transition-all"
         >
-          <IoPersonOutline size={30} />
           <span className="ml-3 text-xl">Perfil</span>
         </Link>
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2 hover:bg-emerald-900 rounded transition-all"
+          className="flex items-center mt-10 p-2  rounded transition-all"
         >
-          <IoTicketOutline size={30} />
           <span className="ml-3 text-xl">Ordenes</span>
         </Link>
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2 hover:bg-emerald-900 rounded transition-all"
+          className="flex items-center mt-10 p-2  rounded transition-all"
         >
-          <IoLogInOutline size={30} />
           <span className="ml-3 text-xl">Ingresar</span>
         </Link>
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2 hover:bg-emerald-900 rounded transition-all"
+          className="flex items-center mt-10 p-2  rounded transition-all"
         >
-          <IoLogOutOutline size={30} />
           <span className="ml-3 text-xl">Salir</span>
         </Link>
 
@@ -98,18 +71,22 @@ export const Sidebar = () => {
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2 hover:bg-emerald-900 rounded transition-all"
+          className="flex items-center mt-10 p-2  rounded transition-all"
         >
-          <IoShirtOutline size={30} />
-          <span className="ml-3 text-xl">Productos</span>
+          <span className="ml-3 text-xl">Tienda</span>
         </Link>
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2 hover:bg-emerald-900 rounded transition-all"
+          className="flex items-center mt-10 p-2  rounded transition-all"
         >
-          <IoTicketOutline size={30} />
-          <span className="ml-3 text-xl">Ordenes</span>
+          <span className="ml-3 text-xl">Colecciones</span>
+        </Link>
+        <Link
+          href="/"
+          className="flex items-center mt-10 p-2  rounded transition-all"
+        >
+          <span className="ml-3 text-xl">Nosotros</span>
         </Link>
       </nav>
     </div>
