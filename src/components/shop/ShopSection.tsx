@@ -4,7 +4,7 @@ export default function ShopSection() {
   return (
     <div className=" font-bold w-full p-10 h-full">
       <div className="flex flex-col text-center">
-        <p className="font-inter text-lg md:text-5xl font-extrabold">
+        <p className="font-inter text-lg md:text-4xl font-extrabold">
           Mira todo lo que tenemos para ti
         </p>
         <p>
