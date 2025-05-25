@@ -1,22 +1,7 @@
-interface SeedProduct {
-  description: string;
-  discount: number;
-  images: string[];
-  inStock: number;
-  price: number;
-  sizes: ValidSizes[];
-  slug: string;
-  tags: string[];
-  title: string;
-  type: ValidTypes;
-  gender: "men" | "women" | "kid" | "unisex";
-}
-
-type ValidSizes = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
-type ValidTypes = "shirts" | "pants" | "hoodies" | "hats";
+import { Product } from "@/interfaces/product.interface";
 
 interface SeedData {
-  products: SeedProduct[];
+  products: Product[];
 }
 
 export const initialData: SeedData = {
@@ -117,7 +102,7 @@ export const initialData: SeedData = {
       ],
       inStock: 0,
       price: 35,
-      discount: 0.30,
+      discount: 0.3,
       sizes: ["M", "L", "XL", "XXL"],
       slug: "men_cybertruck_owl_tee",
       type: "shirts",
@@ -134,7 +119,7 @@ export const initialData: SeedData = {
       ],
       inStock: 15,
       price: 35,
-      discount: 0.50,
+      discount: 0.5,
       sizes: ["S", "M", "L", "XL"],
       slug: "/482021385_122110669598786935_6815489652951560821_n.jpg",
       type: "shirts",
@@ -168,7 +153,7 @@ export const initialData: SeedData = {
       ],
       inStock: 12,
       price: 35,
-      discount: 0.20,
+      discount: 0.2,
       sizes: ["XS", "S", "M"],
       slug: "men_3d_large_wordmark_tee",
       type: "shirts",
@@ -185,7 +170,7 @@ export const initialData: SeedData = {
       ],
       inStock: 5,
       price: 35,
-      discount: 0.40,
+      discount: 0.4,
       sizes: ["XS", "S"],
       slug: "men_3d_t_logo_tee",
       type: "shirts",
@@ -202,7 +187,7 @@ export const initialData: SeedData = {
       ],
       inStock: 2,
       price: 35,
-      discount: 0.50,
+      discount: 0.5,
       sizes: ["XS", "S", "M"],
       slug: "men_3d_small_wordmark_tee",
       type: "shirts",
@@ -219,7 +204,7 @@ export const initialData: SeedData = {
       ],
       inStock: 82,
       price: 35,
-      discount: 0.60,
+      discount: 0.6,
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       slug: "men_plaid_mode_tee",
       type: "shirts",
