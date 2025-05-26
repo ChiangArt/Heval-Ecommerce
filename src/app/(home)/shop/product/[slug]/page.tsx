@@ -14,11 +14,9 @@ interface Props {
 
 export default function ProductPage({ params }: Props) {
   const { slug } = params;
-  const product = initialData.products.find((product) => product.slug === slug);
+  const product = initialData.products.find((p) => p.slug === slug);
 
-  if (!product) {
-    notFound();
-  }
+  if (!product) notFound();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
