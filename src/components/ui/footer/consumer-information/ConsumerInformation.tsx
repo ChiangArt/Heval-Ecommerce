@@ -14,7 +14,7 @@ export default function ConsumerInformation() {
             alt="Heval"
             className="bg-black"
           />
-          <p className="text-gray-700">Copyright ® 2025, Heval</p>
+          <p className="text-gray-700">Copyright {new Date().getFullYear()}, Heval®</p>
         </div>
         <div className="flex flex-col gap-3">
           <p className="font-extrabold pb-5">Información Legal</p>

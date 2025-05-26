@@ -41,50 +41,59 @@ export const Sidebar = () => {
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2  rounded transition-all"
+          onClick={closeMenu}
+          className="flex items-center mt-10 p-2 rounded transition-all"
         >
           <span className="ml-3 text-xl">Perfil</span>
         </Link>
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2  rounded transition-all"
+          onClick={closeMenu}
+          className="flex items-center mt-10 p-2 rounded transition-all"
         >
           <span className="ml-3 text-xl">Ordenes</span>
         </Link>
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2  rounded transition-all"
+          onClick={closeMenu}
+          className="flex items-center mt-10 p-2 rounded transition-all"
         >
           <span className="ml-3 text-xl">Ingresar</span>
         </Link>
 
         <Link
           href="/"
-          className="flex items-center mt-10 p-2  rounded transition-all"
+          onClick={closeMenu}
+          className="flex items-center mt-10 p-2 rounded transition-all"
         >
           <span className="ml-3 text-xl">Salir</span>
         </Link>
 
+        {/* Separador */}
         <div className="w-full h-px bg-gray-200 my-10" />
 
         <Link
-          href="/"
-          className="flex items-center mt-10 p-2  rounded transition-all"
+          href="/shop"
+          onClick={closeMenu}
+          className="flex items-center mt-10 p-2 rounded transition-all"
         >
           <span className="ml-3 text-xl">Tienda</span>
         </Link>
 
         <Link
-          href="/"
-          className="flex items-center mt-10 p-2  rounded transition-all"
+          href="/collections"
+          onClick={closeMenu}
+          className="flex items-center mt-10 p-2 rounded transition-all"
         >
           <span className="ml-3 text-xl">Colecciones</span>
         </Link>
+
         <Link
-          href="/"
-          className="flex items-center mt-10 p-2  rounded transition-all"
+          href="/about"
+          onClick={closeMenu}
+          className="flex items-center mt-10 p-2 rounded transition-all"
         >
           <span className="ml-3 text-xl">Nosotros</span>
         </Link>

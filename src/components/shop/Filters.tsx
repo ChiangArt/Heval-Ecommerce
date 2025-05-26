@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaSliders } from "react-icons/fa6";
 import { useFilterStore } from "@/store/ui/filter-store";
-import Filter from "./products/Filter";
+import Filter from "./Filter";
 
 export default function Filters() {
   const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function Filters() {
         </div>
 
         {open && (
-          <div className="absolute top-14 mt-2 left-0 bg-white shadow-lg rounded-md text-black p-4 w-60 z-0">
+          <div className="absolute top-10 mt-1 left-0 bg-white shadow-lg rounded-md text-black p-4 w-60 z-1">
             <Filter
               coleccion={coleccion}
               color={color}

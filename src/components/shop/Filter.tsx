@@ -20,8 +20,8 @@ export default function Filter({
   clearFilters,
 }: FiltersProps) {
   return (
-    <div className="flex gap-2 font-bold">
-      <div className="flex text-xs items-center gap-2 py-3 px-4 bg-[#FFF2D9] rounded">
+    <div className="flex flex-col md:flex-row gap-2 font-bold">
+      <div className="hidden md:flex md:text-xs md:items-center md:gap-2 md:py-3 md:px-4 md:bg-[#FFF2D9] md:rounded">
         <FaSliders />
         <p>Filtrar:</p>
       </div>
@@ -29,7 +29,7 @@ export default function Filter({
         <select
           value={coleccion}
           onChange={(e) => setColeccion(e.target.value)}
-          className="py-3 px-4 text-xs bg-[#F7F3F3] rounded"
+          className="p-3 w-full md:py-3 md:px-4 text-xs bg-[#F7F3F3] rounded"
         >
           <option value="" disabled hidden>
             Colección
@@ -43,7 +43,7 @@ export default function Filter({
         <select
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          className="py-3 px-4 text-xs bg-[#F7F3F3] rounded"
+          className="p-3 w-full md:py-3 md:px-4 text-xs bg-[#F7F3F3] rounded"
         >
           <option value="" disabled hidden>
             Color
@@ -58,7 +58,7 @@ export default function Filter({
         <select
           value={precio}
           onChange={(e) => setPrecio(e.target.value)}
-          className="py-3 px-4 text-xs bg-[#F7F3F3] rounded"
+          className="p-3 w-full md:py-3 md:px-4  text-xs bg-[#F7F3F3] rounded"
         >
           <option value="" disabled hidden>
             Precio
@@ -71,7 +71,7 @@ export default function Filter({
 
       <button
         onClick={clearFilters}
-        className="bg-gray-100  hover:bg-gray-200 p-3 rounded text-xs"
+        className="bg-gray-100 hover:bg-gray-200 p-3 rounded text-xs"
       >
         Limpiar
       </button>

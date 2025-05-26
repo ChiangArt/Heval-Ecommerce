@@ -8,8 +8,8 @@ import { useUIStore } from "@/store/ui/ui-store";
 
 const links = [
   { id: 1, href: "/shop", nombre: "TIENDA" },
-  { id: 2, href: "/Colecciones", nombre: "COLECCIONES" },
-  { id: 3, href: "/Nosotros", nombre: "NOSOTROS" },
+  { id: 2, href: "/collections", nombre: "COLECCIONES" },
+  { id: 3, href: "/about", nombre: "NOSOTROS" },
 ];
 
 export default function TopMenu() {
@@ -27,7 +27,7 @@ export default function TopMenu() {
 
   return (
     <div
-      className={`w-full text-[white] z-1 md:transition-all md:duration-500 md:ease-in-out ${
+      className={`w-full text-[white] z-5 md:transition-all md:duration-500 md:ease-in-out ${
         isFixed
           ? "fixed top-0 bg-turquesa/80 backdrop-blur-xl shadow-md md:translate-y-0 md:p-3"
           : "relative bg-turquesa translate-y-0 p-2"
