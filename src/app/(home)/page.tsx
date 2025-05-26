@@ -1,21 +1,23 @@
-import Carousel from "@/components/home/carousel/Carousel";
 import Information from "@/components/ui/information/Information";
 import MediaVideos from "@/components/home/media-videos/MediaVideos";
 import NewProduct from "@/components/home/product-collection-section/new-products/NewProduct";
 import SearchedProducts from "@/components/home/product-collection-section/searched-products/SearchedProducts";
 import PromotionalGrid from "@/components/home/promotional-grid/PromotionalGrid";
 import { Title } from "@/components/ui/title/Title";
-
-const collectionHeaderItems = [
-  "Nueva Colección",
-  "(06 / 2025)",
-  "¡Disponible ya!",
-];
+import SlidesShow from "@/components/home/carousel/SlidesShow";
 
 export default function HomePage() {
   return (
     <div>
-      <Carousel />
+      <SlidesShow
+        images={[
+          "/20f6810715e48062c065ecc8e9429ccbe3bfe544.jpg",
+          "/482021385_122110669598786935_6815489652951560821_n.jpg",
+          "/banner1 (2).jpg",
+          "/banner2 (2).jpg",
+        ]}
+        height={650}
+      />
       <PromotionalGrid />
       {/* <ProductCollectionSection/> */}
       <div>
@@ -23,7 +25,7 @@ export default function HomePage() {
           <hr className="my-8 border-t border-gray-300 " />
           {/* <NewCollection /> */}
           <Title
-            headerItems={collectionHeaderItems}
+            headerItems={["Nueva Colección", "(06 / 2025)", "¡Disponible ya!"]}
             title="“Lo que papá realmente quiere”"
             description1="Edición limitada para papás únicos"
             description2="Edición limitada para papás únicos"
@@ -52,7 +54,25 @@ export default function HomePage() {
           title="Inspírate, comparte y únete"
           description1="Tu próxima gorra favorita está en estos clips"
         />
-        <MediaVideos />
+        <MediaVideos
+          videos={[
+            {
+              id: "1",
+              url: "/WhatsApp Video 2025-05-21 at 7.16.22 PM.mp4",
+              title: "SÍGUENOS EN TIK TOK",
+            },
+            {
+              id: "2",
+              url: "/WhatsApp Video 2025-05-21 at 7.16.22 PM (2).mp4",
+              title: "SÍGUENOS EN FACEBOOK",
+            },
+            {
+              id: "3",
+              url: "/WhatsApp Video 2025-05-21 at 7.21.04 PM.mp4",
+              title: "SÍGUENOS EN INSTAGRAM",
+            },
+          ]}
+        />
         <Information
           textColorLink="text-turquesa"
           textColor="text-white"

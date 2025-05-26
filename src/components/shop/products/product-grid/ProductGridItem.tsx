@@ -59,7 +59,7 @@ export default function ProductGridItem({ product }: Props) {
             )}
           </div>
           <Link
-            href={"/"}
+            href={`/shop/product/${product.slug}`}
             className="bg-[#FFF2D9] hover:bg-orange-400 p-2 rounded-full transition duration-300"
           >
             <TbArrowRightDashed size={24} />

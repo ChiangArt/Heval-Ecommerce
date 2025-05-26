@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["swiperjs.com"], // Dominio de Cloudinary
+  },
+  // otras opciones de configuración...
 };
 
 export default nextConfig;
