@@ -3,6 +3,7 @@ import ProductMobilSlideShow from "@/components/shop/product/slides-show/Product
 import ProductSlideShow from "@/components/shop/product/slides-show/ProductSlideShow";
 import Button from "@/components/ui/button/Button";
 import { initialData } from "@/seed/seed";
+import { notFound } from "next/navigation";
 import React from "react";
 
 interface Props {
@@ -14,6 +15,11 @@ interface Props {
 export default function ProductPage({ params }: Props) {
   const { slug } = params;
   const product = initialData.products.find((product) => product.slug === slug);
+
+  if (!product) {
+    notFound();
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
       {/* Slides Show para web */}
