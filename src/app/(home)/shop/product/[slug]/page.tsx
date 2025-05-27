@@ -6,13 +6,7 @@ import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 import React from "react";
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function ProductPage({ params }: PageProps) {
+export default function ProductPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const product = initialData.products.find((p) => p.slug === slug);
 
