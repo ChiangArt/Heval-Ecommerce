@@ -7,6 +7,7 @@ interface SeedData {
 export const initialData: SeedData = {
   products: [
     {
+      id: "1",
       description:
         "Introducing the Tesla Chill Collection. The Men’s Chill Crew Neck Sweatshirt has a premium, heavyweight exterior and soft fleece interior for comfort in any season. The sweatshirt features a subtle thermoplastic polyurethane T logo on the chest and a Tesla wordmark below the back collar. Made from 60% cotton and 40% recycled polyester.",
       images: [
@@ -24,6 +25,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "2",
       description:
         "The Men's Quilted Shirt Jacket features a uniquely fit, quilted design for warmth and mobility in cold weather seasons. With an overall street-smart aesthetic, the jacket features subtle silicone injected Tesla logos below the back collar and on the right sleeve, as well as custom matte metal zipper pulls. Made from 87% nylon and 13% polyurethane.",
       images: [
@@ -42,6 +44,7 @@ export const initialData: SeedData = {
     },
 
     {
+      id: "3",
       description:
         "Introducing the Tesla Raven Collection. The Men's Raven Lightweight Zip Up Bomber has a premium, modern silhouette made from a sustainable bamboo cotton blend for versatility in any season. The hoodie features subtle thermoplastic polyurethane Tesla logos on the left chest and below the back collar, a concealed chest pocket with custom matte zipper pulls and a french terry interior. Made from 70% bamboo and 30% cotton.",
       images: [
@@ -60,6 +63,7 @@ export const initialData: SeedData = {
     },
 
     {
+      id: "4",
       description:
         "Introducing the Tesla Turbine Collection. Designed for style, comfort and everyday lifestyle, the Men's Turbine Long Sleeve Tee features a subtle, water-based T logo on the left chest and our Tesla wordmark below the back collar. The lightweight material is double-dyed, creating a soft, casual style for ideal wear in any season. Made from 50% cotton and 50% polyester.",
       images: [
@@ -77,6 +81,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "5",
       description:
         "Introducing the Tesla Turbine Collection. Designed for style, comfort and everyday lifestyle, the Men's Turbine Short Sleeve Tee features a subtle, water-based Tesla wordmark across the chest and our T logo below the back collar. The lightweight material is double-dyed, creating a soft, casual style for ideal wear in any season. Made from 50% cotton and 50% polyester.",
       images: [
@@ -94,6 +99,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "6",
       description:
         "Designed for comfort, the Cybertruck Owl Tee is made from 100% cotton and features our signature Cybertruck icon on the back.",
       images: [
@@ -111,6 +117,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "7",
       description:
         "Inspired by our fully integrated home solar and storage system, the Tesla Solar Roof Tee advocates for clean, sustainable energy wherever you go. Designed for fit, comfort and style, the tee features an aerial view of our seamless Solar Roof design on the front with our signature T logo above 'Solar Roof' on the back. Made from 100% Peruvian cotton.",
       images: [
@@ -128,6 +135,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "8",
       description:
         "Inspired by the world’s most unlimited resource, the Let the Sun Shine Tee highlights our fully integrated home solar and storage system. Designed for fit, comfort and style, the tee features a sunset graphic along with our Tesla wordmark on the front and our signature T logo printed above 'Solar Roof' on the back. Made from 100% Peruvian cotton.",
       images: [
@@ -145,6 +153,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "9",
       description:
         "Designed for fit, comfort and style, the Men's 3D Large Wordmark Tee is made from 100% Peruvian cotton with a 3D silicone-printed Tesla wordmark printed across the chest.",
       images: [
@@ -162,6 +171,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "10",
       description:
         "Designed for fit, comfort and style, the Tesla T Logo Tee is made from 100% Peruvian cotton and features a silicone-printed T Logo on the left chest.",
       images: [
@@ -179,6 +189,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "11",
       description:
         "Designed for comfort and style in any size, the Tesla Small Wordmark Tee is made from 100% Peruvian cotton and features a 3D silicone-printed wordmark on the left chest.",
       images: [
@@ -196,6 +207,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "12",
       description:
         "Designed to celebrate Tesla's incredible performance mode, the Plaid Mode Tee features great fit, comfort and style. Made from 100% cotton, it's the next best thing to riding shotgun at the Nürburgring.",
       images: [
@@ -213,6 +225,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "13",
       description:
         "Inspired by our popular home battery, the Tesla Powerwall Tee is made from 100% cotton and features the phrase 'Pure Energy' under our signature logo in the back. Designed for fit, comfort and style, the exclusive tee promotes sustainable energy in any environment.",
       images: [
@@ -230,6 +243,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "14",
       description:
         "Inspired by Tesla Battery Day and featuring the unveiled tabless battery cell, Battery Day Tee celebrates the future of energy storage and cell manufacturing. Designed for fit, comfort and style, Battery Day Tee is made from 100% cotton with a stylized cell printed across the chest. Made in Peru.",
       images: [
@@ -247,6 +261,7 @@ export const initialData: SeedData = {
       gender: "men",
     },
     {
+      id: "15",
       description:
         "Designed for exceptional comfort and inspired by the Cybertruck unveil event, the Cybertruck Bulletproof Tee is made from 100% cotton and features our signature Cybertruck icon on the back.",
       images: [
