@@ -13,15 +13,18 @@ interface MediaVideosProps {
 
 export default function MediaVideos({ videos }: MediaVideosProps) {
   return (
-    <div className="px-10 py-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="max-w-screen-xl mx-auto px-4 py-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {videos.map((video) => (
-          <div key={video.id} className="flex flex-col items-center">
-            <video src={video.url} autoPlay loop className="w-full h-auto" />
+          <div
+            key={video.id}
+            className="flex flex-col h-full w-full overflow-hidden"
+          >
+            <video src={video.url} autoPlay loop className="w-full h-120 object-cover"/>
 
             <Link
               href={video.url}
-              className="mt-2 bg-[#042E2D] w-full text-center text-white p-5 hover:opacity-75 transition"
+              className="mt-2 bg-[#042E2D] text-white text-center text-sm sm:text-base font-semibold py-3 hover:opacity-80 transition"
             >
               {video.title}
             </Link>

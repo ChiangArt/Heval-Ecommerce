@@ -27,10 +27,10 @@ export default function TopMenu() {
 
   return (
     <div
-      className={`w-full text-[white] z-5 md:transition-all md:duration-500 md:ease-in-out ${
+      className={`w-full fixed text-[white] bg-[#042E2D]/70  z-5 md:transition-all md:duration-500 md:ease-in-out ${
         isFixed
-          ? "fixed top-0 bg-turquesa/80 backdrop-blur-xl shadow-md md:translate-y-0 md:p-3"
-          : "relative bg-turquesa translate-y-0 p-2"
+          ? "fixed top-0 backdrop-blur-lg  md:translate-y-0 md:p-3"
+          : "fixed backdrop-blur-xs bg-turquesa/80 translate-y-0 p-2"
       }`}
       style={{
         transitionProperty:

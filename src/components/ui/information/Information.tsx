@@ -8,10 +8,8 @@ interface Props {
   description2?: string;
   link?: string;
   linkText?: string;
-  bgColor?: string;
-  textColor?: string;
-  bgLink?: string;
-  textColorLink?: string;
+  classNameLink?: string;
+  className?: string;
 }
 
 const SubtitleBlock = ({ text }: { text: string }) => (
@@ -24,50 +22,41 @@ export default function Information({
   title,
   description1,
   description2,
-  link = "#",
+  link = "",
   linkText,
-  bgLink,
-  bgColor,
-  textColor,
-  textColorLink,
+  className,
+  classNameLink,
 }: Props) {
   return (
-    <div className="my-10">
-      <div
-        className={clsx(
-          "w-full h-full text-center",
-          bgColor,
-          textColor,
-          !title && !linkText && "pt-7 p-1"
-        )}
-      >
-        {/* Título principal */}
-        {title && (
-          <h1 className="font-inter px-10 py-6 font-black text-lg md:text-4xl">
-            {title}
-          </h1>
-        )}
+    <div
+      className={clsx(
+        "flex flex-col gap-5 justify-center w-full h-full content-center text-center",
+        className,
+        !title && !linkText && "pt-7 p-1"
+      )}
+    >
+      {/* Título principal */}
+      {title && (
+        <h1 className="font-inter px-10 font-black text-2xl md:text-4xl">
+          {title}
+        </h1>
+      )}
 
-        {/* Subtítulos */}
-        {description1 && <SubtitleBlock text={description1} />}
-        {description2 && <SubtitleBlock text={description2} />}
+      {/* Subtítulos */}
+      {description1 && <SubtitleBlock text={description1} />}
+      {description2 && <SubtitleBlock text={description2} />}
 
-        {/* Botón de enlace */}
-        {linkText && link && (
-          <div className="flex justify-center pb-6">
-            <Link
-              className={clsx(
-                "bg-turquesa py-3 text-xs md:text-xl font-bold px-20 hover:opacity-75",
-                bgLink,
-                textColorLink
-              )}
-              href={link}
-            >
-              {linkText}
-            </Link>
-          </div>
-        )}
-      </div>
+      {/* Botón de enlace */}
+      {linkText && link && (
+        <div className="flex justify-center">
+          <Link
+            className={`bg-turquesa py-3 text-sm md:text-xl font-bold px-20 hover:opacity-75 ${classNameLink}`}
+            href={link}
+          >
+            {linkText}
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

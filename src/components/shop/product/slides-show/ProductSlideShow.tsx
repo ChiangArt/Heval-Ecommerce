@@ -26,7 +26,7 @@ export default function ProductSlideShow({ images, title, className }: Props) {
         autoplay={{ delay: 2000 }}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs, Autoplay]}
-        className="mySwiper2 h-full"
+        className="mySwiper2"
       >
         {images.map((image) => (
           <SwiperSlide

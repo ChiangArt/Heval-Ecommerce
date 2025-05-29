@@ -21,34 +21,35 @@ const products = [
 
 export default function SearchedProducts() {
   return (
-    <div className="w-full pt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+    <div className="w-full h-full flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-2 gap-4">
       {products.map((product) => (
-        <div key={product.id}>
-          <div className="relative w-full aspect-[7/6] overflow-hidden group">
-            <Image
-              src={product.image}
-              alt="producto"
-              fill
-              className="object-cover transition-opacity duration-300 group-hover:opacity-0"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
-            <Image
-              src={product.image}
-              alt="producto"
-              fill
-              className="object-cover scale-200 transition-opacity duration-600 opacity-0 group-hover:opacity-100"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
-            <div className="absolute right-0 p-5 select-none">
-              <span className="bg-tahiti p-2">-{product.discount}</span>
-            </div>
-            <Link
-              href={"/"}
-              className="absolute bottom-0 left-0 right-0 text-center text-[white] bg-turquesa py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              AGREGAR AL CARRITO
-            </Link>
+        <div
+          key={product.id}
+          className="relative w-full h-[35%] sm:h-[65%] overflow-hidden group"
+        >
+          <Image
+            src={product.image}
+            alt="producto"
+            fill
+            className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+          <Image
+            src={product.image}
+            alt="producto"
+            fill
+            className="object-cover scale-200 transition-opacity duration-600 opacity-0 group-hover:opacity-100"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+          <div className="absolute top-2 right-2 select-none">
+            <span className="bg-tahiti p-1 text-sm">-{product.discount}</span>
           </div>
+          <Link
+            href={"/"}
+            className="absolute bottom-0 left-0 right-0 text-center text-[white] bg-turquesa py-2 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            AGREGAR AL CARRITO
+          </Link>
         </div>
       ))}
     </div>

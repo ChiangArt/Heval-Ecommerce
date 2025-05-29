@@ -1,31 +1,26 @@
 @import "tailwindcss";
 
-
 :root {
   --background: #ffffff;
-  --foreground: #042E2D;
-  --font-inter: 'Inter', sans-serif;
-  --font-jetBrains_mono: 'JetBrains Mono', sans-serif;
-
+  --foreground: #042e2d;
+  --font-inter: "Inter", sans-serif;
+  --font-jetBrains_mono: "JetBrains Mono", sans-serif;
 }
 
 @theme {
   /* --color-*: initial; */
-  --color-cielo: #DCF3FF;
-  --color-turquesa: #042E2D;
+  --color-cielo: #dcf3ff;
+  --color-turquesa: #042e2d;
   --color-midnight: #121063;
   --color-tahiti: #3ab7bf;
   --color-bermuda: #78dcca;
 }
-
-
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-inter: var(--font-inter);
   --font-mono: var(--font-jetBrains_mono);
-
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -39,6 +34,11 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-jetBrains_mono), Helvetica, sans-serif;
+
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes marquee {
@@ -53,4 +53,13 @@ body {
 .animate-marquee {
   display: inline-flex;
   animation: marquee 20s linear infinite;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

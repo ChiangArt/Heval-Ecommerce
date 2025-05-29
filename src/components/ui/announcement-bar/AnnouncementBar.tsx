@@ -3,7 +3,7 @@ import React from "react";
 export default function AnnouncementBar() {
   return (
     <div className="w-full bg-cielo select-none">
-      <div className="flex text-xs md:text-sm p-3 whitespace-nowrap animate-marquee">
+      <div className="flex text-xs md:text-sm p-1 whitespace-nowrap animate-marquee">
         <span className="px-4">🚚 Envío gratis en compras mayores a $50</span>
         <span className="px-4">
           🎉 ¡Descuentos hasta 70% por tiempo limitado!

@@ -1,19 +1,18 @@
 import Link from "next/link";
-import React from "react";
 
 const links = [
-  { id: 1, href: "/coleccion", title: "NUEVAS COLECCIONES" },
-  { id: 2, href: "/rebajas", title: "REBAJAS EXCLUSIVAS" },
+  { id: 1, href: "/coleccion", title: "NUEVA COLECCION" },
+  { id: 2, href: "/rebajas", title: "BEST SELLER" },
 ];
 
 export default function PromotionalGrid() {
   return (
-    <div className="font-inter mt-7 font-bold grid grid-cols-2 md:grid-cols-2 gap-4">
+    <div className="font-inter font-bold grid grid-cols-2 gap-4">
       {links.map((link) => (
         <Link
           key={link.id}
           href={link.href}
-          className="text-sm md:text-2xl bg-[#FFF2D9] p-6 shadow-lg flex items-center justify-center text-center"
+          className="text-[13px] md:text-[22px] lg:[32px] bg-[#FFF2D9] p-4 flex items-center justify-center text-center"
         >
           {link.title}
         </Link>
