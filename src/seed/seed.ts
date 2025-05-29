@@ -1,10 +1,6 @@
 import { Product } from "@/interfaces/product.interface";
 
-interface SeedData {
-  products: Product[];
-}
-
-export const initialData: SeedData = {
+export const initialData: { products: Product[] } = {
   products: [
     {
       id: "1",
@@ -277,6 +273,6 @@ export const initialData: SeedData = {
       tags: ["shirt"],
       title: "Men’s Cybertruck Bulletproof Tee",
       gender: "men",
-    }
+    },
   ],
 };
