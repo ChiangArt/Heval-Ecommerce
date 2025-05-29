@@ -13,7 +13,7 @@ export default function ShopPageInit() {
       <ShopSection />
       <Filters />
       <hr className="my-2 border-t-2 border-gray-300 " />
-      <hr className="my-2 border-t-2 border-gray-300 " />
+
       <ProductGrid products={products} />
     </>
   );

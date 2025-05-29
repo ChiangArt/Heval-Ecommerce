@@ -6,7 +6,11 @@ import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 import React from "react";
 
-
+interface Props {
+  params: {
+    slug: string;
+  };
+}
 
 // DE PRODUCTO NECESITO
 // title,
@@ -19,11 +23,7 @@ import React from "react";
 // descripcion
 // slug
 
-export default async function ProductBySlugPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProductBySlugPage({ params }: Props) {
   const { slug } = params;
   const product = initialData.products.find((p) => p.slug === slug);
 
