@@ -5,12 +5,7 @@ import Button from "@/components/ui/button/Button";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 import React from "react";
-
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+import { useRouter } from "next/router";
 
 // DE PRODUCTO NECESITO
 // title,
@@ -23,8 +18,10 @@ interface Props {
 // descripcion
 // slug
 
-export default async function ProductBySlugPage({ params }: Props) {
-  const { slug } = params;
+export default function ProductBySlugPage() {
+  const router = useRouter();
+  const { slug } = router.query;
+
   const product = initialData.products.find((p) => p.slug === slug);
 
   if (!product) notFound();
