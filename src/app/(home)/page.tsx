@@ -29,7 +29,7 @@ const videos = [
 
 export default function HomePage() {
   return (
-    <main className="snap-y snap-mandatory h-screen w-full overflow-y-auto scroll-smooth scrollbar-hidden">
+    <main className="snap-y snap-mandatory h-screen w-full overflow-y-auto scrollbar-hidden">
       {/* VIDEO BANNER */}
       <section className="snap-start h-screen  w-full">
         <SlidesShow
