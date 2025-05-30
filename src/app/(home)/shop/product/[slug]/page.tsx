@@ -5,7 +5,6 @@ import Button from "@/components/ui/button/Button";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 import React from "react";
-import { useRouter } from "next/router";
 
 // DE PRODUCTO NECESITO
 // title,
@@ -18,9 +17,12 @@ import { useRouter } from "next/router";
 // descripcion
 // slug
 
-export default function ProductBySlugPage() {
-  const router = useRouter();
-  const { slug } = router.query;
+export default async function ProductBySlugPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
 
   const product = initialData.products.find((p) => p.slug === slug);
 
