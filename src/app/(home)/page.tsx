@@ -128,13 +128,13 @@ export default function HomePage() {
       </section>
 
       <footer className="bg-[#F7F3F3]">
-        <section className="snap-start h-screen w-screen flex items-center justify-center">
+        <section className="snap-start snap-always h-screen w-screen flex items-center justify-center">
           <News />
         </section>
-        <section className="bg-white snap-start h-screen w-screen flex items-center justify-center">
+        <section className="bg-white snap-always snap-start h-screen w-screen flex items-center justify-center">
           <ConsumerInformation />
         </section>
-        <section className="snap-start h-screen w-screen flex items-center justify-center">
+        <section className="snap-start snap-always h-screen w-screen flex items-center justify-center">
           <SocialNetworks />
         </section>
       </footer>
