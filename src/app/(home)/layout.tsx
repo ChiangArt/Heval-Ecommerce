@@ -11,13 +11,11 @@ export default function HomeLayout({
 }) {
   return (
     <>
-      <nav>
-        <AnnouncementBar />
-        <TopMenu />
-        <Sidebar />
-      </nav>
+      <AnnouncementBar />
+      <TopMenu />
+      <Sidebar />
+
       {children}
-      
     </>
   );
 }

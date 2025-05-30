@@ -41,6 +41,12 @@ body {
   height: 100%;
 }
 
+html,
+body {
+  overflow: hidden;
+  height: 100vh;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);
