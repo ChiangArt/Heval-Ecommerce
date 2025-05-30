@@ -45,6 +45,7 @@ html,
 body {
   overflow: hidden;
   height: 100vh;
+  scroll-behavior: auto;
 }
 
 @keyframes marquee {
