@@ -38,11 +38,11 @@ export default function TopMenu() {
       }}
     >
       <nav className="font-inter max-w mx-auto px-4 py-3 flex justify-between items-center">
-        <button onClick={closeMenu} className="md:hidden cursor-pointer">
+        <button onClick={closeMenu} className="lg:hidden cursor-pointer">
           <FiMenu className="text-white text-2xl" />
         </button>
 
-        <div className="hidden md:flex gap-8">
+        <div className="hidden lg:flex gap-8">
           {links.map((link) => (
             <Link
               className="relative inline-block text-[white] before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[0.5px] before:bg-[white] before:transition-all before:duration-300 hover:before:w-full"

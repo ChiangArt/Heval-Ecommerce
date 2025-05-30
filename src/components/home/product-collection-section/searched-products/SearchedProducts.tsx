@@ -38,15 +38,15 @@ export default function SearchedProducts() {
             src={product.image}
             alt="producto"
             fill
-            className="object-cover scale-200 transition-opacity duration-600 opacity-0 group-hover:opacity-100"
+            className="object-cover lg:scale-200 transition-opacity duration-600 opacity-0 group-hover:opacity-100"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
           <div className="absolute top-2 right-2 select-none">
-            <span className="bg-tahiti p-1 text-sm">-{product.discount}</span>
+            <span className="bg-[#DCF3FF] text-turquesa p-1 text-sm">-{product.discount}</span>
           </div>
           <Link
             href={"/"}
-            className="absolute bottom-0 left-0 right-0 text-center text-[white] bg-turquesa py-2 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute bottom-0 left-0 right-0 text-center text-[white] bg-turquesa py-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
             AGREGAR AL CARRITO
           </Link>

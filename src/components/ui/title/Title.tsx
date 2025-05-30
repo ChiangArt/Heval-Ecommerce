@@ -21,7 +21,7 @@ export const Title = ({
   return (
     <div className={` font-bold w-full ${className}`}>
       {headerItems.length > 0 && (
-        <div className={"grid grid-cols-3 text-center text-[10px] md:text-sm "}>
+        <div className={"grid grid-cols-3 text-center text-[10px] lg:text-sm "}>
           {headerItems.map((item, index) => (
             <h3 key={index}>{item}</h3>
           ))}
@@ -38,14 +38,14 @@ export const Title = ({
         )}
 
         {title && (
-          <p className="font-inter text-md md:text-4xl font-extrabold">
+          <p className="font-inter text-md lg:text-4xl font-extrabold">
             {title}
           </p>
         )}
 
         {description1 && (
           <p>
-            <span className="inline-block text-xs md:text-lg bg-[#FFF2D9] px-2 py-1">
+            <span className="inline-block text-xs lg:text-lg bg-[#FFF2D9] px-2 py-1">
               {description1}
             </span>
           </p>
@@ -53,7 +53,7 @@ export const Title = ({
 
         {description2 && (
           <p>
-            <span className="text-white inline-block text-xs md:text-lg bg-[#042E2D] px-2 py-1 transform rotate-2">
+            <span className="text-white inline-block text-xs lg:text-lg bg-[#042E2D] px-2 py-1 transform rotate-2">
               {description2}
             </span>
           </p>
