@@ -60,7 +60,7 @@ export default function NewProducts() {
                   src={product.image}
                   alt={product.title}
                   fill
-                  className="object-cover scale-125 hidden md:block opacity-0 group-hover:opacity-100 transition-all duration-500"
+                  className="object-cover scale-125 hidden md:block md:opacity-0 group-hover:opacity-100 transition-all duration-500"
                 />
 
                 {/* Badge de descuento */}

@@ -1,5 +1,7 @@
 "use client";
 
+import { Sidebar } from "@/components/ui/side-bar/SideBar";
+
 export default function HomeLayout({
   children,
 }: {
@@ -7,6 +9,7 @@ export default function HomeLayout({
 }) {
   return (
     <>
+    <Sidebar />
       {children}
       <div className="z-1 fixed bottom-5 right-5">
         <a

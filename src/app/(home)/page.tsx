@@ -10,7 +10,6 @@ import ConsumerInformation from "@/components/ui/footer/consumer-information/Con
 import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
-import { Sidebar } from "@/components/ui/side-bar/SideBar";
 
 const videos = [
   {
@@ -37,7 +36,6 @@ export default function HomePage() {
       <section className="snap-start h-screen snap-always w-full">
         <AnnouncementBar />
         <TopMenu />
-        <Sidebar />
         <SlidesShow
           images={[
             "/20f6810715e48062c065ecc8e9429ccbe3bfe544.jpg",
