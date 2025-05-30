@@ -7,6 +7,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { FiMenu } from "react-icons/fi";
 import { useUIStore } from "@/store/ui/ui-store";
 import { IoSearchSharp } from "react-icons/io5";
+import { useCartUIStore } from "@/store/ui/ui-cart-store";
 
 const links = [
   { id: 1, href: "/shop", nombre: "TIENDA" },
@@ -17,6 +18,9 @@ const links = [
 export default function TopMenu() {
   const [isFixed, setIsFixed] = useState(false);
   const closeMenu = useUIStore((state) => state.openSideMenu);
+  const toggleCartSideMenu = useCartUIStore(
+    (state) => state.toggleCartSideMenu
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,14 +33,15 @@ export default function TopMenu() {
 
   return (
     <div
-      className={`w-full fixed text-[white] bg-[#042E2D]/70  z-5 md:transition-all md:duration-500 md:ease-in-out ${
-        isFixed
-          ? "fixed top-0 backdrop-blur-lg  md:translate-y-0 md:p-3"
-          : "fixed backdrop-blur-xs bg-turquesa/80 translate-y-0 p-2"
-      }`}
+      className={`w-full fixed z-50 text-white transition-all duration-200 ease-in-out
+    ${
+      isFixed
+        ? "top-0 h-[10vh] p-3 backdrop-blur-lg bg-[#042E2D]/70"
+        : "relative h-[7vh] p-2 backdrop-blur-sm bg-turquesa/80"
+    }
+  `}
       style={{
-        transitionProperty:
-          "background-color, backdrop-filter, box-shadow, transform, position, padding",
+        transitionProperty: "all",
       }}
     >
       <nav className="font-inter max-w mx-auto px-4 py-3 flex justify-between items-center">
@@ -64,19 +69,19 @@ export default function TopMenu() {
 
         <div className="flex  items-center gap-6">
           <Link href={"/"}>
-            <IoSearchSharp className="text-2xl"/>
+            <IoSearchSharp className="text-2xl" />
           </Link>
           <Link className="hidden sm:block" href={"/"}>
-            <FaRegCircleUser className="text-2xl"/>
+            <FaRegCircleUser className="text-2xl" />
           </Link>
-          <Link href="/cart">
-            <div className="relative">
-              <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff8800b9] text-[11px] text-white font-bold">
-                1
-              </span>
-              <MdOutlineShoppingCart className="text-2xl" />
-            </div>
-          </Link>
+
+          <button onClick={toggleCartSideMenu} className="relative">
+            <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff8800b9] text-[11px] text-white font-bold">
+              1
+            </span>
+
+            <MdOutlineShoppingCart className="text-2xl cursor-pointer" />
+          </button>
         </div>
       </nav>
     </div>

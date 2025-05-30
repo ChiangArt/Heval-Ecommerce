@@ -16,23 +16,23 @@ export const QuantitySelector = ({ quantity }: Props) => {
   };
 
   return (
-    <div className="flex items-center gap-4 font-bold">
+    <div className="flex items-center gap-2 font-bold">
       <button
-        className="w-22 h-10 flex items-center justify-center border-2 border-turquesa text-center cursor-pointer"
+        className="w-12 h-8 sm:w-15 sm:h-9 flex items-center justify-center border-1 border-turquesa text-center cursor-pointer"
         onClick={() => onQuantityChanged(-1)}
       >
-        <IoRemove size={24} />
+        <IoRemove className="w-5 h-5" />
       </button>
 
-      <span className="w-22 h-10 flex items-center justify-center border-2 border-turquesa text-center select-none">
+      <span className="w-12 h-8 sm:w-15 sm:h-9 flex items-center justify-center border-1 border-turquesa text-center select-none">
         {count}
       </span>
 
       <button
-        className="w-22 h-10 flex items-center justify-center border-2 border-turquesa text-center cursor-pointer"
+        className="w-12 h-8 sm:w-15 sm:h-9 flex items-center justify-center border-1 border-turquesa text-center cursor-pointer"
         onClick={() => onQuantityChanged(+1)}
       >
-        <IoAdd size={24} />
+        <IoAdd className="w-5 h-5" />
       </button>
     </div>
   );
