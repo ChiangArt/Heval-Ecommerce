@@ -8,6 +8,9 @@ import SlidesShow from "@/components/home/carousel/SlidesShow";
 import News from "@/components/ui/footer/News";
 import ConsumerInformation from "@/components/ui/footer/consumer-information/ConsumerInformation";
 import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
+import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
+import TopMenu from "@/components/ui/top-menu/TopMenu";
+import { Sidebar } from "@/components/ui/side-bar/SideBar";
 
 const videos = [
   {
@@ -29,9 +32,12 @@ const videos = [
 
 export default function HomePage() {
   return (
-    <main className="snap-y snap-mandatory h-screen w-full overflow-y-auto scrollbar-hidden">
+    <main className="snap-y snap-mandatory h-screen w-full">
       {/* VIDEO BANNER */}
-      <section className="snap-start h-screen snap-always  w-full">
+      <section className="snap-start h-screen snap-always w-full">
+        <AnnouncementBar />
+        <TopMenu />
+        <Sidebar />
         <SlidesShow
           images={[
             "/20f6810715e48062c065ecc8e9429ccbe3bfe544.jpg",
@@ -42,7 +48,7 @@ export default function HomePage() {
         />
       </section>
 
-      <section className="snap-start snap-always h-screen w-screen pt-20 flex flex-col p-2 lg:px-6">
+      <section className="snap-start snap-always h-screen w-full pt-20 flex flex-col p-2 lg:px-6">
         <PromotionalGrid />
         <hr className="border-t border-gray-300 my-2" />
         <Title
@@ -56,7 +62,7 @@ export default function HomePage() {
         <NewProduct />
       </section>
 
-      <section className="snap-start snap-always pt-20 h-screen w-screen p-2 lg:px-6 ">
+      <section className="snap-start snap-always pt-20 h-screen w-full p-2 lg:px-6 ">
         <Title
           backgroundColor="bg-white"
           pretitle="Nuestros esenciales más buscados. "
@@ -68,7 +74,7 @@ export default function HomePage() {
         <SearchedProducts />
       </section>
 
-      <section className="snap-start snap-always h-screen w-screen">
+      <section className="snap-start snap-always h-screen w-full">
         <Information
           title="¿Quiénes somos?"
           description1="Heval, nos especializamos en la confección de gorras con un bordado de alta calidad elaborado con precisión y cuidado en cada detalle trabajamos con las mejores telas del mercado y paleta de colores que realzan el atractivo Premium de la gorra que como marca nos da la sensación de exclusividad  nos comprometemos a cumplir tus expectativas asegurando responsabilidad puntualidad en nuestras entregas y una comunicación constante durante todo el proceso."
@@ -79,7 +85,7 @@ export default function HomePage() {
       </section>
 
       {/* VIDEO DE REDES SOCIALES PARA WEB */}
-      <section className="hidden snap-always lg:block snap-start h-screen w-screen pt-20 px-6">
+      <section className="hidden snap-always lg:block snap-start h-screen w-full pt-20 px-6">
         <Title
           pretitle="Gorras en su mejor ángulo"
           title="Inspírate, comparte y únete"
@@ -92,7 +98,7 @@ export default function HomePage() {
       {videos.map((video, index) => (
         <section
           key={video.id}
-          className="lg:hidden snap-always justify-be snap-start h-screen w-screen pt-15 pb-5 px-4 flex flex-col gap-2 justify-center items-center"
+          className="lg:hidden snap-always justify-be snap-start h-screen w-full pt-15 pb-5 px-4 flex flex-col gap-2 justify-center items-center"
         >
           {index === 0 && (
             <Title
@@ -117,7 +123,7 @@ export default function HomePage() {
         </section>
       ))}
 
-      <section className="snap-start snap-always h-screen w-screen">
+      <section className="snap-start snap-always h-screen w-full">
         <Information
           title="¡Hablemos!"
           description2="Nos encantaría saber de ti. Cuéntanos cómo podemos ayudarte. Nuestro equipo está listo para atenderte."
@@ -128,13 +134,13 @@ export default function HomePage() {
       </section>
 
       <footer className="bg-[#F7F3F3]">
-        <section className="snap-start snap-always h-screen w-screen flex items-center justify-center">
+        <section className="snap-start snap-always h-screen w-full flex items-center justify-center">
           <News />
         </section>
-        <section className="bg-white snap-always snap-start h-screen w-screen flex items-center justify-center">
+        <section className="bg-white snap-always snap-start h-screen w-full flex items-center justify-center">
           <ConsumerInformation />
         </section>
-        <section className="snap-start snap-always h-screen w-screen flex items-center justify-center">
+        <section className="snap-start snap-always h-screen w-full flex items-center justify-center">
           <SocialNetworks />
         </section>
       </footer>

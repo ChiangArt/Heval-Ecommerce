@@ -1,32 +1,18 @@
 "use client";
-
-import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Autoplay, Pagination } from "swiper/modules";
-import { usePathname } from "next/navigation";
 
 interface SlidesShowProps {
   images: string[];
 }
 
 export default function SlidesShow({ images }: SlidesShowProps) {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (pathname === "/") {
-      document.body.style.overflow = "hidden";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [pathname]);
   return (
     <div className="w-full max-w-full h-screen">
       <Swiper

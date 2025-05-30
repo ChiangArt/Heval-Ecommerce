@@ -23,50 +23,34 @@
   --font-mono: var(--font-jetBrains_mono);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-jetBrains_mono), Helvetica, sans-serif;
-
+  height: 100%;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
 }
 
-html,
-body {
-  overflow: hidden;
-  height: 100vh;
-  scroll-behavior: auto;
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  height: 100%;
 }
 
 @keyframes marquee {
   0% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
 .animate-marquee {
-  display: inline-flex;
-  animation: marquee 20s linear infinite;
-}
-
-.scrollbar-hidden::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hidden {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  display: flex;
+  animation: marquee 15s linear infinite;
+  flex-shrink: 0;
+  min-width: 100%;
 }
