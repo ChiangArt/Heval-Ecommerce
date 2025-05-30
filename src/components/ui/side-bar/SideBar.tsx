@@ -40,12 +40,9 @@ export const Sidebar = () => {
           onClick={() => closeMenu()}
         />
 
-        <Link
-          className="flex justify-center mt-10 p-2  transition-all"
-          href={"/"}
-        >
+        <div className="flex justify-center mt-10 p-2  transition-all">
           <Image src={"/heval.png"} alt={"Heval"} width={120} height={120} />
-        </Link>
+        </div>
         <Link
           href="/"
           onClick={closeMenu}
@@ -63,7 +60,7 @@ export const Sidebar = () => {
         </Link>
         <div className="w-full h-px bg-gray-200 my-10" />
         <Link
-          href="/"
+          href="/shop"
           onClick={closeMenu}
           className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
         >
@@ -71,7 +68,7 @@ export const Sidebar = () => {
         </Link>
 
         <Link
-          href="/"
+          href="/collections"
           onClick={closeMenu}
           className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
         >
@@ -81,7 +78,7 @@ export const Sidebar = () => {
         {/* Separador */}
 
         <Link
-          href="/shop"
+          href="/about"
           onClick={closeMenu}
           className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
         >

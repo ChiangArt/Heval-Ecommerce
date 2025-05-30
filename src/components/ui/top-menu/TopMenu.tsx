@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { FaRegCircleUser } from "react-icons/fa6";
 import { FiMenu } from "react-icons/fi";
 import { useUIStore } from "@/store/ui/ui-store";
+import { IoSearchSharp } from "react-icons/io5";
 
 const links = [
   { id: 1, href: "/shop", nombre: "TIENDA" },
@@ -60,19 +62,19 @@ export default function TopMenu() {
           </Link>
         </div>
 
-        <div className="flex gap-6">
-          <Link className="hidden md:block" href={"/"}>
-            <FaSearch />
+        <div className="flex  items-center gap-6">
+          <Link href={"/"}>
+            <IoSearchSharp className="text-2xl"/>
           </Link>
-          <Link className="hidden md:block" href={"/"}>
-            <FaUser />
+          <Link className="hidden sm:block" href={"/"}>
+            <FaRegCircleUser className="text-2xl"/>
           </Link>
-          <Link href="/shop">
+          <Link href="/cart">
             <div className="relative">
               <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff8800b9] text-[11px] text-white font-bold">
                 1
               </span>
-              <FaShoppingCart className="text-xl" />
+              <MdOutlineShoppingCart className="text-2xl" />
             </div>
           </Link>
         </div>

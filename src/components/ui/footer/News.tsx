@@ -3,7 +3,7 @@ import React from "react";
 
 export default function News() {
   return (
-    <div className="text-center gap-5 flex flex-col">
+    <div className="text-center gap-5 flex flex-col sm:bg-white  sm:py-40">
       <div>
         <h2 className="text-lg md:text-2xl font-bold">RECIBE NOVEDADES</h2>
         <p className="font-bold text-xs md:text-md mt-2">

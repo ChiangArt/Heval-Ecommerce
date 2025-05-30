@@ -35,10 +35,11 @@ export default function ProductSlideShow({ images, title, className }: Props) {
           >
             <Image
               width={500}
-              height={300}
+              height={500}
               src={image}
               alt={title}
-              className=" object-cover w-full h-full"
+               className="object-contain w-full h-[300px] sm:h-[600px]"
+
             />
           </SwiperSlide>
         ))}
@@ -56,8 +57,8 @@ export default function ProductSlideShow({ images, title, className }: Props) {
         {images.map((image) => (
           <SwiperSlide key={image}>
             <Image
-              width={200}
-              height={100}
+              width={50}
+              height={30}
               src={image}
               alt={title}
               className="object-cover w-full h-full"
