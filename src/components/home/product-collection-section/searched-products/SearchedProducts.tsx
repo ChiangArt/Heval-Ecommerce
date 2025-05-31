@@ -46,7 +46,7 @@ export default function SearchedProducts() {
           </div>
           <Link
             href={"/"}
-            className="absolute bottom-0 left-0 right-0 text-center text-[white] bg-turquesa py-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute bottom-0 left-0 right-0 text-center text-[white] bg-secundario py-2 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
             AGREGAR AL CARRITO
           </Link>

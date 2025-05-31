@@ -30,7 +30,7 @@ export default function Information({
   return (
     <div
       className={clsx(
-        "flex flex-col gap-5 justify-center w-full h-full content-center text-center",
+        "flex flex-col gap-5 justify-center w-full h-full content-center text-center text-white",
         className,
         !title && !linkText && "pt-7 p-1"
       )}

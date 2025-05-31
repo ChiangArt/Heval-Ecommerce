@@ -46,22 +46,22 @@ export default function HomePage() {
         />
       </section>
 
-      <section className="snap-start snap-always h-screen w-full pt-17 lg:pt-20 flex flex-col p-2 lg:px-6">
+      <section className="snap-start snap-always h-screen w-full pt-23 sm:pt-27 lg:pt-20 flex flex-col p-2 lg:px-6">
         <PromotionalGrid />
         <hr className="border-t border-gray-300 my-2" />
         <Title
           headerItems={["Nueva Colección", "(06 / 2025)", "¡Disponible ya!"]}
           title="“Lo que papá realmente quiere”"
           description1="Edición limitada para papás únicos"
-          description2="Edición limitada para papás únicos"
-          className="py-4 bg-[#F7F3F3]"
+          description2="Especial Día del Padre"
+          className="py-5  bg-[rgba(232,227,222,0.40)]"
         />
         <hr className=" border-t border-gray-300 my-2" />
 
         <NewProduct />
       </section>
 
-      <section className="snap-start snap-always pt-20 h-screen w-full p-2 lg:px-6 ">
+      <section className="snap-start snap-always pt-23 h-screen w-full px-2 lg:px-6 ">
         <Title
           backgroundColor="bg-white"
           pretitle="Nuestros esenciales más buscados. "
@@ -73,13 +73,13 @@ export default function HomePage() {
         <SearchedProducts />
       </section>
 
-      <section className="snap-start snap-always h-screen w-full">
+      <section className="snap-start snap-always h-screen w-full bg-primario">
         <Information
           title="¿Quiénes somos?"
           description1="Heval, nos especializamos en la confección de gorras con un bordado de alta calidad elaborado con precisión y cuidado en cada detalle trabajamos con las mejores telas del mercado y paleta de colores que realzan el atractivo Premium de la gorra que como marca nos da la sensación de exclusividad  nos comprometemos a cumplir tus expectativas asegurando responsabilidad puntualidad en nuestras entregas y una comunicación constante durante todo el proceso."
           linkText="VER MÁS"
           link="/"
-          classNameLink="text-white"
+          classNameLink="text-primario bg-white"
         />
       </section>
 
@@ -97,7 +97,7 @@ export default function HomePage() {
       {videos.map((video, index) => (
         <section
           key={video.id}
-          className="lg:hidden snap-always justify-be snap-start h-screen w-full pt-15 pb-5 px-4 flex flex-col gap-2 justify-center items-center"
+          className="lg:hidden snap-always justify-be snap-start h-screen w-full pt-20  px-2 flex flex-col gap-2 justify-center items-center"
         >
           {index === 0 && (
             <Title
@@ -122,13 +122,13 @@ export default function HomePage() {
         </section>
       ))}
 
-      <section className="snap-start snap-always h-screen w-full">
+      <section className="snap-start snap-always h-screen w-full bg-secundario">
         <Information
           title="¡Hablemos!"
           description2="Nos encantaría saber de ti. Cuéntanos cómo podemos ayudarte. Nuestro equipo está listo para atenderte."
           linkText="DEJANOS UN MENSAJE"
           link="/"
-          classNameLink="text-white"
+          classNameLink="text-secundario bg-white"
         />
       </section>
 

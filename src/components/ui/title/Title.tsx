@@ -21,31 +21,33 @@ export const Title = ({
   return (
     <div className={` font-bold w-full ${className}`}>
       {headerItems.length > 0 && (
-        <div className={"grid grid-cols-3 text-center text-[10px] lg:text-sm "}>
+        <div className={"grid grid-cols-3 text-center text-[10px] lg:text-sm text-secundario"}>
           {headerItems.map((item, index) => (
             <h3 key={index}>{item}</h3>
           ))}
         </div>
       )}
 
-      <div className="flex flex-col text-center gap-2">
+      <div className="flex flex-col text-center gap-1 pt-3">
         {pretitle && (
           <p>
-            <span className="inline-block text-xs md:text-lg bg-[#DCF3FF] px-2 py-1 transform rotate-2">
+            <span className="inline-block text-xs md:text-lg bg-[rgba(33,42,82,0.10)] px-2 py-1 transform rotate-2">
               {pretitle}
             </span>
           </p>
         )}
 
         {title && (
-          <p className="font-inter text-md lg:text-4xl font-extrabold">
-            {title}
+          <p>
+            <p className="font-inter text-md lg:text-4xl font-extrabold inline px-2 bg-[rgba(232,227,222,0.40)]">
+              {title}
+            </p>
           </p>
         )}
 
         {description1 && (
           <p>
-            <span className="inline-block text-xs lg:text-lg bg-[#FFF2D9] px-2 py-1">
+            <span className="inline-block text-xs lg:text-lg bg-terciario px-2 py-1">
               {description1}
             </span>
           </p>
@@ -53,7 +55,7 @@ export const Title = ({
 
         {description2 && (
           <p>
-            <span className="text-white inline-block text-xs lg:text-lg bg-[#042E2D] px-2 py-1 transform rotate-2">
+            <span className="text-white inline-block text-xs lg:text-lg bg-secundario px-2 py-1 transform rotate-2">
               {description2}
             </span>
           </p>

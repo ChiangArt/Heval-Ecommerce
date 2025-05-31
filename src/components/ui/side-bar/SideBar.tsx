@@ -28,7 +28,7 @@ export const Sidebar = () => {
       {/* Sidemenu */}
       <nav
         className={clsx(
-          "fixed font-bold p-5 left-0 top-0 w-[90%] pt-10 h-screen bg-turquesa text-white z-20 shadow-2xl transform transition-all duration-300",
+          "fixed font-bold p-5 left-0 top-0 w-[90%] pt-10 h-screen bg-secundario text-secundario z-25 shadow-2xl transform transition-all duration-300",
           {
             "-translate-x-full": !isSideMenuOpen,
           }
@@ -36,7 +36,7 @@ export const Sidebar = () => {
       >
         <IoCloseOutline
           size={30}
-          className="absolute top-5 right-5 cursor-pointer"
+          className="absolute text-white top-5 right-5 cursor-pointer"
           onClick={() => closeMenu()}
         />
 
@@ -46,7 +46,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           onClick={closeMenu}
-          className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
+          className="flex justify-center mt-10 p-2  transition-all bg-white "
         >
           <span className="ml-3 text-xl">HOME</span>
         </Link>
@@ -54,7 +54,7 @@ export const Sidebar = () => {
         <Link
           href="/"
           onClick={closeMenu}
-          className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
+          className="flex justify-center mt-10 p-2  transition-all bg-white "
         >
           <span className="ml-3 text-xl">PERFIL</span>
         </Link>
@@ -62,7 +62,7 @@ export const Sidebar = () => {
         <Link
           href="/shop"
           onClick={closeMenu}
-          className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
+          className="flex justify-center mt-10 p-2  transition-all bg-white "
         >
           <span className="ml-3 text-xl">TIENDA</span>
         </Link>
@@ -70,7 +70,7 @@ export const Sidebar = () => {
         <Link
           href="/collections"
           onClick={closeMenu}
-          className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
+          className="flex justify-center mt-10 p-2  transition-all bg-white "
         >
           <span className="ml-3 text-xl">COLECCIONES</span>
         </Link>
@@ -80,7 +80,7 @@ export const Sidebar = () => {
         <Link
           href="/about"
           onClick={closeMenu}
-          className="flex justify-center mt-10 p-2  transition-all bg-white text-turquesa"
+          className="flex justify-center mt-10 p-2  transition-all bg-white "
         >
           <span className="ml-3 text-xl">NOSOTROS</span>
         </Link>

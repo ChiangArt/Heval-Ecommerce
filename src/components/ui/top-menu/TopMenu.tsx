@@ -18,9 +18,8 @@ const links = [
 export default function TopMenu() {
   const [isFixed, setIsFixed] = useState(false);
   const closeMenu = useUIStore((state) => state.openSideMenu);
-  const toggleCartSideMenu = useCartUIStore(
-    (state) => state.toggleCartSideMenu
-  );
+  const toggleCartSideMenu = useCartUIStore((state) => state.toggleCartSideMenu);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,23 +32,19 @@ export default function TopMenu() {
 
   return (
     <div
-      className={`w-full fixed z-50 text-white transition-all duration-200 ease-in-out
-    ${
-      isFixed
-        ? "top-0 h-[10vh] p-3 backdrop-blur-lg bg-[#042E2D]/70"
-        : "relative h-[7vh] p-2 backdrop-blur-sm bg-turquesa/80"
-    }
-  `}
-      style={{
-        transitionProperty: "all",
-      }}
+      className={`w-full  fixed text-[white] bg-primario/70  z-20 md:transition-all md:duration-500 md:ease-in-out ${
+        isFixed
+          ? "fixed top-0 backdrop-blur-lg  translate-y-0 md:py-6 md:h-[7.5vh]  p-2 landscape:py-2 landscape:h-[10vh] lg:py-6"
+          : "fixed backdrop-blur-xs p-1  md:h-[4.5vh] md:py-0  bg-primario/80 translate-y-0 lg:p-2 landscape:h-[7vh] landscape:p-0"
+      }`}
+      
     >
-      <nav className="font-inter max-w mx-auto px-4 py-3 flex justify-between items-center">
+      <nav className="font-inter max-w mx-auto px-4 py-3 flex justify-between items-center ">
         <button onClick={closeMenu} className="lg:hidden cursor-pointer">
           <FiMenu className="text-white text-2xl" />
         </button>
 
-        <div className="hidden lg:flex gap-8">
+        <div className="hidden lg:flex gap-8 ">
           {links.map((link) => (
             <Link
               className="relative inline-block text-[white] before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[0.5px] before:bg-[white] before:transition-all before:duration-300 hover:before:w-full"
@@ -79,8 +74,10 @@ export default function TopMenu() {
             <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff8800b9] text-[11px] text-white font-bold">
               1
             </span>
+            
 
             <MdOutlineShoppingCart className="text-2xl cursor-pointer" />
+           
           </button>
         </div>
       </nav>

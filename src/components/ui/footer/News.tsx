@@ -3,9 +3,9 @@ import React from "react";
 
 export default function News() {
   return (
-    <div className="text-center gap-5 flex flex-col sm:bg-white  sm:py-40">
+    <div className="text-center gap-5 flex flex-col sm:bg-white  sm:p-20">
       <div>
-        <h2 className="text-lg md:text-2xl font-bold">RECIBE NOVEDADES</h2>
+        <h2 className="text-lg sm:text-2xl text-secundario font-bold">RECIBE NOVEDADES</h2>
         <p className="font-bold text-xs md:text-md mt-2">
           Ingresa tu correo y obtén descuentos exclusivos y acceso anticipado a
           nuestros lanzamientos.
@@ -25,7 +25,7 @@ export default function News() {
         />
         <Link
           href={"/"}
-          className="bg-turquesa text-xs md:text-sm text-white py-3 px-4 md:px-6   hover:opacity-75 transition"
+          className="bg-secundario text-xs md:text-sm text-white py-3 px-4 md:px-6   hover:opacity-75 transition"
         >
           Regístrate
         </Link>

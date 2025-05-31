@@ -40,9 +40,9 @@ export const CartSideBar = () => {
     <>
       {isSideMenuOpen && (
         <>
-          <div className="fixed inset-0 z-1 bg-black opacity-30" />
+          <div className="fixed inset-0 z-1 bg-primario opacity-30" />
           <div
-            className="fixed inset-0 z-10"
+            className="fixed inset-0 z-22"
             onClick={closeCartMenu}
           />
         </>
@@ -50,7 +50,7 @@ export const CartSideBar = () => {
 
       <aside
         className={clsx(
-          "fixed right-0 top-0 sm:top-[10vh] z-20 h-[100vh] sm:h-[90vh] w-full sm:w-[480px] bg-white text-black shadow-2xl transform transition-transform duration-300 flex flex-col",
+          "fixed right-0 top-0 sm:top-[7.5vh] landscape:h-[90vh] landscape:top-[10vh] z-20 h-[100vh] sm:h-[93vh] w-full sm:w-[480px]  bg-white text-black shadow-2xl transform transition-transform duration-300 flex flex-col",
           {
             "translate-x-full": !isSideMenuOpen,
             "translate-x-0": isSideMenuOpen,
@@ -58,12 +58,12 @@ export const CartSideBar = () => {
         )}
       >
         {/* Barra superior */}
-        <div className="bg-turquesa text-white text-center text-sm px-4 py-3">
+        <div className="bg-primario text-white text-center text-sm px-4 py-3">
           Estás a S/100.00 de desbloquear envío gratis 🚚
         </div>
 
         {/* Encabezado */}
-        <header className="p-5 text-center text-turquesa border-b">
+        <header className="p-5 text-center text-primario border-b">
           <h2 className="font-inter text-lg font-bold">
             CARRITO DE COMPRAS ({mockProducts.length})
           </h2>
@@ -93,12 +93,12 @@ export const CartSideBar = () => {
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-turquesa">
+                  <h3 className="text-sm font-semibold text-primario">
                     {product.title}
                   </h3>
 
                   <div className="mt-1 space-x-2 mb-5">
-                    <span className="text-sm font-bold text-turquesa">
+                    <span className="text-sm font-bold text-primario">
                       S/ {(effectivePrice * product.quantity).toFixed(2)}
                     </span>
                     {hasDiscount && (
@@ -112,7 +112,7 @@ export const CartSideBar = () => {
                   </p>
                   <div className="flex items-center justify-between mt-2">
                     <QuantitySelector quantity={product.quantity} />
-                    <button className="w-12 h-8 flex items-center justify-center border-1 border-turquesa text-center cursor-pointer">
+                    <button className="w-12 h-8 flex items-center justify-center border-1 border-primario text-center cursor-pointer">
                       <FaRegTrashAlt className="w-5 h-5" />
                     </button>
                   </div>
@@ -132,13 +132,13 @@ export const CartSideBar = () => {
           <Link
             href="/checkout"
             onClick={closeCartMenu}
-            className="w-full block font-semibold text-white text-center border-2 bg-turquesa py-2 hover:bg-opacity-90 transition-colors"
+            className="w-full block font-semibold text-white text-center border-2 bg-secundario py-2 hover:bg-opacity-90 transition-colors"
           >
             PAGAR AHORA
           </Link>
 
           <Button
-            className="block sm:hidden w-full border-2 mt-2 border-turquesa text-turquesa py-2 text-center"
+            className="block sm:hidden w-full border-2 mt-2 border-primario text-primario py-2 text-center"
             onClick={closeCartMenu}
             title="REGRESAR"
           />

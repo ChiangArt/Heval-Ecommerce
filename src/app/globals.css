@@ -2,18 +2,17 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #042e2d;
+  --foreground: #1D1D1B;
   --font-inter: "Inter", sans-serif;
   --font-jetBrains_mono: "JetBrains Mono", sans-serif;
 }
 
 @theme {
   /* --color-*: initial; */
-  --color-cielo: #dcf3ff;
-  --color-turquesa: #042e2d;
-  --color-midnight: #121063;
-  --color-tahiti: #3ab7bf;
-  --color-bermuda: #78dcca;
+  --color-primario: #1D1D1B;
+  --color-secundario: #212A52;
+  --color-terciario: #E8E3DE;
+
 }
 
 @theme inline {

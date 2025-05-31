@@ -24,7 +24,7 @@ export default function MediaVideos({ videos }: MediaVideosProps) {
 
             <Link
               href={video.url}
-              className="mt-2 bg-[#042E2D] text-white text-center text-sm sm:text-base font-semibold py-3 hover:opacity-80 transition"
+              className="mt-2 bg-secundario text-white text-center text-sm sm:text-base font-semibold py-3 hover:opacity-80 transition"
             >
               {video.title}
             </Link>

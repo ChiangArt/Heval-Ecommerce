@@ -71,7 +71,7 @@ export default function NewProducts() {
                 {/* Botón de compra */}
                 <Link
                   href={`/product/${product.id}`}
-                  className="absolute bottom-0 left-0 right-0 bg-turquesa text-white text-center py-3 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium"
+                  className="absolute bottom-0 left-0 right-0 bg-secundario text-white text-center py-3 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium"
                 >
                   AGREGAR AL CARRITO
                 </Link>
