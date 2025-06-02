@@ -87,7 +87,7 @@ export default async function ProductBySlugPage({
           </div>
           <h3 className="font-bold text-xl">Descripción</h3>
           <p>{product?.description}</p>
-          <QuantitySelector quantity={20} />
+          <QuantitySelector className="p-2" quantity={20} />
 
           <Button className="bg-turquesa text-white" title="COMPRAR AHORA" />
           <Button
