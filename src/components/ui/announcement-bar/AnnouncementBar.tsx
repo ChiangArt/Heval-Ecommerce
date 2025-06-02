@@ -8,7 +8,7 @@ export default function AnnouncementBar() {
   ];
 
   return (
-    <div className="w-full bg-terciario select-none overflow-hidden p-1 landscape:p-0 landscape:h-[3vh] lg:h-[2vh] relative">
+    <div className="w-full bg-terciario select-none overflow-hidden p-1 landscape:p-0 landscape:h-[3vh] lg:h-[3vh] relative">
       <div className="text-xs md:text-sm  whitespace-nowrap flex">
         {/* Primer conjunto de mensajes */}
         <div className="flex animate-marquee">

@@ -46,7 +46,7 @@ export default function HomePage() {
         />
       </section>
 
-      <section className="snap-start snap-always h-screen w-full pt-23 sm:pt-27 lg:pt-20 flex flex-col p-2 lg:px-6">
+      <section className="snap-start snap-always h-screen landscape:pt-21 w-full pt-19 md:pt-25 lg:pt-27 flex flex-col p-2 lg:px-6">
         <PromotionalGrid />
         <hr className="border-t border-gray-300 my-2" />
         <Title
@@ -84,7 +84,7 @@ export default function HomePage() {
       </section>
 
       {/* VIDEO DE REDES SOCIALES PARA WEB */}
-      <section className="hidden snap-always lg:block snap-start h-screen w-full pt-20 px-6">
+      <section className="hidden snap-always lg:flex landscape:pt-21 lg:flex-col lg:gap-4 snap-start  h-screen w-full pt-20 lg:pt-26 px-6">
         <Title
           pretitle="Gorras en su mejor ángulo"
           title="Inspírate, comparte y únete"
@@ -97,7 +97,7 @@ export default function HomePage() {
       {videos.map((video, index) => (
         <section
           key={video.id}
-          className="lg:hidden snap-always justify-be snap-start h-screen w-full pt-20  px-2 flex flex-col gap-2 justify-center items-center"
+          className="lg:hidden snap-always justify-be snap-start h-screen w-full pt-15 md:pt-10 md:gap-3  px-2 flex flex-col gap-2 justify-center items-center"
         >
           {index === 0 && (
             <Title
@@ -115,7 +115,7 @@ export default function HomePage() {
           />
           <a
             href={video.url}
-            className="mt-2 bg-[#042E2D] text-white text-center text-sm font-semibold py-3 w-full hover:opacity-80 transition"
+            className="mt-2 bg-secundario text-white text-center text-sm font-semibold py-3 w-full hover:opacity-80 transition"
           >
             {video.title}
           </a>
@@ -151,8 +151,7 @@ export default function HomePage() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="80"
-            height="80"
+            className="w-[60px] h-[60px]"
             viewBox="0 0 100 100"
             fill="none"
           >

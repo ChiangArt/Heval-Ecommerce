@@ -40,7 +40,7 @@ export const CartSideBar = () => {
     <>
       {isSideMenuOpen && (
         <>
-          <div className="fixed inset-0 z-1 bg-primario opacity-30" />
+          <div className="fixed inset-0 z-19 bg-primario opacity-30" />
           <div
             className="fixed inset-0 z-22"
             onClick={closeCartMenu}
@@ -50,7 +50,7 @@ export const CartSideBar = () => {
 
       <aside
         className={clsx(
-          "fixed right-0 top-0 sm:top-[7.5vh] landscape:h-[90vh] landscape:top-[10vh] z-20 h-[100vh] sm:h-[93vh] w-full sm:w-[480px]  bg-white text-black shadow-2xl transform transition-transform duration-300 flex flex-col",
+          "fixed right-0 top-0 sm:top-[7.5vh] md:top-[8vh] landscape:h-[90vh] landscape:top-[10vh] z-60 h-[100vh] md:h-[92vh] w-full sm:w-[480px]  bg-white text-black shadow-2xl transform transition-transform duration-300 flex flex-col",
           {
             "translate-x-full": !isSideMenuOpen,
             "translate-x-0": isSideMenuOpen,
@@ -111,7 +111,7 @@ export const CartSideBar = () => {
                     Cantidad: {product.quantity}
                   </p>
                   <div className="flex items-center justify-between mt-2">
-                    <QuantitySelector quantity={product.quantity} />
+                    <QuantitySelector className="p-2" quantity={product.quantity} />
                     <button className="w-12 h-8 flex items-center justify-center border-1 border-primario text-center cursor-pointer">
                       <FaRegTrashAlt className="w-5 h-5" />
                     </button>
@@ -130,7 +130,7 @@ export const CartSideBar = () => {
           </div>
 
           <Link
-            href="/checkout"
+            href="/shop/checkout"
             onClick={closeCartMenu}
             className="w-full block font-semibold text-white text-center border-2 bg-secundario py-2 hover:bg-opacity-90 transition-colors"
           >

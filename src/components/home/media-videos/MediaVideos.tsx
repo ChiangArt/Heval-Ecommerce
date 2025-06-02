@@ -13,14 +13,20 @@ interface MediaVideosProps {
 
 export default function MediaVideos({ videos }: MediaVideosProps) {
   return (
-    <div className="max-w-screen-xl mx-auto px-4 py-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="h-[calc(100vh-210px)] landscape:lg:h-[75%] landscape:xl:h-[80%] px-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-4 h-[97%]">
         {videos.map((video) => (
           <div
             key={video.id}
-            className="flex flex-col h-full w-full overflow-hidden"
+            className="flex flex-col w-full h-full overflow-hidden"
           >
-            <video src={video.url} autoPlay loop className="w-full h-120 object-cover"/>
+            <video
+              src={video.url}
+              autoPlay
+              loop
+              muted
+              className="w-full h-full landscape:lg:h-[80%] landscape:xl:h-[90%] object-cover rounded"
+            />
 
             <Link
               href={video.url}

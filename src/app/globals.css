@@ -10,7 +10,7 @@
 @theme {
   /* --color-*: initial; */
   --color-primario: #1D1D1B;
-  --color-secundario: #212A52;
+  --color-secundario: #092059;
   --color-terciario: #E8E3DE;
 
 }
@@ -36,6 +36,7 @@ html {
   scroll-behavior: smooth;
   overflow-y: auto;
   height: 100%;
+  
 }
 
 @keyframes marquee {

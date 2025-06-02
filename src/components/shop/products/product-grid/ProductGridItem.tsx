@@ -19,7 +19,7 @@ export default function ProductGridItem({ product }: Props) {
   const finalPrice = (product.price - discountAmount).toFixed(2);
 
   return (
-    <div className="flex flex-col justify-between bg-white shadow-md rounded-2xl overflow-hidden transition lg:hover:shadow-xl h-full">
+    <div className="flex flex-col justify-between bg-white  overflow-hidden transition  h-full">
       <div className="relative w-full aspect-[3/3] overflow-hidden group">
         <Image
           src={displayImage}
@@ -31,14 +31,14 @@ export default function ProductGridItem({ product }: Props) {
           onMouseLeave={() => setDisplayImage(product.images[0])}
         />
         {product.discount > 0 && (
-          <div className="absolute top-2 right-2 bg-[#DCF3FF]  text-xs font-semibold px-2 py-1 rounded-full shadow-sm">
+          <div className="absolute top-2 right-2 bg-secundario text-white text-xs font-semibold px-2 py-1  shadow-sm">
             -{Math.round(product.discount * 100)}%
           </div>
         )}
 
         <Link
           href={"/"}
-          className="absolute bottom-0 text-xs md:text-lg left-0 right-0 text-center text-white bg-turquesa py-2 lg:opacity-0  lg:group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute bottom-0 text-xs md:text-lg left-0 right-0 text-center text-white bg-secundario py-2 lg:opacity-0  lg:group-hover:opacity-100 transition-opacity duration-300"
         >
           AGREGAR AL CARRITO
         </Link>
@@ -60,9 +60,9 @@ export default function ProductGridItem({ product }: Props) {
           </div>
           <Link
             href={`/shop/product/${product.slug}`}
-            className="bg-[#FFF2D9] hover:bg-orange-400 p-2 rounded-full transition duration-300"
+            className="bg-[rgba(9,32,89,0.10)] hover:bg-[rgba(9,32,89,0.30)] p-2 rounded-full transition duration-300"
           >
-            <TbArrowRightDashed size={24} />
+            <TbArrowRightDashed size={24} className="text-secundario" />
           </Link>
         </div>
       </div>

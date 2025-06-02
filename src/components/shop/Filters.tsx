@@ -72,6 +72,8 @@ export default function Filters() {
       <div className="mt-3 font-bold text-xs md:mt-0 bg-[#FFF2D9] p-3 rounded">
         <p>20 resultados</p>
       </div>
+      
     </div>
+    
   );
 }
