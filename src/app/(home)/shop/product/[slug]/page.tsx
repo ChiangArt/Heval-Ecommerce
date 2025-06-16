@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default async function ProductBySlugPage({ params }: Props) {
-  const [idStr, ...slugParts] = params.slug.split("-");
+  const [idStr] = params.slug.split("-");
   const id = Number(idStr);
 
   if (isNaN(id)) return notFound();
