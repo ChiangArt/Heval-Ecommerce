@@ -39,9 +39,9 @@ export const Title = ({
 
         {title && (
           <p>
-            <p className="font-inter text-md lg:text-4xl font-extrabold inline px-2 bg-[rgba(232,227,222,0.40)]">
+            <span className="font-inter text-md lg:text-4xl font-extrabold inline px-2 bg-[rgba(232,227,222,0.40)]">
               {title}
-            </p>
+            </span>
           </p>
         )}
 

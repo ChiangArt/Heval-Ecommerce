@@ -1,5 +1,5 @@
 "use client";
-import { Product } from "@/interfaces/product.interface";
+import { Product } from "@/core/product/interface/productResponse";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -10,29 +10,30 @@ interface Props {
 }
 
 export default function ProductGridItem({ product }: Props) {
-  const [displayImage, setDisplayImage] = useState(product.images[0]);
-
-  // Calculamos el precio con descuento si existe
-  const discountAmount = product.discount
-    ? product.price * product.discount
-    : 0;
-  const finalPrice = (product.price - discountAmount).toFixed(2);
-
+const [displayImage, setDisplayImage] = useState(
+  product.imageUrls?.[0] ?? '/placeholder.jpg' 
+);
   return (
     <div className="flex flex-col justify-between bg-white  overflow-hidden transition  h-full">
-      <div className="relative w-full aspect-[3/3] overflow-hidden group">
+      <div className="relative w-full aspect-[1/1] overflow-hidden group">
         <Image
           src={displayImage}
           alt={product.title}
           fill
           className="object-cover transition duration-300 ease-in-out md:group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, 33vw"
-          onMouseEnter={() => setDisplayImage(product.images[1])}
-          onMouseLeave={() => setDisplayImage(product.images[0])}
+          onMouseEnter={() => {
+            if (product.imageUrls.length > 1) {
+              setDisplayImage(product.imageUrls[1]); 
+            }
+          }}
+          onMouseLeave={() => {
+            setDisplayImage(product.imageUrls[0]); 
+          }}
         />
-        {product.discount > 0 && (
+        {product.discountPercentage > 0 && (
           <div className="absolute top-2 right-2 bg-secundario text-white text-xs font-semibold px-2 py-1  shadow-sm">
-            -{Math.round(product.discount * 100)}%
+            -{product.discountPercentage}%
           </div>
         )}
 
@@ -51,12 +52,12 @@ export default function ProductGridItem({ product }: Props) {
 
         <div className="flex items-center justify-between mt-2">
           <div className="text-sm text-gray-700 md:text-lg font-bold">
-            s/{finalPrice}
-            {product.discount > 0 && (
+            s/{product.currentPrice}
+ 
               <span className="text-[10px] md:text-lg text-gray-400 line-through ml-2">
                 s/{product.price}
               </span>
-            )}
+      
           </div>
           <Link
             href={`/shop/product/${product.slug}`}

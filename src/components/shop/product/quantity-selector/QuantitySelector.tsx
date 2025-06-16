@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IoRemove, IoAdd } from "react-icons/io5";
 
 interface Props {
-  className:string;
+  className: string;
   quantity: number;
 }
 
@@ -17,23 +17,31 @@ export const QuantitySelector = ({ quantity, className }: Props) => {
   };
 
   return (
-    <div className="flex items-center gap-2 font-bold">
+    <div className={`flex items-center gap-2 font-bold ${className}`}>
       <button
-        className={`w-7 h-6 lg:w-7 lg:h-6 flex items-center justify-center border-1 border-secundario border-turquesa text-center cursor-pointer ${className}`}
+        className={
+          "w-7 h-6 lg:w-7 lg:h-6 landscape:w-20 landscape:h-10 flex items-center justify-center border-1 border-secundario border-turquesa text-center cursor-pointer "
+        }
         onClick={() => onQuantityChanged(-1)}
       >
-        <IoRemove className="w-4 h-4" />
+        <IoRemove className="w-4 h-4 landscape:w-6 landscape:h-6" />
       </button>
 
-      <span className={`w-7 h-6 lg:w-7 lg:h-6 flex items-center text-sm border-secundario justify-center border-1  text-center select-none ${className}`}>
+      <span
+        className={
+          "w-7 h-6 lg:w-7 lg:h-6 landscape:w-20 landscape:h-10 flex items-center text-sm border-secundario justify-center border-1  text-center select-none "
+        }
+      >
         {count}
       </span>
 
       <button
-        className={`w-7 h-6 lg:w-7 lg:h-6 flex items-center justify-center border-secundario border-1 border-turquesa text-center cursor-pointer ${className}`}
+        className={
+          "w-7 h-6 lg:w-7 lg:h-6 landscape:w-20 landscape:h-10 flex items-center justify-center border-secundario border-1 border-turquesa text-center cursor-pointer "
+        }
         onClick={() => onQuantityChanged(+1)}
       >
-        <IoAdd className="w-4 h-4" />
+        <IoAdd className="w-4 h-4 landscape:w-6 landscape:h-6" />
       </button>
     </div>
   );

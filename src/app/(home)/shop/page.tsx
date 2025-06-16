@@ -1,33 +1,38 @@
+import React from "react";
 import Filters from "@/components/shop/Filters";
 import ProductGrid from "@/components/shop/products/product-grid/ProductGrid";
 import ShopSection from "@/components/shop/ShopSection";
-import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
-import ConsumerInformation from "@/components/ui/footer/consumer-information/ConsumerInformation";
-import News from "@/components/ui/footer/News";
-import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
-import TopMenu from "@/components/ui/top-menu/TopMenu";
-import { Product } from "@/interfaces/product.interface";
-import { initialData } from "@/seed/seed";
-import React from "react";
+import { getProducts } from "@/core/product/action/product.actions";
+import { redirect } from "next/navigation";
+import Pagination from "@/components/ui/pagination/Pagination";
 
-const products: Product[] = initialData.products;
+interface ShopPageProps {
+  searchParams?: {
+    page?: string;
+  };
+}
 
-export default function ShopPageInit() {
+export default async function ShopPageInit({ searchParams }: ShopPageProps) {
+
+const page = parseInt(searchParams?.page ?? "0");
+
+ const { content: products, totalPages } = await getProducts(page, 20);
+
+  if (page >= totalPages) {
+    redirect("/shop?page=0");
+
+  }
   return (
-    <>
-      <AnnouncementBar />
-      <TopMenu />
-      <main className="landscape:pt-25 landscape:flex landscape:flex-col">
+    <div>
+
+ 
         <ShopSection />
         <Filters />
-        <hr className="my-2 border-t-2 border-gray-300 " />
+        <hr className="my-2 border-t-1 border-primario" />
         <ProductGrid products={products} />
-      </main>
-      <footer className="bg-[#F7F3F3]">
-        <News />
-        <ConsumerInformation />
-        <SocialNetworks />
-      </footer>
-    </>
+        <Pagination currentPage={page} totalPages={totalPages}/>
+        <hr className="border-t-1 border-primario" />
+
+    </div>
   );
 }

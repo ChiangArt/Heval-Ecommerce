@@ -1,6 +1,6 @@
-import { Product } from "@/interfaces/product.interface";
 import React from "react";
 import ProductGridItem from "./ProductGridItem";
+import {  Product } from "@/core/product/interface/productResponse";
 
 interface Props {
   products: Product[];
