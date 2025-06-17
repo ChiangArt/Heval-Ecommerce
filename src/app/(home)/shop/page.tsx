@@ -7,12 +7,11 @@ import { redirect } from "next/navigation";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
 
-type Props = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
+
+type SearchParams = Record<string, string | string[] | undefined>;
 
 
-export default async function Page({ searchParams }: Props) {
+export default async function Page(searchParams: SearchParams) {
   const page = parseInt(searchParams?.page?.toString() || "0", 10);
   const colors = searchParams?.colors?.toString() || "";
   const coleccionId = searchParams?.coleccion?.toString();
