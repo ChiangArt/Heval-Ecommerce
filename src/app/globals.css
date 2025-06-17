@@ -26,7 +26,6 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-jetBrains_mono), Helvetica, sans-serif;
-  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -38,6 +37,8 @@ html {
   height: 100%;
   
 }
+
+
 
 @keyframes marquee {
   0% {

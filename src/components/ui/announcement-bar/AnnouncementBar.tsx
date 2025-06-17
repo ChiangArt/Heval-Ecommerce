@@ -1,15 +1,35 @@
+"use client";
+import { useEffect, useState } from "react";
+
+const messages = [
+  "🚚 Envío gratis en compras mayores a $50",
+  "🎉 ¡Descuentos hasta 70% por tiempo limitado!",
+  "🛍️ Compra ahora y paga después",
+  "🚚 Envío gratis en compras mayores a $110",
+  "🚚 Envío gratis en compras mayores a $50",
+];
 export default function AnnouncementBar() {
-  const messages = [
-    "🚚 Envío gratis en compras mayores a $50",
-    "🎉 ¡Descuentos hasta 70% por tiempo limitado!",
-    "🛍️ Compra ahora y paga después",
-    "🚚 Envío gratis en compras mayores a $110",
-    "🚚 Envío gratis en compras mayores a $50",
-  ];
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsFixed(window.scrollY > 16);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <div className="w-full bg-terciario select-none overflow-hidden p-1 landscape:p-0 landscape:h-[3vh] lg:h-[3vh] relative">
-      <div className="text-xs md:text-sm  whitespace-nowrap flex">
+    <div
+      className={`w-full  bg-terciario select-none overflow-hidden z-26 fixed
+    ${
+      isFixed
+        ? "hidden"
+        : "fixed"
+    }`}
+    >
+      <div className="text-sm  whitespace-nowrap flex">
         {/* Primer conjunto de mensajes */}
         <div className="flex animate-marquee">
           {messages.map((msg, i) => (

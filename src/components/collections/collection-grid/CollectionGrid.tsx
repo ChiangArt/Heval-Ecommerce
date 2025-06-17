@@ -1,16 +1,16 @@
-import { Product } from "@/interfaces/product.interface";
 import React from "react";
-import CollectionGridItem from "./CollectionGridItem";
+import { Product } from "@/core/product/interface/productResponse";
+import ProductItem from "@/components/ui/product/productItem";
 
 interface Props {
-  collections: Product[];
+  products: Product[];
 }
 
-export default function CollectionGrid({ collections }: Props) {
+export default function CollectionGrid({ products }: Props) {
   return (
     <div className="grid grid-cols-2 p-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-      {collections.map((collection) => (
-        <CollectionGridItem key={collection.slug} collection={collection} />
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
       ))}
     </div>
   );

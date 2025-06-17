@@ -14,7 +14,7 @@ const links = [
   { id: 3, href: "/about", nombre: "NOSOTROS" },
 ];
 
-export default function TopMenu() {
+export default function TopMenuShop() {
   const [isFixed, setIsFixed] = useState(false);
   const closeMenu = useUIStore((state) => state.openSideMenu);
   const toggleCartSideMenu = useCartUIStore(
@@ -32,16 +32,17 @@ export default function TopMenu() {
 
   return (
     <div
-      className={`w-full  fixed text-[white] bg-primario/70 p-1 z-20 px-1 landscape:px-8 ${
+      className={`w-full  fixed text-[white] bg-primario p-1  z-20 px-2 landscape:px-8 ${
         isFixed
-          ? "fixed top-0 backdrop-blur-none  translate-y-0"
-          : "fixed backdrop-blur-none mt-5  bg-primario/80"
+          ? "fixed top-0 translate-y-0"
+          : "fixed mt-5 bg-primario"
       }`}
     >
       <nav className="font-inter  px-4 py-3 flex justify-between items-center ">
         <button onClick={closeMenu} className="lg:hidden cursor-pointer">
           <FiMenu className="text-white text-2xl" />
         </button>
+
         <div className="hidden lg:flex gap-8 ">
           {links.map((link) => (
             <Link

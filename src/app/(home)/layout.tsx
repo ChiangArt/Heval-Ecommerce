@@ -11,8 +11,7 @@ export default function HomeLayout({
     <>
     <Sidebar />
       {children}
-    <CartSideBar/>
-      
+    <CartSideBar/> 
     </>
   );
 }

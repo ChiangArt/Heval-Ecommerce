@@ -27,6 +27,12 @@ export default async function ProductBySlugPage({ params }: Props) {
     redirect(`/shop/product/${realSlug}`);
   }
 
+  const isDiscountValid = new Date(product.discountUntil) > new Date();
+  const discount =
+    isDiscountValid && product.discountPercentage
+      ? product.price - (product.price * product.discountPercentage) / 100
+      : product.price;
+
   const discountEnd = product.discountUntil
     ? new Date(product.discountUntil).toLocaleString("es-PE", {
         day: "numeric",
@@ -61,13 +67,18 @@ export default async function ProductBySlugPage({ params }: Props) {
           </h1>
 
           <div className="flex flex-col gap-2 w-full">
-            {/* Fila 1: Precio y Stock */}
             <div className="flex gap-2 w-full">
               <div className="flex items-center gap-2 flex-[2] bg-primario text-white text-sm md:text-lg font-bold px-3 py-2  justify-center">
-                <span>S/ {product.currentPrice} /</span>
-                <span className="text-[10px] md:text-sm text-gray-400 line-through">
-                  S/ {product.price}
-                </span>
+                <span>S/{discount.toFixed(2)}</span>
+          
+                {isDiscountValid && product.discountPercentage > 0 && (
+                  <>
+                  <span > / </span>
+                  <span className="text-[10px] md:text-sm text-gray-400 line-through">
+                   S/{product.price.toFixed(2)}
+                  </span>
+                  </>
+                )}
               </div>
 
               <StatusRotator
@@ -86,7 +97,6 @@ export default async function ProductBySlugPage({ params }: Props) {
           <QuantitySelector className="pt-10" quantity={1} />
         </div>
 
-        {/* BOTONES A PANTALLA COMPLETA */}
         <div className="w-full flex flex-col gap-2">
           <Button
             disabled={product.quantity === 0}

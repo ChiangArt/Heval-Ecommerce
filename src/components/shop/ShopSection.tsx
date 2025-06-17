@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ShopSection() {
   return (
-    <div className=" font-bold w-full h-full landscape:pb-15">
+    <div className=" font-bold w-full h-full pt-30 landscape:pb-15 landscape:pt-40">
       <div className="flex flex-col text-center">
         <p >
           <span className="font-inter px-3 text-lg md:text-4xl bg-[rgba(232,227,222,0.40)] font-extrabold">

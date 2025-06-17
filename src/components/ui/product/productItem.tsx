@@ -9,13 +9,20 @@ interface Props {
   product: Product;
 }
 
-export default function ProductGridItem({ product }: Props) {
-const [displayImage, setDisplayImage] = useState(
-  product.imageUrls?.[0] ?? '/placeholder.jpg' 
-);
+export default function ProductItem({ product }: Props) {
+  const [displayImage, setDisplayImage] = useState(
+    product.imageUrls?.[0] ?? "/placeholder.jpg"
+  );
+
+  const isDiscountValid = new Date(product.discountUntil) > new Date();
+  const discount =
+    isDiscountValid && product.discountPercentage
+      ? product.price - (product.price * product.discountPercentage) / 100
+      : product.price;
+
   return (
     <div className="flex flex-col justify-between bg-white  overflow-hidden transition  h-full">
-      <div className="relative w-full aspect-[1/1] overflow-hidden group">
+      <div className="relative w-full aspect-[5/3] landscape:aspect-[4/4]  overflow-hidden group">
         <Image
           src={displayImage}
           alt={product.title}
@@ -24,11 +31,11 @@ const [displayImage, setDisplayImage] = useState(
           sizes="(max-width: 768px) 100vw, 33vw"
           onMouseEnter={() => {
             if (product.imageUrls.length > 1) {
-              setDisplayImage(product.imageUrls[1]); 
+              setDisplayImage(product.imageUrls[1]);
             }
           }}
           onMouseLeave={() => {
-            setDisplayImage(product.imageUrls[0]); 
+            setDisplayImage(product.imageUrls[0]);
           }}
         />
         {product.discountPercentage > 0 && (
@@ -45,19 +52,22 @@ const [displayImage, setDisplayImage] = useState(
         </Link>
       </div>
 
-      <div className="flex flex-col justify-between p-4 h-[140px]">
-        <p className="text-sm font-semibold text-gray-800 line-clamp-2 min-h-[3.5rem]">
+      <div className="flex flex-col justify-between p-4">
+        <p className="text-sm font-semibold text-gray-800 line-clamp-2 ">
           {product.title}
         </p>
 
-        <div className="flex items-center justify-between mt-2">
-          <div className="text-sm text-gray-700 md:text-lg font-bold">
-            s/{product.currentPrice}
- 
-              <span className="text-[10px] md:text-lg text-gray-400 line-through ml-2">
-                s/{product.price}
-              </span>
-      
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-secundario md:text-lg font-bold">
+            <span>S/{discount.toFixed(2)}</span>
+            {isDiscountValid && product.discountPercentage > 0 && (
+              <>
+                <span> / </span>
+                <span className="text-[10px] md:text-sm text-gray-400 line-through">
+                  S/{product.price.toFixed(2)}
+                </span>
+              </>
+            )}
           </div>
           <Link
             href={`/shop/product/${product.slug}`}

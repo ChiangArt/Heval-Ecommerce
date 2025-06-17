@@ -4,12 +4,12 @@ import NewProduct from "@/components/home/product-collection-section/new-product
 import SearchedProducts from "@/components/home/product-collection-section/searched-products/SearchedProducts";
 import PromotionalGrid from "@/components/home/promotional-grid/PromotionalGrid";
 import { Title } from "@/components/ui/title/Title";
-import SlidesShow from "@/components/home/carousel/SlidesShow";
 import News from "@/components/ui/footer/News";
 import ConsumerInformation from "@/components/ui/footer/consumer-information/ConsumerInformation";
 import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
+import { getProducts } from "@/core/product/action/product.actions";
 
 const videos = [
   {
@@ -29,20 +29,21 @@ const videos = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { content: products } = await getProducts(0, 4);
+
   return (
     <main className="snap-y snap-mandatory h-screen w-full">
       {/* VIDEO BANNER */}
       <section className="snap-start h-screen snap-always w-full">
         <AnnouncementBar />
         <TopMenu />
-        <SlidesShow
-          images={[
-            "/20f6810715e48062c065ecc8e9429ccbe3bfe544.jpg",
-            "/482021385_122110669598786935_6815489652951560821_n.jpg",
-            "/banner1 (2).jpg",
-            "/banner2 (2).jpg",
-          ]}
+        <video
+          src={"/5889074-uhd_3840_2160_25fps.mp4"}
+          autoPlay
+          loop
+          muted
+          className="h-screen w-full object-cover"
         />
       </section>
 
@@ -58,7 +59,7 @@ export default function HomePage() {
         />
         <hr className=" border-t border-gray-300 my-2" />
 
-        <NewProduct />
+        <NewProduct products={products} />
       </section>
 
       <section className="snap-start snap-always pt-23 h-screen w-full px-2 lg:px-6 ">
@@ -70,7 +71,7 @@ export default function HomePage() {
           description2="Descubre por qué todos los quieren."
           className="py-4"
         />
-        <SearchedProducts />
+        <SearchedProducts products={products} />
       </section>
 
       <section className="snap-start snap-always h-screen w-full bg-primario">

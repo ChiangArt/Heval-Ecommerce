@@ -3,7 +3,7 @@ export interface Product {
   title: string;
   description: string;
   originalPrice: number;
-  color: string;
+  colors: string[];
   quantity: number;
   slug: string;
   price: number;
@@ -13,7 +13,6 @@ export interface Product {
   createdAt: string;
   imageUrls: string[];
   collectionId: number;
-  collectionName: string;
 }
 
 export interface PaginatedProductsResponse {
