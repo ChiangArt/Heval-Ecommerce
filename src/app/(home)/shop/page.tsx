@@ -7,12 +7,14 @@ import { redirect } from "next/navigation";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
 
-type Props = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
 
-export default async function Page({ searchParams }: Props) {
-  // Parseo seguro de parámetros
+
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] };
+}) {
   const page = parseInt(searchParams?.page?.toString() || "0", 10);
   const colors = searchParams?.colors?.toString() || "";
   const coleccionId = searchParams?.coleccion?.toString();
@@ -28,23 +30,19 @@ export default async function Page({ searchParams }: Props) {
     }
   }
 
-  // Fetch productos
   const { content: products, totalPages } = await getProducts(page, 20, {
     colors,
     coleccionId: parsedColeccionId,
     sortDirection,
   });
 
-  // Redirige si la página está fuera de rango
   if (page >= totalPages) {
     redirect("/shop?page=0");
   }
 
-  // Fetch colecciones
   const colecciones = await getCollections();
 
-  // Extraer colores únicos de los productos
-  const coloresDisponibles: string[] = [
+  const coloresDisponibles = [
     ...new Set(
       products.flatMap((p) => Array.isArray(p.colors) ? p.colors : [])
     ),
@@ -53,7 +51,6 @@ export default async function Page({ searchParams }: Props) {
   return (
     <div className="landscape:px-7">
       <ShopSection />
-
       <Filters
         coleccionesDisponibles={colecciones.map((c) => ({
           id: c.id,
@@ -62,7 +59,6 @@ export default async function Page({ searchParams }: Props) {
         coloresDisponibles={coloresDisponibles}
         totalResultados={products.length}
       />
-
       <hr className="my-2 border-t-1 border-primario" />
       <ProductGrid products={products} />
       <Pagination currentPage={page} totalPages={totalPages} />
