@@ -6,21 +6,15 @@ import { getProducts } from "@/core/product/action/product.actions";
 import { redirect } from "next/navigation";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
+import type { PageProps } from "next";
 
-
-
-
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] };
-}) {
+export default async function Page({ searchParams }: PageProps) {
   const page = parseInt(searchParams?.page?.toString() || "0", 10);
   const colors = searchParams?.colors?.toString() || "";
   const coleccionId = searchParams?.coleccion?.toString();
   const sort = searchParams?.sort?.toString();
 
-  const parsedColeccionId = coleccionId ? Number(coleccionId) : undefined;
+  const id = coleccionId ? Number(coleccionId) : undefined;
 
   let sortDirection: "asc" | "desc" | undefined;
   if (sort?.startsWith("price,")) {
@@ -32,13 +26,9 @@ export default async function Page({
 
   const { content: products, totalPages } = await getProducts(page, 20, {
     colors,
-    coleccionId: parsedColeccionId,
+    coleccionId: id,
     sortDirection,
   });
-
-  if (page >= totalPages) {
-    redirect("/shop?page=0");
-  }
 
   const colecciones = await getCollections();
 
@@ -47,6 +37,10 @@ export default async function Page({
       products.flatMap((p) => Array.isArray(p.colors) ? p.colors : [])
     ),
   ];
+
+  if (page >= totalPages) {
+    redirect("/shop?page=0");
+  }
 
   return (
     <div className="landscape:px-7">
