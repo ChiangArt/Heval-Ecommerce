@@ -1,7 +1,7 @@
 import { QuantitySelector } from "@/components/shop/product/quantity-selector/QuantitySelector";
 import Button from "@/components/ui/button/Button";
 import StepForm from "@/components/ui/step-form/StepForm";
-import { FormTexts } from "@/interfaces/stepForm.interface";
+import { FormTexts } from "@/core/address/interface/FormInterface";
 // import StepForm from "@/components/ui/step-form/StepForm";
 import Image from "next/image";
 
@@ -26,49 +26,29 @@ const mockProducts = [
   },
 ];
 
-const formTexts: FormTexts = {
-  formTitle: "Formulario de Contacto",
+const addressFormTexts: FormTexts = {
+  formTitle: "Información de entrega",
   fields: [
-    {
-      name: "name",
-      label: "Nombre completo",
-      placeholder: "Ej: Juan Pérez",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "phone",
-      label: "Teléfono",
-      placeholder: "Ej: 987654321",
-      type: "tel",
-      required: true,
-    },
-    {
-      name: "email",
-      label: "Correo electrónico",
-      placeholder: "Ej: correo@ejemplo.com",
-      type: "email",
-      required: true,
-    },
+    { name: "fullAddress", label: "Dirección completa", type: "text", required: true },
+    { name: "apartmentOrFloor", label: "Apartamento o piso", type: "text", required: true },
+    { name: "district", label: "Distrito", type: "text", required: true },
+    { name: "province", label: "Provincia", type: "text", required: true },
+    { name: "department", label: "Departamento", type: "text", required: true },
+    { name: "reference", label: "Referencia", type: "text", required: true },
+    { name: "additionalInfo", label: "Información adicional", type: "text", required: true },
   ],
-  documentLabel: "Tipo de documento",
-  documentPlaceholder: "Número de documento",
   continueButton: {
-    type: "link", 
-    text: "CONTINUAR COMPRA",
-    href: "/shop/checkout/address",
+    type: "button", // ✅ Ahora TypeScript sabe que es literal "button"
+    text: "Continuar",
   },
   keepBuyingButton: {
-    type: "button",
-    text: "SEGUIR COMPRANDO",
+    type: "link", // ✅ También explícitamente "link"
+    text: "Seguir comprando",
+    href: "/",
   },
-} as const; 
+};
 
-const options = [
-  { id: 1, label: "DNI" },
-  { id: 2, label: "C.E" },
-  
-];
+
 
 export default function Checkout() {
   const total = mockProducts.reduce((sum, item) => {
@@ -83,10 +63,9 @@ export default function Checkout() {
         <section className="bg-white p-6 w-full ">
           <StepForm
             title="Completa tus datos personales"
-            stepNumber={1}
-            formTexts={formTexts}
-            includeDocument={true}
-            options={options}
+            stepNumber=""
+            formTexts={addressFormTexts}
+           
           />
         </section>
 

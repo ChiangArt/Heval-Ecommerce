@@ -6,20 +6,45 @@ import { getProducts } from "@/core/product/action/product.actions";
 import { redirect } from "next/navigation";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
+import { Metadata } from "next";
 
+type SearchParamsType = Record<string, string | string[] | undefined>;
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParamsType>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+
+  const page = params.page?.toString() || "1";
+  const color = params.colors?.toString();
+  const coleccion = params.coleccion?.toString();
+
+  let title = `Productos - Página ${page}`;
+  if (color) title += ` | Color: ${color}`;
+  if (coleccion) title += ` | Colección ${coleccion}`;
+
+  return {
+    title,
+    description: "Explora nuestros productos en Heval. Filtra por color, colección o precio.",
+  };
+}
 
 
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams: Promise<SearchParamsType>;
 }) {
-  const page = parseInt(searchParams?.page?.toString() || "0", 10);
-  const colors = searchParams?.colors?.toString() || "";
-  const coleccionId = searchParams?.coleccion?.toString();
-  const sort = searchParams?.sort?.toString();
+  const params = await searchParams;
 
-  const id = coleccionId ? Number(coleccionId) : undefined;
+  const page = parseInt(params.page?.toString() || "0", 10);
+  const colors = params.colors?.toString() || "";
+  const coleccionId = params.coleccion?.toString();
+  const sort = params.sort?.toString();
+
+   const id = coleccionId ? Number(coleccionId) : undefined;
 
   let sortDirection: "asc" | "desc" | undefined;
   if (sort?.startsWith("price,")) {
@@ -39,9 +64,14 @@ export default async function Page({
 
   const coloresDisponibles = [
     ...new Set(
-      products.flatMap((p) => Array.isArray(p.colors) ? p.colors : [])
+      products.flatMap((p) => (Array.isArray(p.colors) ? p.colors : []))
     ),
   ];
+
+  if (page >= totalPages) {
+    redirect("/shop?page=0");
+  }
+
 
   if (page >= totalPages) {
     redirect("/shop?page=0");
