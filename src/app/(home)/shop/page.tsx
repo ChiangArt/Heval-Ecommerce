@@ -8,10 +8,12 @@ import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
 
 
-type SearchParams = Record<string, string | string[] | undefined>;
 
-
-export default async function Page(searchParams: SearchParams) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
   const page = parseInt(searchParams?.page?.toString() || "0", 10);
   const colors = searchParams?.colors?.toString() || "";
   const coleccionId = searchParams?.coleccion?.toString();
