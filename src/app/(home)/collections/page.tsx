@@ -4,24 +4,18 @@ import { Title } from "@/components/ui/title/Title";
 import { getProducts } from "@/core/product/action/product.actions";
 import { redirect } from "next/navigation";
 
-
-interface ShopPageProps {
-  searchParams?: {
-    page?: string;
-  };
-}
-
-export default async function HomePage({ searchParams }: ShopPageProps) {
-
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const page = parseInt(searchParams?.page ?? "0");
 
+  const { content: products, totalPages } = await getProducts(page, 20);
 
-   const { content: products, totalPages } = await getProducts(page, 20);
-  
-   if (page >= totalPages) {
-       redirect("/shop?page=0");
-   
-     }
+  if (page >= totalPages) {
+    redirect("/shop?page=0");
+  }
   return (
     <div className="p-2 md:p-5">
       <hr className="my-6 border-t-2 border-gray-300 " />
@@ -33,8 +27,8 @@ export default async function HomePage({ searchParams }: ShopPageProps) {
       />
       <hr className="my-6 border-t-2 border-gray-300 " />
       <CollectionGrid products={products} />
-              <Pagination currentPage={page} totalPages={totalPages}/>
-    
+      <Pagination currentPage={page} totalPages={totalPages} />
+
       <hr className="my-6 border-t-2 border-gray-300 " />
     </div>
   );
