@@ -7,16 +7,18 @@ import { redirect } from "next/navigation";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
 
-interface ShopPageProps {
-  searchParams?: {
-    page?: string;
-    colors?: string;
-    coleccion?: string;
-    sort?: string; 
-  };
+interface SearchParams {
+  page?: string;
+  colors?: string;
+  coleccion?: string;
+  sort?: string;
 }
 
-export default async function ShopPageInit({ searchParams }: ShopPageProps) {
+export default async function ShopPageInit({
+  searchParams
+}: {
+  searchParams: SearchParams
+}) {
   const page = parseInt(searchParams?.page ?? "0");
   const colors = searchParams?.colors ?? "";
   const coleccionId = searchParams?.coleccion;
