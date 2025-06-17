@@ -6,9 +6,13 @@ import { getProducts } from "@/core/product/action/product.actions";
 import { redirect } from "next/navigation";
 import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
-import type { PageProps } from "next";
 
-export default async function Page({ searchParams }: PageProps) {
+type Props = {
+  searchParams?: Record<string, string | string[] | undefined>;
+};
+
+
+export default async function Page({ searchParams }: Props) {
   const page = parseInt(searchParams?.page?.toString() || "0", 10);
   const colors = searchParams?.colors?.toString() || "";
   const coleccionId = searchParams?.coleccion?.toString();

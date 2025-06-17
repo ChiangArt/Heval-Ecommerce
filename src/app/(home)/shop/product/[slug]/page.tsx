@@ -7,11 +7,11 @@ import ProductSlideShow from "@/components/shop/product/slides-show/ProductSlide
 import Button from "@/components/ui/button/Button";
 import StatusRotator from "@/components/shop/product/status-rotator/StatusRotator";
 
-interface Props {
+export default async function ProductBySlugPage({
+  params,
+}: {
   params: { slug: string };
-}
-
-export default async function ProductBySlugPage({ params }: Props) {
+}) {
   const [idStr] = params.slug.split("-");
   const id = Number(idStr);
 
