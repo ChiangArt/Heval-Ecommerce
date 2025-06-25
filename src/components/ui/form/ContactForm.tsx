@@ -31,11 +31,9 @@ export default function ContactForm() {
         try {
           personalInfoSchema.parse(values); // validación Zod
           return {};
-        } catch (error: any) {
+        } catch  {
           const errors: Record<string, string> = {};
-          error.errors.forEach((err: any) => {
-            errors[err.path[0]] = err.message;
-          });
+
           return errors;
         }
       }}
