@@ -7,11 +7,10 @@ import toast from "react-hot-toast";
 import Button from "@/components/ui/button/Button";
 import { postAuthResetPassword } from "@/core/auth/action/auth.actions";
 
-// src/core/validations/reset-password/resetPasswordValidation.ts
 import { z } from "zod";
 import { AxiosError } from "axios";
 
-export const resetPasswordSchema = z.object({
+const resetPasswordSchema = z.object({
   newPassword: z
     .string()
     .min(8, "Debe tener al menos 8 caracteres")
