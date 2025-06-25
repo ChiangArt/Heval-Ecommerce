@@ -34,11 +34,10 @@ export default function ProductActions({
 
     try {
       setIsPending(true);
-      await addItem(id, quantity); // <- reemplazo correcto
+      await addItem(id, quantity); 
       toast.success("Producto agregado al carrito 🛒");
-    } catch (error: any) {
-      toast.error(error?.message || "Error al agregar al carrito");
-      console.error("Error en ProductActions.addItem:", error);
+    } catch  {
+      toast.error( "Error al agregar al carrito");
     } finally {
       setIsPending(false);
     }
