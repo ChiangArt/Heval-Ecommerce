@@ -31,9 +31,8 @@ export default function SearchedProduct({ product }: Props) {
       await addItem(product.id, quantity); // ← se maneja si es guest o logueado
       openCart();
       toast.success("Producto agregado al carrito 🛒");
-    } catch (error: any) {
-      toast.error(error?.message || "Error al agregar al carrito");
-      console.error("Error en handleAdd:", error);
+    } catch  {
+      toast.error( "Error al agregar al carrito");
     } finally {
       setIsPending(false);
     }
