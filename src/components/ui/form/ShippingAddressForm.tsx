@@ -57,11 +57,8 @@ export default function ShippingAddressForm() {
         try {
           shippingInfoSchema.parse(values);
           return {};
-        } catch (error: any) {
+        } catch  {
           const errors: Record<string, string> = {};
-          error.errors.forEach((err: any) => {
-            errors[err.path[0]] = err.message;
-          });
           return errors;
         }
       }}

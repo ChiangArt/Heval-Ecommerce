@@ -22,7 +22,7 @@ export default function VerifyCodePage() {
     if (saved) {
       try {
         setPendingData(JSON.parse(saved));
-      } catch (err) {
+      } catch  {
         toast.error("Error cargando los datos previos del registro");
       }
     }
@@ -69,7 +69,7 @@ export default function VerifyCodePage() {
             toast.success("Registro exitoso");
             localStorage.removeItem("pending_register");
             router.push("/auth/login");
-          } catch (error) {
+          } catch  {
             toast.error("Código incorrecto o expirado");
           } finally {
             setSubmitting(false);

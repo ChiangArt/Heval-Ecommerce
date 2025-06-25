@@ -40,7 +40,7 @@ export default function AccountDetails() {
       toast.success("Actualizado correctamente");
 
       setIsEditable(false);
-    } catch (err) {
+    } catch  {
       toast.error("Error al guardar");
     }
   };
