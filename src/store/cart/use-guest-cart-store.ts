@@ -14,16 +14,18 @@ interface GuestCartState {
   clearCart: () => void;
 }
 
+const isClient = typeof window !== 'undefined';
+
 export const useGuestCartStore = create<GuestCartState>()(
   persist(
     (set) => ({
       items: [],
       addItem: (productId, quantity) => {
         set((state) => {
-          const existing = state.items.find(i => i.productId === productId);
+          const existing = state.items.find((i) => i.productId === productId);
           if (existing) {
             return {
-              items: state.items.map(i =>
+              items: state.items.map((i) =>
                 i.productId === productId
                   ? { ...i, quantity: i.quantity + quantity }
                   : i
@@ -39,18 +41,16 @@ export const useGuestCartStore = create<GuestCartState>()(
       updateItem: (productId, quantity) => {
         set((state) => {
           const newItems = state.items
-            .map(i =>
-              i.productId === productId
-                ? { ...i, quantity }
-                : i
+            .map((i) =>
+              i.productId === productId ? { ...i, quantity } : i
             )
-            .filter(i => i.quantity > 0);
+            .filter((i) => i.quantity > 0);
           return { items: newItems };
         });
       },
       removeItem: (productId) => {
         set((state) => ({
-          items: state.items.filter(i => i.productId !== productId),
+          items: state.items.filter((i) => i.productId !== productId),
         }));
       },
       clearCart: () => {
@@ -60,7 +60,13 @@ export const useGuestCartStore = create<GuestCartState>()(
     {
       name: 'guest-cart',
       storage: createJSONStorage(() =>
-        typeof window !== 'undefined' ? window.localStorage : undefined
+        isClient
+          ? window.localStorage
+          : {
+              getItem: () => null,
+              setItem: () => {},
+              removeItem: () => {},
+            } // mock para evitar errores en SSR
       ),
     }
   )
