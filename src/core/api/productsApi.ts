@@ -6,12 +6,12 @@ const productsApi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  
+ 
 });
 
 productsApi.interceptors.request.use(
   (config) => {
-    // Leer token desde localStorage (solo si estás del lado del cliente)
+    
     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
     if (token) {

@@ -31,7 +31,7 @@ export const Title = ({
       <div className="flex flex-col text-center gap-1 pt-3">
         {pretitle && (
           <p>
-            <span className="inline-block text-xs md:text-lg bg-[rgba(33,42,82,0.10)] px-2 py-1 transform rotate-2">
+            <span className="inline-block text-xs md:text-lg bg-[rgba(33,42,82,0.10)] px-2 py-1 ">
               {pretitle}
             </span>
           </p>
@@ -39,7 +39,7 @@ export const Title = ({
 
         {title && (
           <p>
-            <span className="font-inter text-md lg:text-4xl font-extrabold inline px-2 bg-[rgba(232,227,222,0.40)]">
+            <span className="font-inter text-md lg:text-4xl font-extrabold inline px-2  ">
               {title}
             </span>
           </p>
@@ -47,7 +47,7 @@ export const Title = ({
 
         {description1 && (
           <p>
-            <span className="inline-block text-xs lg:text-lg bg-terciario px-2 py-1">
+            <span className="inline-block text-white text-xs lg:text-lg bg-secundario px-2 py-1">
               {description1}
             </span>
           </p>
@@ -55,7 +55,7 @@ export const Title = ({
 
         {description2 && (
           <p>
-            <span className="text-white inline-block text-xs lg:text-lg bg-secundario px-2 py-1 transform rotate-2">
+            <span className="text-primario inline-block text-xs lg:text-lg bg-terciario px-2 py-1">
               {description2}
             </span>
           </p>

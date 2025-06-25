@@ -1,6 +1,6 @@
 import React from "react";
 import { Product } from "@/core/product/interface/productResponse";
-import ProductItem from "@/components/ui/product/productItem";
+import ProductItem from "@/components/shop/products/ProductItem";
 
 interface Props {
   products: Product[];

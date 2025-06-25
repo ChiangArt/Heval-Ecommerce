@@ -7,6 +7,16 @@ import { FiMenu } from "react-icons/fi";
 import { useUIStore } from "@/store/ui/ui-store";
 import { IoSearchSharp } from "react-icons/io5";
 import { useCartUIStore } from "@/store/ui/ui-cart-store";
+import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
+
+interface TopMenuProps {
+  showBackdropBlur?: boolean;
+  initialMargin?: boolean;
+  fixedOnScroll?: boolean;
+  logoHref?: string;
+  searchHref?: string;
+  userHref?: string;
+}
 
 const links = [
   { id: 1, href: "/shop", nombre: "TIENDA" },
@@ -14,38 +24,53 @@ const links = [
   { id: 3, href: "/about", nombre: "NOSOTROS" },
 ];
 
-export default function TopMenu() {
+export default function TopMenu({
+  showBackdropBlur = true,
+  initialMargin = true,
+  fixedOnScroll = true,
+  logoHref = "/",
+  searchHref = "/",
+}: TopMenuProps) {
   const [isFixed, setIsFixed] = useState(false);
+  const { toggleCartSideMenu } = useCartUIStore();
   const closeMenu = useUIStore((state) => state.openSideMenu);
-  const toggleCartSideMenu = useCartUIStore(
-    (state) => state.toggleCartSideMenu
-  );
+  const cartItemsCount = useUnifiedCartStore((state) =>
+  state.items.reduce((acc, item) => acc + item.quantity, 0)
+);
 
   useEffect(() => {
+    if (!fixedOnScroll) return;
+
     const handleScroll = () => {
       setIsFixed(window.scrollY > 16);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [fixedOnScroll]);
+
+  const backdropClass = showBackdropBlur
+    ? "backdrop-blur-xs bg-primario/70"
+    : "bg-primario";
+  const initialMarginClass = initialMargin && !isFixed ? "mt-5" : "";
+  const fixedClass = isFixed ? "fixed top-0 translate-y-0" : "fixed";
 
   return (
     <div
-      className={`w-full  fixed text-[white] bg-primario/70 p-1 z-20 px-1 landscape:px-8 ${
-        isFixed
-          ? "fixed top-0 backdrop-blur-none  translate-y-0"
-          : "fixed backdrop-blur-none mt-5  bg-primario/80"
-      }`}
+      className={`w-full text-white p-1 z-20 px-1 landscape:px-8
+        ${fixedClass}
+        ${initialMarginClass}
+        ${backdropClass}`}
     >
-      <nav className="font-inter  px-4 py-3 flex justify-between items-center ">
+      <nav className="font-inter px-4 py-3 flex justify-between items-center">
         <button onClick={closeMenu} className="lg:hidden cursor-pointer">
           <FiMenu className="text-white text-2xl" />
         </button>
-        <div className="hidden lg:flex gap-8 ">
+
+        <div className="hidden lg:flex gap-8">
           {links.map((link) => (
             <Link
-              className="relative inline-block text-[white] before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[0.5px] before:bg-[white] before:transition-all before:duration-300 hover:before:w-full"
+              className="relative inline-block text-white before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[0.5px] before:bg-white before:transition-all before:duration-300 hover:before:w-full"
               key={link.id}
               href={link.href}
             >
@@ -53,12 +78,11 @@ export default function TopMenu() {
             </Link>
           ))}
         </div>
-
         <div>
-          <Link href={"/"}>
+          <Link href={logoHref}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-[130px] md:w-[190px] lg:w-[200px] "
+              className="w-[130px] md:w-[190px] lg:w-[200px]"
               viewBox="0 0 193 30"
               fill="none"
             >
@@ -102,19 +126,21 @@ export default function TopMenu() {
           </Link>
         </div>
 
-        <div className="flex  items-center gap-6">
-          <Link href={"/"}>
+        <div className="flex items-center gap-6">
+          <Link href={searchHref}>
             <IoSearchSharp className="text-2xl" />
           </Link>
-          <Link className="hidden sm:block" href={"/"}>
+
+          <Link className="hidden sm:block" href={"/profile"}>
             <FaRegCircleUser className="text-2xl" />
           </Link>
 
           <button onClick={toggleCartSideMenu} className="relative">
-            <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff8800b9] text-[11px] text-white font-bold">
-              1
-            </span>
-
+            {cartItemsCount > 0 && (
+              <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-[#ff8800b9] text-[11px] text-white font-bold">
+                {cartItemsCount}
+              </span>
+            )}
             <MdOutlineShoppingCart className="text-2xl cursor-pointer" />
           </button>
         </div>

@@ -1,12 +1,23 @@
 import React from "react";
-import Filters from "@/components/shop/Filters";
-import ProductGrid from "@/components/shop/products/product-grid/ProductGrid";
-import ShopSection from "@/components/shop/ShopSection";
 import { getProducts } from "@/core/product/action/product.actions";
 import { redirect } from "next/navigation";
-import Pagination from "@/components/ui/pagination/Pagination";
 import { getCollections } from "@/core/collection/action/collection.actions";
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
+import ProductGrid from "@/components/shop/products/ProductGrid";
+
+const ShopSection = dynamic(() => import("@/components/shop/ShopSection"));
+const Filters = dynamic(() => import("@/components/ui/filter/Filters"), {
+  loading: () => <p className="p-4">Cargando filtros...</p>,
+});
+
+
+const Pagination = dynamic(
+  () => import("@/components/ui/pagination/Pagination"),
+  {
+    loading: () => <p className="p-4">Cargando paginación...</p>,
+  }
+);
 
 type SearchParamsType = Record<string, string | string[] | undefined>;
 
@@ -27,12 +38,12 @@ export async function generateMetadata({
 
   return {
     title,
-    description: "Explora nuestros productos en Heval. Filtra por color, colección o precio.",
+    description:
+      "Explora nuestros productos en Heval. Filtra por color, colección o precio.",
   };
 }
 
-
-export default async function Page({
+export default async function ShopPage({
   searchParams,
 }: {
   searchParams: Promise<SearchParamsType>;
@@ -44,7 +55,7 @@ export default async function Page({
   const coleccionId = params.coleccion?.toString();
   const sort = params.sort?.toString();
 
-   const id = coleccionId ? Number(coleccionId) : undefined;
+  const id = coleccionId ? Number(coleccionId) : undefined;
 
   let sortDirection: "asc" | "desc" | undefined;
   if (sort?.startsWith("price,")) {
@@ -72,11 +83,6 @@ export default async function Page({
     redirect("/shop?page=0");
   }
 
-
-  if (page >= totalPages) {
-    redirect("/shop?page=0");
-  }
-
   return (
     <div className="landscape:px-7">
       <ShopSection />
@@ -91,7 +97,7 @@ export default async function Page({
       <hr className="my-2 border-t-1 border-primario" />
       <ProductGrid products={products} />
       <Pagination currentPage={page} totalPages={totalPages} />
-      <hr className="border-t-1 border-primario" />
+      <hr className="border-t-1 mb-30 border-primario" />
     </div>
   );
 }

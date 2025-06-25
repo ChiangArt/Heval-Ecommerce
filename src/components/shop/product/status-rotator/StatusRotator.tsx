@@ -7,7 +7,7 @@ interface StatusRotatorProps {
   discountEnd?: string | null;
 }
 
-export default function StatusRotator({ quantity, discountPercentage, discountEnd }: StatusRotatorProps) {
+export default function StatusRotator({ quantity, discountPercentage }: StatusRotatorProps) {
   const stockStatus = quantity > 0 ? "EN STOCK" : "SIN STOCK";
   const messages = [stockStatus];
 
@@ -15,9 +15,6 @@ export default function StatusRotator({ quantity, discountPercentage, discountEn
     messages.push(`${discountPercentage} % OFF`);
   }
 
-  if (discountEnd) {
-    messages.push(`DESCUENTO HASTA EL ${discountEnd}`);
-  }
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -30,7 +27,7 @@ export default function StatusRotator({ quantity, discountPercentage, discountEn
   }, [messages.length]);
 
   return (
-    <div className="flex-[1] bg-[rgba(9,32,89,0.10)] px-3 py-2 font-bold flex items-center justify-center text-center">
+    <div className="flex-[1] bg-[rgba(9,32,89,0.10)] px-3 py-3 font-bold flex items-center justify-center text-center">
       {messages[currentIndex]}
     </div>
   );

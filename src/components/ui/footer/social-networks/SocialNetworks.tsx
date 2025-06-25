@@ -11,7 +11,7 @@ const iconsLinks = [
 
 export default function SocialNetworks() {
   return (
-    <div className="sm:bg-white sm:p-40 grid grid-cols-1 gap-5 text-center">
+    <div className="bg-white text-xs w-full landscape:p-10 sm:text-sm py-5 sm:p-10 lg:p-40 grid grid-cols-1 gap-5 text-center">
       <p>Encuentranos en nuestras redes</p>
       <div className="flex justify-center  gap-2">
         {iconsLinks.map(({ href, id, icons: Icon }) => (

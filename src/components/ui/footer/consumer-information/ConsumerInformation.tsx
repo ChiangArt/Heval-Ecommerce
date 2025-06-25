@@ -4,7 +4,7 @@ import React from "react";
 
 export default function ConsumerInformation() {
   return (
-    <div className="sm:bg-white sm:p-40 grid grid-cols-1 lg:grid-cols-2 text-center gap-10 ">
+    <div className="bg-white w-full landscape:p-10 text-xs sm:text-sm py-5 sm:p-10 lg:p-40  grid grid-cols-1 lg:grid-cols-2 text-center gap-10">
       <div className="flex flex-col items-center gap-5">
         <Image
           width={110}

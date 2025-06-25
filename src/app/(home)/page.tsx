@@ -1,6 +1,5 @@
 import Information from "@/components/ui/information/Information";
 import MediaVideos from "@/components/home/media-videos/MediaVideos";
-import NewProduct from "@/components/home/product-collection-section/new-products/NewProduct";
 import SearchedProducts from "@/components/home/product-collection-section/searched-products/SearchedProducts";
 import PromotionalGrid from "@/components/home/promotional-grid/PromotionalGrid";
 import { Title } from "@/components/ui/title/Title";
@@ -9,7 +8,8 @@ import ConsumerInformation from "@/components/ui/footer/consumer-information/Con
 import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
-import { getProducts } from "@/core/product/action/product.actions";
+import { getCollectionById } from "@/core/product/action/product.actions";
+import NewCollection from "@/components/home/product-collection-section/new-products/NewCollection";
 
 const videos = [
   {
@@ -30,7 +30,7 @@ const videos = [
 ];
 
 export default async function HomePage() {
-  const { content: products } = await getProducts(0, 4);
+  const productsByCollection = await getCollectionById(1);
 
   return (
     <main className="snap-y snap-mandatory h-screen w-full">
@@ -39,15 +39,23 @@ export default async function HomePage() {
         <AnnouncementBar />
         <TopMenu />
         <video
-          src={"/5889074-uhd_3840_2160_25fps.mp4"}
+          src="https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/ALFA+WEB+FINAL.mp4"
           autoPlay
           loop
           muted
-          className="h-screen w-full object-cover"
+          className="hidden lg:block h-screen w-full object-cover"
+        />
+        {/* VIDEO PARA MÓVIL */}
+        <video
+          src="https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/ALFA+MOVIL+FINAL.mp4"
+          autoPlay
+          loop
+          muted
+          className="block lg:hidden h-screen w-full object-cover"
         />
       </section>
 
-      <section className="snap-start snap-always h-screen landscape:pt-21 w-full pt-19 md:pt-25 lg:pt-27 flex flex-col p-2 lg:px-6">
+      <section className="snap-start snap-always h-screen landscape:pt-17 w-full pt-15 md:pt-25 lg:pt-27 flex flex-col p-2 lg:px-6">
         <PromotionalGrid />
         <hr className="border-t border-gray-300 my-2" />
         <Title
@@ -55,23 +63,40 @@ export default async function HomePage() {
           title="“Lo que papá realmente quiere”"
           description1="Edición limitada para papás únicos"
           description2="Especial Día del Padre"
-          className="py-5  bg-[rgba(232,227,222,0.40)]"
+          className="py-1  bg-[rgba(232,227,222,0.40)]"
         />
         <hr className=" border-t border-gray-300 my-2" />
-
-        <NewProduct products={products} />
+        <NewCollection products={productsByCollection} />
       </section>
 
-      <section className="snap-start snap-always pt-23 h-screen w-full px-2 lg:px-6 ">
-        <Title
-          backgroundColor="bg-white"
-          pretitle="Nuestros esenciales más buscados. "
-          title="¡Favoritos que no puedes dejar pasar!"
-          description1="Diseño simple, funcional y con estilo."
-          description2="Descubre por qué todos los quieren."
-          className="py-4"
-        />
-        <SearchedProducts products={products} />
+      <section className="snap-start snap-always pt-10 h-screen w-full px-2 lg:px-6 ">
+        <div className="font-bold w-full py-5">
+          <div className="flex flex-col text-center gap-1 pt-3">
+            <p>
+              <span className="inline-block text-xs md:text-lg bg-[rgba(33,42,82,0.10)] px-2 py-1 ">
+                Nuestros esenciales más buscados.
+              </span>
+            </p>
+
+            <p>
+              <span className="font-inter text-md lg:text-4xl font-extrabold inline px-2 rgba(232, 227, 222, 0.40)">
+                ¡Favoritos que no puedes dejar pasar!
+              </span>
+            </p>
+
+            <p>
+              <span className="text-white inline-block text-xs lg:text-lg bg-secundario  px-2 py-1">
+                Diseño simple, funcional y con estilo.
+              </span>
+            </p>
+            <p>
+              <span className="inline-block text-primario text-xs lg:text-lg bg-terciario px-2 py-1">
+                Descubre por qué todos los quieren.
+              </span>
+            </p>
+          </div>
+        </div>
+        <SearchedProducts products={productsByCollection} />
       </section>
 
       <section className="snap-start snap-always h-screen w-full bg-primario">
@@ -134,13 +159,11 @@ export default async function HomePage() {
       </section>
 
       <footer className="bg-[#F7F3F3]">
-        <section className="snap-start snap-always h-screen w-full flex items-center justify-center">
-          <News />
+        <section className="snap-start snap-always landscape:px-20 h-screen w-full flex items-center justify-center">
+          <News className="py-5 sm:p-15" />
         </section>
-        <section className="snap-always snap-start h-screen w-full flex items-center justify-center">
+        <section className="snap-always pt-8 flex landscape:px-20 flex-col gap-3 snap-start h-screen w-full items-center justify-center">
           <ConsumerInformation />
-        </section>
-        <section className="snap-start snap-always h-screen w-full flex items-center justify-center">
           <SocialNetworks />
         </section>
       </footer>

@@ -6,6 +6,8 @@ interface State {
   openCartSideMenu: () => void;
   closeCartSideMenu: () => void;
   toggleCartSideMenu: () => void;
+
+ 
 }
 
 export const useCartUIStore = create<State>((set) => ({
@@ -15,5 +17,6 @@ export const useCartUIStore = create<State>((set) => ({
   closeCartSideMenu: () => set({ isSideMenuOpen: false }),
   toggleCartSideMenu: () =>
     set((state) => ({ isSideMenuOpen: !state.isSideMenuOpen })),
-  
+
 }));
+

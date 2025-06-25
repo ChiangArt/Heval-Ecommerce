@@ -1,19 +1,21 @@
 export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  originalPrice: number;
-  colors: string[];
-  quantity: number;
-  slug: string;
-  price: number;
-  discountUntil: string;
-  currentPrice: number;
-  discountPercentage: number;
-  createdAt: string;
-  imageUrls: string[];
-  collectionId: number;
+  id:                   number;
+  title:                string;
+  description:          string;
+  slug:                 string;
+  price:                number;
+  descriptionArchetype: string;
+  material:             string;
+  currentPrice:         number;
+  discountPercentage:   number;
+  discountUntil:        Date;
+  colors:               string[];
+  quantity:             number;
+  imageUrls:            string[];
+  createdAt:            Date;
+  collectionId:         number;
 }
+
 
 export interface PaginatedProductsResponse {
   content: Product[];

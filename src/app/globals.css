@@ -49,9 +49,26 @@ html {
   }
 }
 
+@keyframes fillRight {
+  0% {
+    width: 0%;
+  }
+  50%{
+    width: 50%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-fill-right {
+  animation: fillRight 1.2s ease-in-out forwards;
+}
+
 .animate-marquee {
   display: flex;
   animation: marquee 15s linear infinite;
   flex-shrink: 0;
   min-width: 100%;
 }
+

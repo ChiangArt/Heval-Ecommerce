@@ -35,13 +35,27 @@ export const getProducts = async (
 };
 
 export const getProductById = async (
-  id: number | string
+  id: number 
 ): Promise<Product> => {
   try {
     const { data } = await productsApi.get(`/products/${id}`);
     return data;
   } catch (error) {
     console.error("Error al obtener producto por ID", error);
+    throw error;
+  }
+};
+
+
+
+export const getCollectionById = async (
+  collectionId : number 
+): Promise<Product[]> => {
+  try {
+    const { data } = await productsApi.get(`/products/by-collection/${collectionId }`);
+    return data;
+  } catch (error) {
+    console.error("Error al obtener los productos de la collecion por ID", error);
     throw error;
   }
 };

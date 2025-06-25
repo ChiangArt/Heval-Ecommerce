@@ -1,177 +1,135 @@
-import { QuantitySelector } from "@/components/shop/product/quantity-selector/QuantitySelector";
-import Button from "@/components/ui/button/Button";
-import StepForm from "@/components/ui/step-form/StepForm";
-import { FormTexts } from "@/core/address/interface/FormInterface";
-// import StepForm from "@/components/ui/step-form/StepForm";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import ContactForm from "@/components/ui/form/ContactForm";
+import { QuantitySelector } from "@/components/ui/quantity-selector/QuantitySelector";
+import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
+import CheckoutProductSkeleton from "@/components/ui/skeleton/CheckoutProductSkeleton";
 
-import { FaRegTrashAlt } from "react-icons/fa";
+export default function ContactFormPage() {
+  const {
+    items: cart,
+    updateItem,
+    removeItem,
+    subtotal,
+    discount,
+    total,
+    loading,
+    fetchItems,
+  } = useUnifiedCartStore();
 
-const mockProducts = [
-  {
-    id: "1",
-    title: "Pantalon Ledin Con corte superior",
-    quantity: 2,
-    price: 59.99,
-    discountPrice: 49.99,
-    image: "https://swiperjs.com/demos/images/nature-1.jpg",
-  },
-  {
-    id: "2",
-    title: "Producto 2",
-    quantity: 1,
-    price: 19.99,
-    discountPrice: 20,
-    image: "https://swiperjs.com/demos/images/nature-2.jpg",
-  },
-];
+    useEffect(() => {
+    fetchItems(); 
+  }, [fetchItems]);
 
-const addressFormTexts: FormTexts = {
-  formTitle: "Información de entrega",
-  fields: [
-    { name: "fullAddress", label: "Dirección completa", type: "text", required: true },
-    { name: "apartmentOrFloor", label: "Apartamento o piso", type: "text", required: true },
-    { name: "district", label: "Distrito", type: "text", required: true },
-    { name: "province", label: "Provincia", type: "text", required: true },
-    { name: "department", label: "Departamento", type: "text", required: true },
-    { name: "reference", label: "Referencia", type: "text", required: true },
-    { name: "additionalInfo", label: "Información adicional", type: "text", required: true },
-  ],
-  continueButton: {
-    type: "button", // ✅ Ahora TypeScript sabe que es literal "button"
-    text: "Continuar",
-  },
-  keepBuyingButton: {
-    type: "link", // ✅ También explícitamente "link"
-    text: "Seguir comprando",
-    href: "/",
-  },
-};
-
-
-
-export default function Checkout() {
-  const total = mockProducts.reduce((sum, item) => {
-    const price = item.discountPrice ?? item.price;
-    return sum + price * item.quantity;
-  }, 0);
+  const [coupon, setCoupon] = useState("");
 
   return (
-    <div className="w-full text-secundario  text-sm lg:text-lg flex justify-center items-start py-10 md:px-4 ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-8xl">
-        {/* ------------------------------ FORMULARIO ------------------------------ */}
-        <section className="bg-white p-6 w-full ">
-          <StepForm
-            title="Completa tus datos personales"
-            stepNumber=""
-            formTexts={addressFormTexts}
-           
-          />
-        </section>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-30 md:px-3 landscape:px-20">
+      {/* Formulario */}
+      <section className="bg-white p-5 lg:p-20">
+        <ContactForm />
+      </section>
 
-        {/* --------------------------- RESUMEN DEL PEDIDO --------------------------- */}
-        <div className="flex flex-col gap-6">
-          <section className="bg-white p-6 w-full">
-            <h2 className=" font-bold mb-4">RESUMEN DEL PEDIDO</h2>
+      {/* Resumen */}
+      <section className="space-y-10">
+        <div className="bg-white p-6 text-xs shadow-sm">
+          <h3 className=" font-bold text-[#001243] mb-4">RESUMEN DE PEDIDO</h3>
 
-            <div className="grid grid-cols-[3fr_2fr_2fr_1fr] gap-2 mb-2 text-[rgba(29,29,27,0.5)]  font-semibold">
-              <span>Producto</span>
-              <span>Precio</span>
-              <span>Cantidad</span>
-              <span></span>
-            </div>
-            <div className="border-b border-gray-300 mb-4" />
+          {/* Encabezado */}
+          <div className=" font-semibold text-gray-500 grid grid-cols-20 border-b pb-2">
+            <span className="col-span-8">Producto</span>
+            <span className="text-center col-span-5">Precio</span>
+            <span className="text-right">Cantidad</span>
+          </div>
 
-            <div className="space-y-4">
-              {mockProducts.map((product, index) => {
-                const effectivePrice = product.discountPrice ?? product.price;
-                const isLast = index === mockProducts.length - 1;
-
-                return (
+          {/* Lista */}
+          <div className="divide-y">
+            {loading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <CheckoutProductSkeleton key={i} />
+                ))
+              : cart.map((product) => (
                   <div
-                    key={product.id}
-                    className={`grid grid-cols-[3fr_2fr_2fr_1fr] gap-2 items-center pb-4 ${
-                      !isLast ? "border-b border-secundario" : ""
-                    }`}
+                    key={product.productId}
+                    className="grid grid-cols-20 gap-2 py-4 items-center"
                   >
-                    <div className="flex items-center gap-2">
-                      <div className="relative w-[60px] h-[60px] flex-shrink-0">
+                    <div className="col-span-8 flex gap-4 items-center">
+                      <div className="relative w-[60px] h-[80px] flex-shrink-0">
                         <Image
-                          src={product.image}
+                          src={product.imageUrl}
                           alt={product.title}
                           fill
-                          className=" object-cover object-center"
+                          className="object-cover object-center"
+                          sizes="60px"
                         />
                       </div>
-                      <h3 className="font-semibold text-xs">{product.title}</h3>
+                      <div className="text-xs text-primario">
+                        {product.title}
+                      </div>
                     </div>
-
-                    <p className=" font-bold text-xs">
-                      S/{(effectivePrice * product.quantity).toFixed(2)}
-                    </p>
-
-                    <QuantitySelector
-                      className="p-2"
-                      quantity={product.quantity}
-                    />
-
-                    <button className="w-7 h-6 flex items-center justify-center border border-secundario hover:bg-gray-100 transition">
-                      <FaRegTrashAlt className="w-3 h-3" />
-                    </button>
+                    <div className="col-span-5 text-center">
+                      <span className=" font-bold text-primario">
+                        S/ {product.discountedPrice.toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <QuantitySelector
+                        quantity={product.quantity}
+                        onQuantityChange={(newQty) =>
+                          updateItem(product.productId, newQty)
+                        }
+                        onRemove={() => removeItem(product.productId)}
+                      />
+                    </div>
                   </div>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* --------------------------- CUPÓN Y TOTALES --------------------------- */}
-          <section className="bg-white p-6  w-full">
-            <h2 className="font-bold mb-4 text-secundario">CANTIDAD A PAGAR</h2>
-            <div className="mb-6">
-              <div className="flex flex-col xl:flex-row items-center  gap-4 md:gap-8 justify-center">
-                <label htmlFor="email" className="sr-only">
-                  Código de cupón
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Ingresa el código"
-                  className="flex-1 px-4 py-2 border border-gray-300  focus:outline-none focus:border-secundario"
-                  required
-                />
-                <Button
-                  title="AGREGAR CUPÓN"
-                  className="bg-secundario text-white px-4 py-2  hover:opacity-75 transition text-center"
-                ></Button>
-              </div>
-
-              <button className="mt-4 w-full md:w-auto bg-turquesa text-white px-6 py-2 rounded hover:opacity-90 transition">
-                Aplicar
-              </button>
-            </div>
-
-            {/* Totales */}
-            <div className="space-y-2 border-b border-t py-10 text-secundario">
-              <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span>S/ {total.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Descuento</span>
-                <span>S/ 0.00</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Delivery</span>
-                <span>S/ 0.00</span>
-              </div>
-              <div className="flex justify-between font-bold pt-2">
-                <span>Total</span>
-                <span>S/ {total.toFixed(2)}</span>
-              </div>
-            </div>
-          </section>
+                ))}
+          </div>
         </div>
-      </div>
+
+        {/* Pago */}
+        <div className="bg-white p-6 text-xs">
+          <h3 className="text-xl font-bold text-[#001243] mb-4">
+            CANTIDAD A PAGAR
+          </h3>
+
+          <div className="flex gap-2 mb-2">
+            <input
+              type="text"
+              placeholder="Ingresa el código"
+              value={coupon}
+              onChange={(e) => setCoupon(e.target.value)}
+              className="border w-full px-3 py-2"
+            />
+            <button className="bg-[#001243] text-white px-4 py-2 hover:bg-opacity-90 transition">
+              AGREGAR CUPÓN
+            </button>
+          </div>
+
+          <p className=" text-gray-500 mb-4">
+            Cupón disponible solo por campaña
+          </p>
+
+          <div className=" space-y-2 border-t pt-2">
+            <div className="flex justify-between">
+              <span>Sub total</span>
+              <span>S/ {subtotal.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Descuento</span>
+              <span>S/ {discount.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Delivery</span>
+              <span>FREE</span>
+            </div>
+            <div className="flex justify-between font-bold border-t pt-2">
+              <span>Total</span>
+              <span>S/ {total.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,11 +1,15 @@
 import Link from "next/link";
 import React from "react";
 
-export default function News() {
+interface Props {
+  className?: string;
+}
+
+export default function News({className}: Props) {
   return (
-    <div className="text-center gap-5 flex flex-col sm:bg-white  sm:p-20">
+    <div className={` text-center gap-5 w-full flex flex-col  bg-white  ${className}`}>
       <div>
-        <h2 className="text-lg sm:text-2xl text-secundario font-bold">RECIBE NOVEDADES</h2>
+        <h2 className="text-lg sm:text-2xl text-secundario  font-bold">RECIBE NOVEDADES</h2>
         <p className="font-bold text-xs md:text-md mt-2">
           Ingresa tu correo y obtén descuentos exclusivos y acceso anticipado a
           nuestros lanzamientos.

@@ -1,4 +1,3 @@
-import TopMenu from "@/components/ui/top-menu/TopMenu";
 
 export default function ShopLayout({
   children,
@@ -6,8 +5,8 @@ export default function ShopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#F6F4F2]">
-      <TopMenu />
+    <div className="bg-[#F6F4F2]">
+
       <main className=" w-full h-full">{children}</main>
     </div>
   );
