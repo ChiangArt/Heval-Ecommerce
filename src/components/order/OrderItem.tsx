@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import { Order } from "@/core/order/interface/order";
 
 interface Props {
@@ -50,7 +50,7 @@ export default function OrderItem({ order, loading }: Props) {
                     className="grid grid-cols-20 gap-2 py-4 items-center"
                   >
                     <div className="col-span-8 flex gap-4 items-center">
-                      <div className="relative w-[60px] h-[80px]">
+                      {/* <div className="relative w-[60px] h-[80px]">
                         <Image
                           src={product.imageUrl?.[0] ?? "/no-imagen.png"}
                           alt={product.productTitle}
@@ -58,7 +58,7 @@ export default function OrderItem({ order, loading }: Props) {
                           className="object-cover object-center"
                           sizes="60px"
                         />
-                      </div>
+                      </div> */}
                       <div className="text-xs text-primario">
                         {product.productTitle}
                       </div>
