@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { personalInfoSchema } from "@/core/validations/personal-info/PersonalInfo";
 import { useUserStore } from "@/store/user/use-auth-store";
 import toast from "react-hot-toast";
 import { putUser } from "@/core/user/action/user.actions";
 import { useRouter } from "next/navigation";
+import { personalInfoSchema } from "@/core/validations/personal-info/personalInfo";
 
 const initialValues = {
   fullName: "",
