@@ -14,8 +14,11 @@ import {
 } from "@/core/validations/register/RegisterValidations";
 import { useUserStore } from "@/store/user/use-auth-store";
 import Link from "next/link";
+import { useOverlayStore } from "@/store/ui/use-overlay-store";
 
 export default function NewAccountPage() {
+  const { showOverlay, hideOverlay } = useOverlayStore();
+
   const router = useRouter();
   const user = useUserStore((state) => state.user);
 
@@ -55,15 +58,17 @@ export default function NewAccountPage() {
     { setSubmitting }: { setSubmitting: (b: boolean) => void }
   ) => {
     try {
+      showOverlay(); // 👉 Mostrar overlay
+
       await postAuthSendCode(values.email);
       toast.success("Código enviado a tu correo");
 
-      // 2) Guardar datos en localStorage para el paso 2
       localStorage.setItem("pending_register", JSON.stringify(values));
 
-      // 3) Redirigir a la pantalla de verificación de código
       router.push(
-        `/auth/new-account/verify-code?email=${encodeURIComponent(values.email)}`
+        `/auth/new-account/verify-code?email=${encodeURIComponent(
+          values.email
+        )}`
       );
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
@@ -72,12 +77,13 @@ export default function NewAccountPage() {
       console.error("Error al enviar código:", err);
     } finally {
       setSubmitting(false);
+      hideOverlay(); // 👉 Ocultar overlay al terminar
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto py-30 font-bold">
-      <h1 className="text-xl mb-4">CREAR CUENTA</h1>
+    <div className="max-w-xl px-5 text-xs md:text-sm mx-auto py-30 font-bold">
+      <h1 className="text-xs md:text-lg mb-4">CREAR CUENTA</h1>
 
       <Formik<Step1Values>
         initialValues={initialValues}
@@ -96,7 +102,7 @@ export default function NewAccountPage() {
                 className="w-full border px-3 py-2"
               />
               {touched.name && errors.name && (
-                <span className="text-sm text-red-500">{errors.name}</span>
+                <span className="md:text-sm text-red-500">{errors.name}</span>
               )}
             </div>
 
@@ -110,7 +116,7 @@ export default function NewAccountPage() {
                 className="w-full border px-3 py-2"
               />
               {touched.email && errors.email && (
-                <span className="text-sm text-red-500">{errors.email}</span>
+                <span className="md:text-sm text-red-500">{errors.email}</span>
               )}
             </div>
 
@@ -124,23 +130,20 @@ export default function NewAccountPage() {
                 className="w-full border px-3 py-2"
               />
               {touched.password && errors.password && (
-                <span className="text-sm text-red-500">{errors.password}</span>
+                <span className="md:text-sm text-red-500">{errors.password}</span>
               )}
               <div className="flex justify-end">
-                <span className="text-sm text-gray-400">
+                <span className="md:text-sm text-gray-400">
                   Mínimo 8 caracteres, una mayúscula, un número y un carácter
                   especial.
                 </span>
               </div>
             </div>
-
-            {/* Role fijo CLIENT: no se muestra campo editable */}
-
             <div className="flex gap-2 mt-15">
               <Button
                 type="submit"
                 className="bg-secundario w-full text-white"
-                title={isSubmitting ? "ENVIANDO CÓDIGO..." : "Enviar código"}
+                title={isSubmitting ? "ENVIANDO CÓDIGO..." : "ENVIAR CODIGO"}
               />
               <Link
                 href="/auth/login"

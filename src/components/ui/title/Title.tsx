@@ -19,46 +19,38 @@ export const Title = ({
   className,
 }: Props) => {
   return (
-    <div className={` font-bold w-full ${className}`}>
+    <div className={`w-full font-bold ${className}`}>
       {headerItems.length > 0 && (
-        <div className={"grid grid-cols-3 text-center text-[10px] lg:text-sm text-secundario"}>
+        <div className="grid grid-cols-3 text-center text-[8px] lg:text-sm text-secundario">
           {headerItems.map((item, index) => (
             <h3 key={index}>{item}</h3>
           ))}
         </div>
       )}
 
-      <div className="flex flex-col text-center gap-1 pt-3">
+      <div className="flex flex-col items-center text-center md:gap-1">
         {pretitle && (
-          <p>
-            <span className="inline-block text-xs md:text-lg bg-[rgba(33,42,82,0.10)] px-2 py-1 ">
-              {pretitle}
-            </span>
-          </p>
+          <span className="inline-block px-2 py-0.5 text-[10px] md:text-lg bg-terciario w-fit">
+            {pretitle}
+          </span>
         )}
 
         {title && (
-          <p>
-            <span className="font-inter text-md lg:text-4xl font-extrabold inline px-2  ">
-              {title}
-            </span>
-          </p>
+          <span className="inline-block font-inter text-[15px] lg:text-3xl font-extrabold w-fit">
+            {title}
+          </span>
         )}
 
         {description1 && (
-          <p>
-            <span className="inline-block text-white text-xs lg:text-lg bg-secundario px-2 py-1">
-              {description1}
-            </span>
-          </p>
+          <span className="inline-block px-2 py-0.5 text-white text-[10px] lg:text-lg bg-secundario w-fit">
+            {description1}
+          </span>
         )}
 
         {description2 && (
-          <p>
-            <span className="text-primario inline-block text-xs lg:text-lg bg-terciario px-2 py-1">
-              {description2}
-            </span>
-          </p>
+          <span className="inline-block px-2 py-0.5 text-primario text-[10px] lg:text-lg bg-terciario w-fit">
+            {description2}
+          </span>
         )}
       </div>
     </div>

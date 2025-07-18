@@ -25,7 +25,7 @@ export default function Button({
         if (!loading && onClick) onClick();
       }}
       className={`
-         overflow-hidden px-6 py-1 lg:py-4 font-semibold transition-opacity flex items-center justify-center gap-2
+         overflow-hidden px-6 py-3 lg:py-4 font-semibold transition-opacity flex items-center justify-center gap-2
         ${loading ? "pointer-events-none" : "cursor-pointer hover:opacity-90"}
         ${className}
       `}
@@ -38,7 +38,7 @@ export default function Button({
         />
       )}
 
-      <span className="relative z-10 text-[10px] md:text-xs flex items-center gap-2">
+      <span className="relative z-10 text-[10px] md:text-sm flex items-center gap-2">
         {loading && (
           <svg
             className="w-4 h-4 animate-spin text-white"

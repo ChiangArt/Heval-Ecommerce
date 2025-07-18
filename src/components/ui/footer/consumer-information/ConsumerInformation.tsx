@@ -1,18 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Logo from "../../logo/Logo";
 
 export default function ConsumerInformation() {
   return (
     <div className="bg-white w-full landscape:p-10 text-xs sm:text-sm py-5 sm:p-10 lg:p-40  grid grid-cols-1 lg:grid-cols-2 text-center gap-10">
       <div className="flex flex-col items-center gap-5">
-        <Image
-          width={110}
-          height={110}
-          src={"/heval.png"}
-          alt="Heval"
-          className="bg-black"
-        />
+        <Logo className=" w-40 h-10"/>
         <p className="text-gray-700">
           Copyright {new Date().getFullYear()}, Heval®
         </p>

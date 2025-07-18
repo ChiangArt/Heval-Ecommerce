@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ShopSection() {
   return (
-    <div className=" font-bold w-full h-full pt-30 landscape:pb-15 landscape:pt-40">
+    <div className=" font-bold w-full  pt-30 landscape:pb-15 landscape:pt-40">
       <div className="flex flex-col text-center">
         <p >
           <span className="font-inter px-3 text-lg md:text-4xl bg-[rgba(232,227,222,0.40)] font-extrabold">
@@ -10,8 +10,8 @@ export default function ShopSection() {
           </span>
         </p>
         <p>
-          <span className="inline-block text-sm text-white md:text-xl bg-secundario px-2 py-1 transform -rotate-2">
-            Edición limitada para papás únicos
+          <span className="inline-block text-sm text-white md:text-xl bg-secundario px-2 py-1">
+            No sigas la tendencia. Llevá la tuya
           </span>
         </p>
         <p className="z-0">

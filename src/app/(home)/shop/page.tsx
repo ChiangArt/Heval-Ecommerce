@@ -11,7 +11,6 @@ const Filters = dynamic(() => import("@/components/ui/filter/Filters"), {
   loading: () => <p className="p-4">Cargando filtros...</p>,
 });
 
-
 const Pagination = dynamic(
   () => import("@/components/ui/pagination/Pagination"),
   {
@@ -65,39 +64,48 @@ export default async function ShopPage({
     }
   }
 
-  const { content: products, totalPages } = await getProducts(page, 20, {
-    colors,
-    coleccionId: id,
-    sortDirection,
-  });
+  try {
+    const [{ content: products, totalPages }, colecciones] = await Promise.all([
+      getProducts(page, 20, { colors, coleccionId: id, sortDirection }),
+      getCollections(),
+    ]);
 
-  const colecciones = await getCollections();
+    const coloresDisponibles = [
+      ...new Set(
+        products.flatMap((p) => (Array.isArray(p.colors) ? p.colors : []))
+      ),
+    ];
 
-  const coloresDisponibles = [
-    ...new Set(
-      products.flatMap((p) => (Array.isArray(p.colors) ? p.colors : []))
-    ),
-  ];
+    if (page >= totalPages) {
+      redirect("/shop?page=0");
+    }
 
-  if (page >= totalPages) {
-    redirect("/shop?page=0");
+    return (
+      <div className="px-2">
+        <ShopSection />
+        <Filters
+          coleccionesDisponibles={colecciones.map((c) => ({
+            id: c.id,
+            name: c.name,
+          }))}
+          coloresDisponibles={coloresDisponibles}
+          totalResultados={products.length}
+        />
+        <hr className="my-2 border-t-1 border-primario" />
+        <ProductGrid products={products} />
+        <Pagination currentPage={page} totalPages={totalPages} />
+        <hr className="border-t-1 mb-30 border-primario" />
+      </div>
+    );
+  } catch (error) {
+    console.error("Error al obtener datos del backend:", error);
+
+    return (
+      <div className="w-full h-screen flex flex-col justify-center items-center text-center text-red-600">
+        <h2 className="text-2xl font-bold">Error de conexión</h2>
+        <p>No se pudo conectar con el servidor. Intenta nuevamente más tarde.</p>
+      </div>
+    );
   }
-
-  return (
-    <div className="landscape:px-7">
-      <ShopSection />
-      <Filters
-        coleccionesDisponibles={colecciones.map((c) => ({
-          id: c.id,
-          name: c.name,
-        }))}
-        coloresDisponibles={coloresDisponibles}
-        totalResultados={products.length}
-      />
-      <hr className="my-2 border-t-1 border-primario" />
-      <ProductGrid products={products} />
-      <Pagination currentPage={page} totalPages={totalPages} />
-      <hr className="border-t-1 mb-30 border-primario" />
-    </div>
-  );
 }
+

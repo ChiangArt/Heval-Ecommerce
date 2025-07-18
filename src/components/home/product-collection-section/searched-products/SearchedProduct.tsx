@@ -31,8 +31,8 @@ export default function SearchedProduct({ product }: Props) {
       await addItem(product.id, quantity); // ← se maneja si es guest o logueado
       openCart();
       toast.success("Producto agregado al carrito 🛒");
-    } catch  {
-      toast.error( "Error al agregar al carrito");
+    } catch {
+      toast.error("Error al agregar al carrito");
     } finally {
       setIsPending(false);
     }
@@ -46,8 +46,8 @@ export default function SearchedProduct({ product }: Props) {
   );
 
   return (
-    <div className="flex flex-col   bg-white transition h-full">
-      <div className="relative w-full aspect-[4/3]  md:aspect-[2/4] landscape:aspect-[3/2] overflow-hidden group">
+    <div className="flex flex-col text-[10px] justify-between bg-white overflow-hidden transition h-full">
+      <div className="relative w-full h-full overflow-hidden group">
         <Image
           src={displayImage}
           alt={product.title}
@@ -75,7 +75,7 @@ export default function SearchedProduct({ product }: Props) {
           loading={isPending}
           title={isPending ? "AGREGAR AL CARRITO" : "AGREGAR AL CARRITO"}
           loadingVariant="fill"
-          className={`absolute bottom-0 text-xs md:text-lg left-0 right-0 text-center text-white bg-secundario py-2 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer duration-300 ${
+          className={`absolute bottom-0 text-xs md:text-lg left-0 right-0 text-center text-white bg-secundario py-2 landscape:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer duration-300 ${
             isPending ? "bg-secundario text-white" : "text-secundario"
           }`}
         />

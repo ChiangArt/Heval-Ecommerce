@@ -21,12 +21,13 @@ interface UserState {
   user: User | null;
   token: string | null;
   setToken: (token: string) => void;
+  updateUser: (updatedUser: Partial<User>) => void; // ← NUEVO
   logout: () => void;
 }
 
 export const useUserStore = create<UserState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       token: null,
       setToken: (token: string) => {
@@ -44,17 +45,25 @@ export const useUserStore = create<UserState>()(
           set({ user: null, token: null });
         }
       },
+
+      updateUser: (updatedUser) => {
+        const currentUser = get().user;
+        if (currentUser) {
+          set({ user: { ...currentUser, ...updatedUser } });
+        }
+      },
+
       logout: () => {
         set({ user: null, token: null });
         delete axios.defaults.headers.common["Authorization"];
         localStorage.removeItem("token");
         useGuestCartStore.getState().clearCart();
-        useUnifiedCartStore.getState().fetchItems(); // opcional: refrescar interfaz
+        useUnifiedCartStore.getState().fetchItems();
       },
     }),
     {
-      name: "auth-storage", // clave en localStorage
-      partialize: (state) => ({ user: state.user, token: state.token }), // qué guardar
+      name: "auth-storage",
+      partialize: (state) => ({ user: state.user, token: state.token }),
     }
   )
 );

@@ -13,7 +13,7 @@ interface Props {
 }
 
 const SubtitleBlock = ({ text }: { text: string }) => (
-  <div className="px-4 font-bold pb-10 text-sm sm:px-10 md:px-20 lg:px-32 md:text-xl">
+  <div className="px-4 font-bold  text-xs sm:px-10 md:px-20 lg:px-32 md:text-lg">
     <p>{text}</p>
   </div>
 );
@@ -30,16 +30,14 @@ export default function Information({
   return (
     <div
       className={clsx(
-        "flex flex-col gap-5 justify-center w-full h-full content-center text-center text-white",
+        "flex flex-col gap-5 justify-center w-full h-full content-center text-center",
         className,
         !title && !linkText && "pt-7 p-1"
       )}
     >
       {/* Título principal */}
       {title && (
-        <h1 className="font-inter px-10 font-black text-2xl md:text-4xl">
-          {title}
-        </h1>
+        <h1 className="font-inter px-10 font-black text-lg md:text-3xl ">{title}</h1>
       )}
 
       {/* Subtítulos */}
@@ -50,7 +48,7 @@ export default function Information({
       {linkText && link && (
         <div className="flex justify-center">
           <Link
-            className={`bg-turquesa py-3 text-sm md:text-xl font-bold px-20 hover:opacity-75 ${classNameLink}`}
+            className={` py-3 text-xs text-primario bg-white font-bold px-20 hover:opacity-75 ${classNameLink}`}
             href={link}
           >
             {linkText}

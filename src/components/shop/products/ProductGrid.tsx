@@ -19,13 +19,14 @@ export default function ProductGrid({ products }: Props) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowContent(true);
+      console.log("🌐 API base URL:", process.env.NEXT_PUBLIC_API_URL);
     }, 300);
     return () => clearTimeout(timeout);
   }, []);
 
   if (!showContent) {
     return (
-      <div className="grid grid-cols-2 p-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
         {Array.from({ length: 8 }).map((_, i) => (
           <ProductItemSkeleton key={i} />
         ))}
@@ -34,9 +35,12 @@ export default function ProductGrid({ products }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-2 p-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
       {products.map((product) => (
-        <ProductItem key={product.id} product={product} />
+        <ProductItem
+          key={product.id}
+          product={product}
+        />
       ))}
     </div>
   );

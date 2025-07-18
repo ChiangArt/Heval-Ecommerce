@@ -19,6 +19,7 @@ export const QuantitySelector = ({
   onRemove,
   disabled = false,
 }: Props) => {
+
   const onQuantityChanged = (value: number) => {
     if (quantity + value < 1) return;
     onQuantityChange(quantity + value);

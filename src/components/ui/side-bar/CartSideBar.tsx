@@ -1,13 +1,18 @@
 "use client";
 import { useCartUIStore } from "@/store/ui/ui-cart-store";
 import Image from "next/image";
-import Link from "next/link";
 import { QuantitySelector } from "@/components/ui/quantity-selector/QuantitySelector";
 import { useEffect } from "react";
 import Button from "../button/Button";
 import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
+import { useOverlayStore } from "@/store/ui/use-overlay-store";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CartSideBar = () => {
+  const { showOverlay, hideOverlay } = useOverlayStore();
+  const router = useRouter();
+
   const { isSideMenuOpen, closeCartSideMenu } = useCartUIStore();
 
   const {
@@ -24,26 +29,7 @@ const CartSideBar = () => {
   );
 
   useEffect(() => {
-    const body = document.body;
-
-    if (isSideMenuOpen) {
-      fetchItems();
-      body.style.overflow = "hidden";
-      body.style.height = "100%";
-      body.style.position = "fixed";
-      body.style.width = "100%";
-    } else {
-      body.style.overflow = "";
-      body.style.height = "";
-      body.style.position = "";
-      body.style.width = "";
-    }
-    return () => {
-      body.style.overflow = "";
-      body.style.height = "";
-      body.style.position = "";
-      body.style.width = "";
-    };
+    fetchItems();
   }, [isSideMenuOpen, fetchItems]);
 
   return (
@@ -108,10 +94,26 @@ const CartSideBar = () => {
 
                   <QuantitySelector
                     quantity={product.quantity}
-                    onQuantityChange={(newQty) =>
-                      updateItem(product.productId, newQty)
-                    }
-                    onRemove={() => removeItem(product.productId)}
+                    onQuantityChange={async (newQty) => {
+                      showOverlay();
+                      try {
+                        await updateItem(product.productId, newQty);
+                      } catch (err) {
+                        console.error("Error al actualizar cantidad:", err);
+                      } finally {
+                        hideOverlay();
+                      }
+                    }}
+                    onRemove={async () => {
+                      showOverlay();
+                      try {
+                        await removeItem(product.productId);
+                      } catch (err) {
+                        console.error("Error al eliminar producto:", err);
+                      } finally {
+                        hideOverlay();
+                      }
+                    }}
                   />
                 </div>
               </div>
@@ -125,16 +127,21 @@ const CartSideBar = () => {
             <span className="font-bold">S/ {total.toFixed(2)}</span>
           </div>
 
-          <Link
-            href="/shop/checkout"
-            className="w-full block font-semibold text-white text-center border-2 bg-secundario py-2 hover:bg-opacity-90 transition-colors"
-            onClick={closeCartSideMenu}
-          >
-            PAGAR AHORA
-          </Link>
+          <Button
+            className="w-full block text-xs font-semibold text-white text-center border-2 bg-secundario py-3 hover:bg-opacity-90 transition-colors"
+            onClick={() => {
+              if (cartItems.length === 0) {
+                toast.error("Tu carrito está vacío");
+                return;
+              }
+              closeCartSideMenu();
+              router.push("/shop/checkout");
+            }}
+            title="PAGAR AHORA"
+          />
 
           <Button
-            className="block sm:hidden w-full border-2 mt-2 border-primario text-primario py-2 text-center"
+            className="block md:hidden w-full border-2 mt-2 border-primario text-primario py-2 text-center"
             onClick={closeCartSideMenu}
             title="REGRESAR"
           />

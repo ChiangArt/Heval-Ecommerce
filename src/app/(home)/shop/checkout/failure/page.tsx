@@ -1,8 +1,41 @@
-export default function PagoFailed() {
+"use client";
+
+import Modal from "@/components/ui/modal/Modal";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useOverlayStore } from "@/store/ui/use-overlay-store";
+import FailedPayment from "@/components/checkout/FailedPayment";
+
+export default function CheckoutFailedPage() {
+  const { showOverlay, hideOverlay } = useOverlayStore();
+
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const searchParams = useSearchParams();
+  const externalReference = searchParams.get("external_reference");
+
+  useEffect(() => {
+    if (!externalReference) return;
+
+    showOverlay(); // Muestra overlay al inicio
+
+    const timeout = setTimeout(() => {
+      hideOverlay();         // Oculta overlay
+      setIsSuccess(true);    // Muestra el modal de error
+    }, 1500);
+
+    return () => clearTimeout(timeout);
+  }, [externalReference, hideOverlay, showOverlay]);
+
+  const handleClose = () => {
+    setIsSuccess(false);
+  };
+
   return (
-    <div className="text-center pt-30">
-      <h1 className="text-2xl font-bold text-red-600">¡Pago fallido!</h1>
-      <p className="mt-4">Ocurrió un problema al procesar tu pago. Por favor, intenta nuevamente.</p>
-    </div>
+    <>
+      <Modal isOpen={isSuccess} onClose={handleClose}>
+        <FailedPayment externalReference="externalReference" onClose={handleClose} />
+      </Modal>
+    </>
   );
 }

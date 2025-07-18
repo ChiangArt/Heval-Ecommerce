@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface Props {
   currentPage: number;
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export default function Pagination({ currentPage, totalPages }: Props) {
+    const pathname = usePathname(); 
+
   const prevPage = currentPage > 0 ? currentPage - 1 : null;
   const nextPage = currentPage < totalPages - 1 ? currentPage + 1 : null;
 
@@ -34,7 +37,7 @@ export default function Pagination({ currentPage, totalPages }: Props) {
       {/* Botón Siguiente */}
       {nextPage !== null ? (
         <Link
-          href={`/shop?page=${nextPage}`}
+          href={`${pathname}?page=${nextPage}`}
           className="px-3 py-1 underline underline-offset-4 text-secundario"
         >
           Siguiente

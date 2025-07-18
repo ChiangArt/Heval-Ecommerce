@@ -1,10 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import ContactForm from "@/components/ui/form/ContactForm";
 import { QuantitySelector } from "@/components/ui/quantity-selector/QuantitySelector";
 import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
 import CheckoutProductSkeleton from "@/components/ui/skeleton/CheckoutProductSkeleton";
+import {
+  applyCouponToCart,
+  removeCouponFromCart,
+} from "@/core/cart/action/cart.actions";
 
 export default function ContactFormPage() {
   const {
@@ -16,13 +21,46 @@ export default function ContactFormPage() {
     total,
     loading,
     fetchItems,
+    coupon: appliedCoupon,
   } = useUnifiedCartStore();
 
-    useEffect(() => {
-    fetchItems(); 
+  const [couponInput, setCouponInput] = useState("");
+  const [isApplying, setIsApplying] = useState(false);
+
+  useEffect(() => {
+    fetchItems();
   }, [fetchItems]);
 
-  const [coupon, setCoupon] = useState("");
+  const handleApplyCoupon = async () => {
+    if (!couponInput.trim()) {
+      toast.error("Por favor ingresa un código");
+      return;
+    }
+
+    try {
+      setIsApplying(true);
+      await applyCouponToCart(couponInput);
+      await fetchItems();
+      toast.success("Cupón aplicado exitosamente");
+      setCouponInput("");
+    } catch (error) {
+      console.error("❌ Error al aplicar cupón:", error);
+      toast.error("Cupón inválido o expirado");
+    } finally {
+      setIsApplying(false);
+    }
+  };
+
+  const handleRemoveCoupon = async () => {
+    try {
+      await removeCouponFromCart();
+      await fetchItems();
+      toast.success("Cupón eliminado");
+    } catch (error) {
+      console.error("❌ Error al eliminar cupón:", error);
+      toast.error("No se pudo quitar el cupón");
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-30 md:px-3 landscape:px-20">
@@ -34,16 +72,16 @@ export default function ContactFormPage() {
       {/* Resumen */}
       <section className="space-y-10">
         <div className="bg-white p-6 text-xs shadow-sm">
-          <h3 className=" font-bold text-[#001243] mb-4">RESUMEN DE PEDIDO</h3>
+          <h3 className="font-bold text-[#001243] mb-4">RESUMEN DE PEDIDO</h3>
 
           {/* Encabezado */}
-          <div className=" font-semibold text-gray-500 grid grid-cols-20 border-b pb-2">
+          <div className="font-semibold text-gray-500 grid grid-cols-20 border-b pb-2">
             <span className="col-span-8">Producto</span>
             <span className="text-center col-span-5">Precio</span>
             <span className="text-right">Cantidad</span>
           </div>
 
-          {/* Lista */}
+          {/* Lista de productos */}
           <div className="divide-y">
             {loading
               ? Array.from({ length: 3 }).map((_, i) => (
@@ -69,7 +107,7 @@ export default function ContactFormPage() {
                       </div>
                     </div>
                     <div className="col-span-5 text-center">
-                      <span className=" font-bold text-primario">
+                      <span className="font-bold text-primario">
                         S/ {product.discountedPrice.toFixed(2)}
                       </span>
                     </div>
@@ -93,24 +131,45 @@ export default function ContactFormPage() {
             CANTIDAD A PAGAR
           </h3>
 
-          <div className="flex gap-2 mb-2">
-            <input
-              type="text"
-              placeholder="Ingresa el código"
-              value={coupon}
-              onChange={(e) => setCoupon(e.target.value)}
-              className="border w-full px-3 py-2"
-            />
-            <button className="bg-[#001243] text-white px-4 py-2 hover:bg-opacity-90 transition">
-              AGREGAR CUPÓN
-            </button>
-          </div>
+          {/* Cupón */}
+          {appliedCoupon ? (
+            <div className="flex justify-between items-center bg-green-50 text-green-700 p-2 border rounded mb-2">
+              <span>
+                Cupón aplicado:
+                <strong>{appliedCoupon.code}</strong> (-
+                {appliedCoupon.discountPercentage}%)
+              </span>
+              <button
+                onClick={handleRemoveCoupon}
+                className="text-red-500 hover:underline text-sm cursor-pointer"
+              >
+                Quitar
+              </button>
+            </div>
+          ) : (
+            <div className="flex gap-2 mb-2">
+              <input
+                type="text"
+                placeholder="Ingresa el código"
+                value={couponInput}
+                onChange={(e) => setCouponInput(e.target.value)}
+                className="border w-full px-3 py-2"
+              />
+              <button
+                onClick={handleApplyCoupon}
+                disabled={isApplying}
+                className="bg-[#001243] text-white px-4 py-2 hover:bg-opacity-90 transition disabled:opacity-50 cursor-pointer"
+              >
+                {isApplying ? "Aplicando..." : "AGREGAR CUPÓN"}
+              </button>
+            </div>
+          )}
 
-          <p className=" text-gray-500 mb-4">
+          <p className="text-gray-500 mb-4">
             Cupón disponible solo por campaña
           </p>
 
-          <div className=" space-y-2 border-t pt-2">
+          <div className="space-y-2 border-t pt-2">
             <div className="flex justify-between">
               <span>Sub total</span>
               <span>S/ {subtotal.toFixed(2)}</span>

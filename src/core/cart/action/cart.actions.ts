@@ -1,16 +1,16 @@
 import productsApi from '@/core/api/productsApi';
 import { Cart } from '../interface/cart';
 
+// 🔹 Agregar item al carrito
 export const addItemToCart = async (
   productId: number,
-  quantity: number,
+  quantity: number
 ) => {
   try {
-
-    const response = await productsApi.put(
-      '/cart/add-item',
-      { productId, quantity },
-    );
+    const response = await productsApi.put('/cart/add-item', {
+      productId,
+      quantity,
+    });
     return response.data;
   } catch (error) {
     console.error('Error al agregar al carrito:', error);
@@ -18,13 +18,26 @@ export const addItemToCart = async (
   }
 };
 
-
+// 🔹 Obtener carrito actual
 export const getCart = async (): Promise<Cart> => {
-try {
-  const response = await productsApi.get<Cart>("/cart");
-  return response.data;
-}catch (error) {
+  try {
+    const response = await productsApi.get<Cart>('/cart');
+    return response.data;
+  } catch (error) {
     console.error('Error al obtener el carrito:', error);
     throw error;
   }
 };
+
+
+
+export const applyCouponToCart = async (couponCode: string) => {
+  await productsApi.put("/cart/apply-coupon", null, {
+    params: { couponCode },
+  });
+};
+
+export const removeCouponFromCart = async () => {
+  await productsApi.put("/cart/remove-coupon"); 
+};
+

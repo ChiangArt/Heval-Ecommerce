@@ -24,18 +24,20 @@ export interface ContactInfo {
 }
 
 export interface OrderItem {
-    id:            number;
-    productId:     number;
-    productTitle:  string;
-    quantity:      number;
-    price:         number;
-    discountPrice: number;
+    id:                 number;
+    productId:          number;
+    productTitle:       string;
+    productDescription: string;
+    imageUrl:           string[];
+    quantity:           number;
+    price:              number;
+    discountedPrice:    number;
 }
 
 export interface PaymentDetails {
     paymentMethod:     string;
     status:            string;
-    paymentId:         string;
+    paymentId:         number;
     externalReference: string;
     payerEmail:        string;
     transactionAmount: string;

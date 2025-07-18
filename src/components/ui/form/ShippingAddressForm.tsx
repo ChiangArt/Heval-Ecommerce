@@ -6,6 +6,7 @@ import {
 } from "@/core/validations/shipping-info/shippingInfo";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
+
 const initialValues: ShippingFormValues = {
   fullAddress: "",
   apartmentOrFloor: "",
@@ -42,7 +43,8 @@ export default function ShippingAddressForm() {
 
       localStorage.setItem("current_order_id", orderId.toString());
 
-      await createPreference(orderId);
+      const initPoint = await createPreference(orderId);
+      window.location.href = initPoint;
       return;
     } catch (error) {
       console.error("Error durante el proceso de checkout:", error);
@@ -64,7 +66,7 @@ export default function ShippingAddressForm() {
       }}
       onSubmit={handleSubmit}
     >
-      <Form className="text-secundario bg-white p-10 max-w-lg mx-auto text-sm md:text-md">
+      <Form className=" text-secundario bg-white p-10 max-w-2xl mx-auto text-sm md:text-md">
         <div className="flex flex-row items-center gap-2 border-b-2 pb-4 mb-10">
           <span className="p-1 px-3 bg-primario text-white text-lg font-semibold">
             2
@@ -136,9 +138,9 @@ export default function ShippingAddressForm() {
         <div className="mt-6">
           <button
             type="submit"
-            className="bg-primario text-white py-3 px-6 font-bold hover:bg-opacity-90 transition w-full"
+            className="cursor-pointer bg-primario text-white py-3 px-6 font-bold hover:bg-opacity-90 transition w-full"
           >
-            FINALIZAR PEDIDO
+            REALIZAR PAGO
           </button>
         </div>
       </Form>

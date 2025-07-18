@@ -2,11 +2,9 @@ import { CartItemUnified } from "@/core/cart/interface/cart-items";
 import { create } from "zustand";
 import { useGuestCartStore } from "./use-guest-cart-store";
 import { getProductById } from "@/core/product/action/product.actions";
-import { addItemToCart, getCart } from "@/core/cart/action/cart.actions";
-import {
-  deleteCartItem,
-  updateCartItem,
-} from "@/core/cart/action/cart-item.actions";
+import { addItemToCart, getCart, applyCouponToCart, removeCouponFromCart } from "@/core/cart/action/cart.actions";
+import { deleteCartItem, updateCartItem } from "@/core/cart/action/cart-item.actions";
+import { Coupon } from "@/core/coupon/interface/CouponResponse";
 
 interface UnifiedCartState {
   items: CartItemUnified[];
@@ -14,10 +12,14 @@ interface UnifiedCartState {
   subtotal: number;
   discount: number;
   total: number;
+  coupon: Coupon | null; // ✅ cupón aplicado
   fetchItems: () => Promise<void>;
   addItem: (productId: number, quantity: number) => Promise<void>;
   updateItem: (productId: number, quantity: number) => Promise<void>;
   removeItem: (productId: number) => Promise<void>;
+
+  applyCoupon: (couponCode: string) => Promise<void>;   // ✅ nuevo
+  removeCoupon: () => Promise<void>;                    // ✅ nuevo
 }
 
 export const useUnifiedCartStore = create<UnifiedCartState>((set, get) => ({
@@ -26,12 +28,12 @@ export const useUnifiedCartStore = create<UnifiedCartState>((set, get) => ({
   subtotal: 0,
   discount: 0,
   total: 0,
+  coupon: null,
 
   fetchItems: async () => {
     set({ loading: true });
 
     const token = localStorage.getItem("token");
-
     let enriched: CartItemUnified[] = [];
 
     if (!token) {
@@ -50,8 +52,22 @@ export const useUnifiedCartStore = create<UnifiedCartState>((set, get) => ({
           };
         })
       );
+
+      const subtotal = enriched.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      const total = enriched.reduce((acc, item) => acc + item.discountedPrice * item.quantity, 0);
+
+      set({
+        items: enriched,
+        subtotal,
+        total,
+        discount: subtotal - total,
+        loading: false,
+        coupon: null,
+      });
+
     } else {
       const cart = await getCart();
+
       enriched = cart.cartItems.map((item) => ({
         cartItemId: item.id,
         productId: item.productId,
@@ -62,24 +78,19 @@ export const useUnifiedCartStore = create<UnifiedCartState>((set, get) => ({
         discountedPrice: item.discountedPrice,
         availableStock: 99,
       }));
+
+      const subtotal = cart.totalPrice;
+      const total = cart.totalDiscountPrice;
+
+      set({
+        items: enriched,
+        subtotal,
+        total,
+        discount: subtotal - total,
+        loading: false,
+        coupon: cart.coupon || null, 
+      });
     }
-
-    const subtotal = enriched.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
-    const total = enriched.reduce(
-      (acc, item) => acc + item.discountedPrice * item.quantity,
-      0
-    );
-
-    set({
-      items: enriched,
-      subtotal,
-      total,
-      discount: subtotal - total,
-      loading: false,
-    });
   },
 
   addItem: async (productId, quantity) => {
@@ -119,6 +130,22 @@ export const useUnifiedCartStore = create<UnifiedCartState>((set, get) => ({
       if (!current || !current.cartItemId) return;
       await deleteCartItem(current.cartItemId);
     }
+    await get().fetchItems();
+  },
+
+  applyCoupon: async (couponCode: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    await applyCouponToCart(couponCode);
+    await get().fetchItems();
+  },
+
+  removeCoupon: async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    await removeCouponFromCart();
     await get().fetchItems();
   },
 }));

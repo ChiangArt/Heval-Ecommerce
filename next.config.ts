@@ -3,7 +3,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'heval-group-rrgaeg144.s3.amazonaws.com', // sin us-east-2
+        hostname: 'heval-group-rrgaeg144.s3.us-east-2.amazonaws.com', 
         pathname: '/**',
       },
       {

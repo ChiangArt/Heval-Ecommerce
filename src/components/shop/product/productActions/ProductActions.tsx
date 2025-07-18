@@ -6,8 +6,8 @@ import Button from "@/components/ui/button/Button";
 import { useCartUIStore } from "@/store/ui/ui-cart-store";
 import Link from "next/link";
 import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
+import { useOverlayStore } from "@/store/ui/use-overlay-store";
 
-// Recibe id y stock como props del producto
 export default function ProductActions({
   id,
   stock,
@@ -16,8 +16,8 @@ export default function ProductActions({
   stock: number;
 }) {
   const { openCartSideMenu } = useCartUIStore();
-  const { addItem } = useUnifiedCartStore(); // <- uso del store unificado
-
+  const { addItem } = useUnifiedCartStore();
+  const { showOverlay, hideOverlay } = useOverlayStore();
   const [quantity, setQuantity] = useState(1);
   const [isPending, setIsPending] = useState(false);
 
@@ -33,13 +33,15 @@ export default function ProductActions({
     }
 
     try {
+      showOverlay();
       setIsPending(true);
-      await addItem(id, quantity); 
+      await addItem(id, quantity);
       toast.success("Producto agregado al carrito 🛒");
-    } catch  {
-      toast.error( "Error al agregar al carrito");
+    } catch {
+      toast.error("Error al agregar al carrito");
     } finally {
       setIsPending(false);
+      hideOverlay();
     }
   };
 

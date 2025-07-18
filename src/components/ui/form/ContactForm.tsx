@@ -1,10 +1,19 @@
 "use client";
-
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
-import {ContactFormValues, personalInfoSchema} from "@/core/validations/personal-info/personalInfo";
 import { useRouter } from "next/navigation";
 import { startTransition } from "react";
+import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
+import toast from "react-hot-toast";
+import { accountDetailsSchema } from "@/core/validations/personal-info/accountDetailsSchema";
+
+interface ContactFormValues {
+  fullName: string;
+  cel: string;
+  email: string;
+  documentType: string;
+  identityDocument: string;
+}
 
 const initialValues: ContactFormValues = {
   fullName: "",
@@ -16,11 +25,18 @@ const initialValues: ContactFormValues = {
 
 export default function ContactForm() {
   const router = useRouter();
+  const cartItems = useUnifiedCartStore((state) => state.items);
 
   const handleSubmit = (values: ContactFormValues) => {
+    if (cartItems.length === 0) {
+      toast.error("No hay productos en el carrito");
+      return; // ❌ Detener aquí si el carrito está vacío
+    }
+
     localStorage.setItem("guest_contact_info", JSON.stringify(values));
+
     startTransition(() => {
-      router.push("/shop/checkout/address"); // o .replace() si no quieres que vuelvan atrás
+      router.push("/shop/checkout/address");
     });
   };
 
@@ -29,9 +45,9 @@ export default function ContactForm() {
       initialValues={initialValues}
       validate={(values) => {
         try {
-          personalInfoSchema.parse(values); // validación Zod
+          accountDetailsSchema.parse(values); 
           return {};
-        } catch  {
+        } catch {
           const errors: Record<string, string> = {};
 
           return errors;

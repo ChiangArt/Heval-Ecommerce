@@ -28,8 +28,8 @@ export default function LoginPage() {
   }, [from]);
 
   return (
-    <div className="max-w-xl mx-auto p-4 py-40 font-bold">
-      <h1 className="text-xl">INICIAR SESIÓN</h1>
+    <div className="max-w-xl text-xs sm:text-sm mx-auto p-4 py-40 font-bold">
+      <h1 className="text-sm sm:text-lg">INICIAR SESIÓN</h1>
 
       <Formik<Login>
         initialValues={{ email: "", password: "" }}
@@ -47,19 +47,26 @@ export default function LoginPage() {
         onSubmit={async (values, { setSubmitting }) => {
           try {
             const response: LoginResponse = await postAuthLogin(values);
-            const { token } = response;
+            console.log("esta es la respuesta", response);
+            const { token, role } = response;
+
             document.cookie = `token=${token}; path=/;`;
             localStorage.setItem("token", token);
             setToken(token);
+
             toast.success("¡Sesión iniciada!");
             await syncGuestCartToUserCart();
 
-            router.push(from);
+            if (role === "ADMIN") {
+              router.push("/admin");
+            } else if (from && from !== "/") {
+              router.push(from);
+            } else {
+              router.push("/profile");
+            }
           } catch (error) {
             const err = error as AxiosError<{ message: string }>;
-            toast.error(
-              err.response?.data?.message || "Error al crear logearse"
-            );
+            toast.error(err.response?.data?.message || "Error al logearse");
           } finally {
             setSubmitting(false);
           }
@@ -98,7 +105,7 @@ export default function LoginPage() {
               <div className="flex justify-end">
                 <Link
                   href={"/auth/login/forgot-password"}
-                  className="text-sm hover:underline cursor-pointer"
+                  className="text-xs hover:underline cursor-pointer"
                 >
                   ¿Olvidó su contraseña?
                 </Link>
@@ -111,11 +118,11 @@ export default function LoginPage() {
                 className="bg-secundario w-full text-white"
                 title={isSubmitting ? "Iniciando..." : "INICIAR SESIÓN"}
               />
-              <Link className="w-full" href={"/auth/new-account"}>
-                <Button
-                  className="bg-white w-full border-1"
-                  title="CREAR CUENTA"
-                />
+              <Link
+                className="bg-white border-secundario text-center flex items-center justify-center hover:bg-secundario/95 hover:text-white w-full border-1 py-2 font-semibold"
+                href={"/auth/new-account"}
+              >
+                CREAR CUENTA
               </Link>
             </div>
           </Form>

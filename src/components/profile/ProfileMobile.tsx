@@ -5,18 +5,20 @@ import { AxiosError } from "axios";
 import AccountDetails from "./AccountDetails";
 import Button from "../ui/button/Button";
 import OrderGrid from "../order/OrderGrid";
-import { getOrders } from "@/core/order/action/order.actions";
+import { getOrdersByUser } from "@/core/order/action/order.actions";
 import { Order } from "@/core/order/interface/order";
+import { useOverlayStore } from "@/store/ui/use-overlay-store";
 
 export default function ProfileMobile() {
   const [activeView, setActiveView] = useState<"profile" | "order">("profile");
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { showOverlay, hideOverlay } = useOverlayStore();
 
   useEffect(() => {
     const loadOrders = async () => {
       try {
-        const orderData = await getOrders();
+        const orderData = await getOrdersByUser();
         setOrders(orderData);
       } catch (error) {
         const err = error as AxiosError<{ message: string }>;
@@ -25,24 +27,29 @@ export default function ProfileMobile() {
         );
       } finally {
         setLoading(false);
+        hideOverlay(); // ← Ocultar overlay al terminar
       }
     };
 
     loadOrders();
-  }, []);
+  }, [hideOverlay]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-30 md:px-3 landscape:px-20">
+    <div className="grid grid-cols-1 gap-8">
       <div className="grid grid-cols-2 gap-4 px-2 text-center">
         <Button
           onClick={() => setActiveView("profile")}
-          className={`${
+          className={` ${
             activeView === "profile" ? "bg-secundario text-white" : "border-2"
           }`}
           title="MI CUENTA"
         />
         <Button
-          onClick={() => setActiveView("order")}
+          onClick={() => {
+            setActiveView("order");
+            // Mostrar overlay solo si aún está cargando
+            if (loading) showOverlay();
+          }}
           className={`${
             activeView === "order" ? "bg-secundario text-white" : "border-2"
           }`}
