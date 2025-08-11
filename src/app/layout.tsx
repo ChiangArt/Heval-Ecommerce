@@ -29,11 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body
-        className={`${inter.variable} ${jetBrainsMono.variable} font-sans`}
-      >
-        <ToasterProvider/>
-        <TokenInitializer />
+      <body className={`${inter.variable} ${jetBrainsMono.variable} font-sans`}>
+          <ToasterProvider />
+          <TokenInitializer />
         {children}
       </body>
     </html>

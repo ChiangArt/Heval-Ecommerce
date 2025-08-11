@@ -1,3 +1,5 @@
+"use client";
+
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import ConsumerInformation from "@/components/ui/footer/consumer-information/ConsumerInformation";
 import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
