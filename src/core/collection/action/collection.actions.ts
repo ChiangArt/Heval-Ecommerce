@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import productsApi from "@/core/api/productsApi";
 import { Collection } from "../interface/collectionResponse";
 import { AxiosError } from "axios";
@@ -16,16 +14,10 @@ export const getCollections = async (): Promise<Collection[]> => {
 };
 
 export const getCollectionById = async (
-  token: string,
   collectionId: number
 ): Promise<Collection | null> => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/collections/${collectionId}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const { data } = await productsApi.get(`/collections/${collectionId}`);
     return data;
   } catch (err) {
     const error = err as AxiosError;

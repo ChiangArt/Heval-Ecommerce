@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import productsApi from "@/core/api/productsApi";
 import { PaginatedProductsResponse, Product } from "../interface/productResponse";
 
@@ -23,7 +21,7 @@ export interface CreateProductRequest {
   descriptionArchetype: string;
   material: string;
   price: number;
-  color: string;
+  colors: string[];
   quantity: number;
   discountPercentage: number;
   discountUntil: string; 
@@ -46,7 +44,7 @@ export const getProducts = async (
     if (filters.colors) params.set("colors", filters.colors);
     if (filters.coleccionId) params.set("coleccion", filters.coleccionId.toString());
 
-    if (filters.searchText) params.set("searchText", filters.searchText); 
+    if (filters.searchText) params.set("searchText", filters.searchText); // 👈 esto es clave
 
     if (filters.sortDirection) {
       params.set("sort", `price,${filters.sortDirection}`);
@@ -61,21 +59,35 @@ export const getProducts = async (
 };
 
 
+export const getAdminProducts = async (
+  page = 0,
+  size = 20,
+  filters: ProductAdminFilters = {}
+): Promise<PaginatedProductsResponse> => {
+  try {
+    const params = new URLSearchParams();
+
+    params.set("page", page.toString());
+    params.set("size", size.toString());
+
+    if (filters.searchText) {
+      params.set("searchText", filters.searchText);
+    }
+
+    const { data } = await productsApi.get(`/products/admin?${params.toString()}`);
+    return data;
+  } catch (error) {
+    console.error("Error al obtener productos del admin", error);
+    throw error;
+  }
+};
+
+
 export const getProductById = async (
   id: number 
 ): Promise<Product> => {
   try {
     const { data } = await productsApi.get(`/products/${id}`);
-    return data;
-  } catch (error) {
-    console.error("Error al obtener producto por ID", error);
-    throw error;
-  }
-};
-
-export const getProductByColors = async (): Promise<string[]> => {
-  try {
-    const { data } = await productsApi.get(`/products/colors`);
     return data;
   } catch (error) {
     console.error("Error al obtener producto por ID", error);
@@ -99,23 +111,16 @@ export const getProductsBySlug = async (
 
 
 export const getProductsByCollectionId = async (
-  token: string,
-  collectionId: number
+  collectionId : number 
 ): Promise<Product[]> => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/products/by-collection/${collectionId}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const { data } = await productsApi.get(`/products/by-collection/${collectionId}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener productos por colección", error);
+    console.error("Error al obtener los productos de la collecion por ID", error);
     throw error;
   }
 };
-
 
 
 export const createProduct = async (
@@ -125,7 +130,7 @@ export const createProduct = async (
     const { data } = await productsApi.post("/products", product);
     return data;
   } catch (error) {
-    console.error(" Error al crear el producto:", error);
+    console.error("❌ Error al crear el producto:", error);
     throw error;
   }
 };
@@ -139,7 +144,7 @@ export const updateProduct = async (
     const { data } = await productsApi.put(`/products/${id}`, updatedProduct);
     return data;
   } catch (error) {
-    console.error(" Error al actualizar el producto:", error);
+    console.error("❌ Error al actualizar el producto:", error);
     throw error;
   }
 };
@@ -152,7 +157,7 @@ export const deleteProduct = async (
   try {
     await productsApi.delete(`/products/${id}`);
   } catch (error) {
-    console.error(" Error al eliminar el producto:", error);
+    console.error("❌ Error al eliminar el producto:", error);
     throw error;
   }
 };

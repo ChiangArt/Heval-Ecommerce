@@ -1,7 +1,6 @@
 import HomeClient from "@/components/home/client/HomeClient";
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
-import { getAnonymousToken } from "@/core/auth/action/auth.actions";
 import { getAllBanners } from "@/core/banner/action/banner.actions";
 import { getCollectionById } from "@/core/collection/action/collection.actions";
 import { getProductsByCollectionId } from "@/core/product/action/product.actions";
@@ -27,21 +26,19 @@ const videos = [
 
 
 export default async function HomePage() {
-  const token = await getAnonymousToken();
-
   let productsByCollection: Product[] = [];
   let firsCollection = null;
   let banners = [];
   let formattedDate = "(fecha no disponible)";
 
   try {
-    productsByCollection = await getProductsByCollectionId(token, 1);
+    productsByCollection = await getProductsByCollectionId(1);
   } catch (error) {
     console.error("❌ Error al obtener productos:", error);
   }
 
   try {
-    firsCollection = await getCollectionById(token, 1);
+    firsCollection = await getCollectionById(1);
     const rawCreatedAt = firsCollection?.createdAt;
     if (rawCreatedAt) {
       const createdAt = new Date(rawCreatedAt);
@@ -56,7 +53,8 @@ export default async function HomePage() {
   }
 
   try {
-    banners = await getAllBanners(token);
+    banners = await getAllBanners();
+    
   } catch (error) {
     console.error("❌ Error al obtener banners:", error);
   }
@@ -75,3 +73,4 @@ export default async function HomePage() {
     </>
   );
 }
+
