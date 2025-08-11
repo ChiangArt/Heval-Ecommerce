@@ -6,8 +6,12 @@ import { getProductsByCollectionId } from "@/core/product/action/product.actions
 
 type Params = { slug: string };
 
-export default async function CollectionBySlugPage({ params }: { params: Params }) {
-  const { slug } = params;
+export default async function CollectionBySlugPage({
+  params,
+}: {
+  params: Promise<Params>; 
+}) {
+  const { slug } = await params; 
 
   const collections = await getCollections();
 
@@ -45,4 +49,4 @@ export default async function CollectionBySlugPage({ params }: { params: Params 
       <hr className="my-6 border-t-2 border-gray-300" />
     </main>
   );
-}  
+}
