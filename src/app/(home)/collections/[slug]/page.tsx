@@ -4,18 +4,10 @@ import CollectionGrid from "@/components/collections/collection-grid/CollectionG
 import { Title } from "@/components/ui/title/Title";
 import { getProductsByCollectionId } from "@/core/product/action/product.actions";
 
-interface Props {
-  params: { slug: string };
-}
+type Params = { slug: string };
 
-export default async function CollectionBySlugPage({ params }: Props) {
+export default async function CollectionBySlugPage({ params }: { params: Params }) {
   const { slug } = params;
-  const date = new Date("2025-06-25T06:35:14.835Z");
-
-  const formatted = date.toLocaleDateString("es-PE", {
-    year: "numeric",
-    month: "numeric",
-  });
 
   // 1. Obtener todas las colecciones
   const collections = await getCollections();
@@ -28,19 +20,28 @@ export default async function CollectionBySlugPage({ params }: Props) {
   // 3. Obtener productos por ID de la colección
   const products = await getProductsByCollectionId(collection.id);
 
+  // Formatear la fecha una vez que confirmamos la colección
+  const createdDate = collection.createdAt ? new Date(collection.createdAt) : null;
+  const formattedDate = createdDate
+    ? createdDate.toLocaleDateString("es-PE", {
+        year: "numeric",
+        month: "numeric",
+      })
+    : null;
+
   return (
     <main className="p-4 pt-25">
-      <hr className=" border-t border-gray-300 my-2" />
+      <hr className="border-t border-gray-300 my-2" />
 
       <Title
-        headerItems={["Nueva Colección", `(${formatted})`, "Disponible ya"]}
-        title={`${collection.headlineTitle}`}
+        headerItems={["Nueva Colección", formattedDate ? `(${formattedDate})` : "", "Disponible ya"]}
+        title={collection.headlineTitle}
         description1={collection.descriptionLine1 || ""}
         description2={collection.descriptionLine2 || ""}
-        className="py-8  bg-[rgba(232,227,222,0.40)]"
+        className="py-8 bg-[rgba(232,227,222,0.40)]"
       />
 
-      <hr className=" border-t border-gray-300 my-2" />
+      <hr className="border-t border-gray-300 my-2" />
 
       <CollectionGrid products={products} />
 
