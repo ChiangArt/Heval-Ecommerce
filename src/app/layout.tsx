@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ToasterProvider } from "@/components/ui/toaster-provider/ToasterProvider";
+import TokenInitializer from "@/components/ui/token-initializer/TokenInitializer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,6 +33,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetBrainsMono.variable} font-sans`}
       >
         <ToasterProvider/>
+        <TokenInitializer />
         {children}
       </body>
     </html>

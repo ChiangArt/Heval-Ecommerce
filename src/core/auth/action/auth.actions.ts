@@ -80,3 +80,14 @@ export const postAuthSendCode = async (email: string) => {
     throw error;
   }
 };
+
+
+export const getAnonymousToken = async (): Promise<string> => {
+  try {
+    const { data } = await productsApi.get("/auth/anonymous-token");
+    return data;
+  } catch (error) {
+    console.error("Error al obtener token anónimo", error);
+    throw error;
+  }
+};

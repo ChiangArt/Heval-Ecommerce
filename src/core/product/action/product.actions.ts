@@ -97,16 +97,17 @@ export const getProductsBySlug = async (
 
 
 export const getProductsByCollectionId = async (
-  collectionId : number 
+  collectionId: number
 ): Promise<Product[]> => {
   try {
     const { data } = await productsApi.get(`/products/by-collection/${collectionId}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener los productos de la collecion por ID", error);
+    console.error("Error al obtener productos por colección", error);
     throw error;
   }
 };
+
 
 
 export const createProduct = async (

@@ -1,7 +1,9 @@
 import axios from "axios";
 
+console.log("API base URL en tiempo de build/ejecución:", process.env.NEXT_PUBLIC_API_URL);
 
 const productsApi = axios.create({
+  
   baseURL: process.env.NEXT_PUBLIC_API_URL, 
 
  
