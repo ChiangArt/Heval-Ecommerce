@@ -1,3 +1,4 @@
+import axios from "axios";
 import productsApi from "@/core/api/productsApi";
 import {
   LoginRequest,
@@ -84,10 +85,11 @@ export const postAuthSendCode = async (email: string) => {
 
 export const getAnonymousToken = async (): Promise<string> => {
   try {
-    const { data } = await productsApi.get("/auth/anonymous-token");
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/anonymous-token`);
     return data;
   } catch (error) {
     console.error("Error al obtener token anónimo", error);
     throw error;
   }
 };
+
