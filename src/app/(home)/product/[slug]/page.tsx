@@ -19,7 +19,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = params;
   const product = await getProductsBySlug(slug);
-  const baseUrl = "https://heval.com"; 
+  const baseUrl = "https://heval.com";
 
   if (!product) {
     return {
@@ -39,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      type: "website", 
+      type: "website",
       url: `${baseUrl}/producto/${slug}`,
       images: [
         {
@@ -62,7 +62,7 @@ export async function generateMetadata({
 export default async function ProductBySlugPage({
   params,
 }: {
-  params: Params;
+  params: Promise<Params>;
 }) {
   const { slug } = await params;
   const product = await getProductsBySlug(slug);
