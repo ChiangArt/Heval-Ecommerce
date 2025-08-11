@@ -1,5 +1,5 @@
 import React from "react";
-import { getProducts } from "@/core/product/action/product.actions";
+import { getProductByColors, getProducts } from "@/core/product/action/product.actions";
 import { redirect } from "next/navigation";
 import { getCollections } from "@/core/collection/action/collection.actions";
 import { Metadata } from "next";
@@ -65,16 +65,11 @@ export default async function ShopPage({
   }
 
   try {
-    const [{ content: products, totalPages }, colecciones] = await Promise.all([
+    const [{ content: products, totalPages }, colecciones, coloresDisponibles,] = await Promise.all([
       getProducts(page, 20, { colors, coleccionId: id, sortDirection }),
       getCollections(),
+      getProductByColors(),
     ]);
-
-    const coloresDisponibles = [
-      ...new Set(
-        products.flatMap((p) => (Array.isArray(p.colors) ? p.colors : []))
-      ),
-    ];
 
     if (page >= totalPages) {
       redirect("/shop?page=0");

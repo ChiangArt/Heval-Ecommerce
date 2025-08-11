@@ -75,7 +75,7 @@ export default function OrderDetails({ order, userName }: Props) {
 
         <div>
           <h3 className="text-secundario font-medium mb-1">Método de envío:</h3>
-          <p>Delivery estándar (1 o 2 días hábiles)</p>
+          <p>Delivery estándar</p>
         </div>
 
         <div>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import {
   deleteProduct,
-  getAdminProducts,
+  getProducts,
 } from "@/core/product/action/product.actions";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -60,7 +60,8 @@ export default function AdminProducts() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await getAdminProducts(0, 20, {
+        const res = await getProducts(0, 20, {
+          
           searchText: debouncedSearchTerm,
         });
         setProducts(res.content);
@@ -212,7 +213,7 @@ export default function AdminProducts() {
             onUpdate={() => {
               setIsModalOpen(false);
               setProductToEdit(undefined);
-              getAdminProducts(0, 20, {
+              getProducts(0, 20, {
                 searchText: debouncedSearchTerm,
               }).then((res) => setProducts(res.content));
             }}
@@ -243,7 +244,7 @@ export default function AdminProducts() {
                     try {
                       await deleteProduct(productToDelete.id);
                       toast.success("Producto eliminado");
-                      const res = await getAdminProducts(0, 20, {
+                      const res = await getProducts(0, 20, {
                         searchText: debouncedSearchTerm,
                       });
                       setProducts(res.content);

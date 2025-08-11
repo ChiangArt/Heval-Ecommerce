@@ -34,7 +34,7 @@ export default function WholesaleContact({ className }: Props) {
         </p>
       ) : (
         <Formik<WholesaleContactFormValues>
-          initialValues={{ nombre: "", email: "", mensaje: "" }}
+          initialValues={{ name: "", email: "", message: "" }}
           validate={(values) => {
             const result = wholesaleContactSchema.safeParse(values);
             if (result.success) return {};
@@ -58,12 +58,12 @@ export default function WholesaleContact({ className }: Props) {
             <Form className="flex flex-col gap-4 w-full max-w-md mx-auto mt-4">
               <div className="text-left">
                 <Field
-                  name="nombre"
+                  name="name"
                   placeholder="Tu nombre"
                   className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-turquesa"
                 />
                 <ErrorMessage
-                  name="nombre"
+                  name="name"
                   component="div"
                   className="text-red-500 text-sm"
                 />
@@ -86,13 +86,13 @@ export default function WholesaleContact({ className }: Props) {
               <div className="text-left">
                 <Field
                   as="textarea"
-                  name="mensaje"
+                  name="message"
                   placeholder="Escribe tu mensaje"
                   className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-turquesa resize-none"
                   rows={4}
                 />
                 <ErrorMessage
-                  name="mensaje"
+                  name="message"
                   component="div"
                   className="text-red-500 text-sm"
                 />

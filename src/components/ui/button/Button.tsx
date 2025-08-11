@@ -8,6 +8,7 @@ interface Props {
   loadingVariant?: "fill" | "none";
   className?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean; // ✅ Prop opcional para deshabilitar
 }
 
 export default function Button({
@@ -17,16 +18,18 @@ export default function Button({
   loadingVariant = "none",
   className = "",
   type = "button",
+  disabled = false, // ✅ Valor por defecto
 }: Props) {
   return (
     <button
       type={type}
       onClick={() => {
-        if (!loading && onClick) onClick();
+        if (!loading && !disabled && onClick) onClick();
       }}
+      disabled={disabled} // ✅ Deshabilita el botón a nivel HTML
       className={`
-         overflow-hidden px-6 py-3 lg:py-4 font-semibold transition-opacity flex items-center justify-center gap-2
-        ${loading ? "pointer-events-none" : "cursor-pointer hover:opacity-90"}
+        relative overflow-hidden px-6 py-3 lg:py-4 font-semibold transition-opacity flex items-center justify-center gap-2
+        ${loading || disabled ? "pointer-events-none opacity-50" : "cursor-pointer hover:opacity-90"}
         ${className}
       `}
     >

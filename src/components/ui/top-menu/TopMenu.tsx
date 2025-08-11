@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -19,13 +18,16 @@ interface TopMenuProps {
   initialMargin?: boolean;
   fixedOnScroll?: boolean;
   logoHref?: string;
+  bgColorTop?: string;
+  bgColorScrolled?: string;
 }
 
 export default function TopMenu({
-  showBackdropBlur = true,
   initialMargin = true,
   fixedOnScroll = true,
   logoHref = "/",
+  bgColorTop = "bg-transparent",
+  bgColorScrolled = "bg-primario",
 }: TopMenuProps) {
   const openSearch = useSearchUIStore((state) => state.openSearch);
   const [isFixed, setIsFixed] = useState(false);
@@ -75,9 +77,9 @@ export default function TopMenu({
 
   const containerClass = `
     w-full z-20 p-1 px-1 landscape:px-2 text-white 
-    ${isFixed ? "fixed top-0 translate-y-0" : "fixed"}
+    fixed top-0 translate-y-0
+    ${isFixed ? bgColorScrolled : bgColorTop}
     ${initialMargin && !isFixed ? "mt-5" : ""}
-    ${showBackdropBlur ? " bg-trasparent" : "bg-primario"}
   `;
 
   return (

@@ -10,7 +10,6 @@ import { EssentialsSection } from "../essentials-section/EssentialsSection";
 import { MobileVideoSection } from "../mobile-video-section/MobileVideoSection";
 import { HeroVideoSection } from "../hero-video-section/HeroVideoSection";
 import { DesktopVideoSection } from "../desktop-video-section/DesktopVideoSection";
-// import { ContactSection } from "../contact-section/ContactSection";
 import { AboutUsSection } from "../about-us-section/AboutUsSection";
 import { WhatsAppButton } from "@/components/ui/whatsApp-button/WhatsAppButton";
 import { PromoModal } from "../promo-modal/PromoModal";
@@ -38,18 +37,8 @@ export default function HomeClient({
   useEnableAudioOnVisible(videoRef2);
   useEnableAudioOnVisible(videoRef3);
 
-  const videoBanner = banners.find((b) =>
-    b.urls?.some(
-      (url) =>
-        url.toLowerCase().includes("web") || url.toLowerCase().includes("movil")
-    )
-  );
-
-  const desktopUrl =
-    videoBanner?.urls?.find((url) => url.toLowerCase().includes("web")) ?? "";
-
-  const mobileUrl =
-    videoBanner?.urls?.find((url) => url.toLowerCase().includes("movil")) ?? "";
+const videoBanner = banners.find(b => b.urls.length >= 2) ?? { urls: ["", ""] };
+const [desktopUrl, mobileUrl] = videoBanner.urls;
 
   return (
     <main className="snap-y snap-mandatory h-screen min-h-[100dvh] lg:h-screen">

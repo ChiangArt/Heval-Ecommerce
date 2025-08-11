@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import axios from "axios";
+
 import {
   Dialog,
   DialogTrigger,
@@ -16,7 +18,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 import { ImageIcon } from "lucide-react";
 import { upload } from "@/core/upload/action/upload.actions";
-import { createBanner } from "@/core/banner/action/banner.actions"; // usa tu nuevo módulo
+import { createBanner } from "@/core/banner/action/banner.actions";
+import Image from "next/image";
 
 export function AddBannerModal() {
   const [open, setOpen] = useState(false);
@@ -44,36 +47,70 @@ export function AddBannerModal() {
     }
   };
 
+const renderPreview = (file: File | null, preview: string | null, label: string) => {
+  if (!file || !preview) return null;
+
+  const isVideo = file.type.startsWith("video/");
+  const isImage = file.type.startsWith("image/");
+
+  return (
+    <div>
+      <p className="text-sm text-muted-foreground mb-1">{label}</p>
+      {isVideo && <video src={preview} controls className="w-full rounded-md" />}
+      {isImage && (
+        <div className="relative w-full h-64">
+          <Image
+            src={preview}
+            alt={label}
+            fill
+            className="object-contain rounded-md"
+            unoptimized // Para permitir preview de archivos locales
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
   const handleSubmit = async () => {
     if (!fileWeb || !fileMobile) {
-      toast.error("Selecciona ambos videos (web y móvil)");
+      toast.error("Selecciona archivos para web y móvil");
       return;
     }
 
     setLoading(true);
     try {
       const [urlWeb, urlMobile] = await Promise.all([
-        upload(fileWeb, "videos"),
-        upload(fileMobile, "videos"),
+        upload(fileWeb, "banners"),
+        upload(fileMobile, "banners"),
       ]);
 
       await createBanner({
         urls: [urlWeb, urlMobile],
       });
 
-      toast.success("Banner agregado correctamente");
-      setOpen(false);
-      setFileWeb(null);
-      setFileMobile(null);
-      setPreviewWeb(null);
-      setPreviewMobile(null);
-    } catch (error) {
-      console.error(error);
+toast.success("Banner agregado correctamente");
+    setOpen(false);
+    setFileWeb(null);
+    setFileMobile(null);
+    setPreviewWeb(null);
+    setPreviewMobile(null);
+  } catch (error: unknown) {
+    console.error(error);
+
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 400 && error.response.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Error al agregar el banner");
+      }
+    } else {
       toast.error("Error al agregar el banner");
-    } finally {
-      setLoading(false);
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <Dialog
@@ -99,7 +136,7 @@ export function AddBannerModal() {
         <DialogHeader>
           <DialogTitle>Nuevo Banner</DialogTitle>
           <DialogDescription>
-            Sube un video para escritorio y otro para móvil.
+            Sube un video o imagen para escritorio y otro para móvil.
           </DialogDescription>
         </DialogHeader>
 
@@ -107,13 +144,21 @@ export function AddBannerModal() {
           {/* Formulario */}
           <div className="space-y-4">
             <div>
-              <Label>Video para escritorio</Label>
-              <Input type="file" accept="video/*" onChange={handleWebChange} />
+              <Label>Archivo para escritorio</Label>
+              <Input
+                type="file"
+                accept="image/*,video/*"
+                onChange={handleWebChange}
+              />
             </div>
 
             <div>
-              <Label>Video para móvil</Label>
-              <Input type="file" accept="video/*" onChange={handleMobileChange} />
+              <Label>Archivo para móvil</Label>
+              <Input
+                type="file"
+                accept="image/*,video/*"
+                onChange={handleMobileChange}
+              />
             </div>
 
             <DialogFooter className="pt-4">
@@ -123,20 +168,10 @@ export function AddBannerModal() {
             </DialogFooter>
           </div>
 
-          {/* Vista previa única */}
+          {/* Vista previa */}
           <div className="space-y-4 border bg-muted p-4 rounded-md h-fit">
-            {previewWeb && (
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Vista escritorio</p>
-                <video src={previewWeb} controls className="w-full rounded-md" />
-              </div>
-            )}
-            {previewMobile && (
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Vista móvil</p>
-                <video src={previewMobile} controls className="w-full rounded-md" />
-              </div>
-            )}
+            {renderPreview(fileWeb, previewWeb, "Vista escritorio")}
+            {renderPreview(fileMobile, previewMobile, "Vista móvil")}
           </div>
         </div>
       </DialogContent>

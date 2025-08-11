@@ -54,9 +54,9 @@ export default function SearchDropdown() {
       closeSearch();
 
       if (results.length > 0) {
-        router.push("/shop"); // ✅ hay resultados → ir a la tienda
+        router.push("/shop"); 
       } else {
-        router.push(`/shop/search?query=${encodeURIComponent(searchTerm)}`); // ❌ no hay resultados → ir a vista personalizada
+        router.push(`/shop/search?query=${encodeURIComponent(searchTerm)}`); 
       }
     } catch (err) {
       console.error("Error en búsqueda:", err);

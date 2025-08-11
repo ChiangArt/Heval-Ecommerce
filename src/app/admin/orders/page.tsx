@@ -1,91 +1,111 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import Link from "next/link"
+"use client";
+import { useEffect, useState } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Button } from "@/components/ui/button"
-import { getOrdersByAdmin } from "@/core/order/action/order.actions"
-import { Order } from "@/core/order/interface/order"
-import { format } from "date-fns"
-import { es } from "date-fns/locale"
+  getOrdersByAdmin,
+  getOrderById,
+  updateOrderStatus,
+} from "@/core/order/action/order.actions";
+import { Order } from "@/core/order/interface/order";
+import { OrderDetailModal } from "@/components/admin/orders/OrderDetailModalProps";
+import { OrdersTable } from "@/components/admin/orders/OrdersTable"; // asumiendo que tienes este componente
+import { LoadingMessage } from "@/components/ui/loading/LoadingMessage";
+
+const formatDateForInput = (date: Date) =>
+  new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, 10);
 
 export default function AdminOrdersPage() {
-  const [orders, setOrders] = useState<Order[]>([])
-  const [loading, setLoading] = useState(true)
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(
+    formatDateForInput(new Date())
+  );
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [updating, setUpdating] = useState(false);
+  const [loadingDetail, setLoadingDetail] = useState(false);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const data = await getOrdersByAdmin()
-        setOrders(data)
-      } catch (error) {
-        console.error("Error al obtener órdenes del admin:", error)
-      } finally {
-        setLoading(false)
-      }
+ useEffect(() => {
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
+      const data = await getOrdersByAdmin(selectedDate, selectedDate);
+      const allowedStatuses = ["PAID", "SHIPPED", "DELIVERED", "CANCELLED"];
+
+      const filteredOrders = data.filter((order) =>
+        allowedStatuses.includes(order.orderStatus)
+      );
+
+      setOrders(filteredOrders);
+    } catch (error) {
+      console.error("Error completo:", error);
+      setOrders([]);
+    } finally {
+      setLoading(false);
     }
+  };
+  fetchOrders();
+}, [selectedDate]);
 
-    fetchOrders()
-  }, [])
+
+  const openDetail = (orderId: string) => {
+    setLoadingDetail(true);
+    getOrderById(orderId)
+      .then((order) => {
+        setSelectedOrder(order);
+        setSelectedStatus(order.orderStatus ?? "");
+      })
+      .catch(() => setSelectedOrder(null))
+      .finally(() => setLoadingDetail(false));
+  };
+
+  const applyStatusChange = () => {
+    if (!selectedOrder) return;
+    setUpdating(true);
+    updateOrderStatus(selectedOrder.orderId, selectedStatus)
+      .then(() => getOrderById(selectedOrder.orderId))
+      .then((updated) => {
+        setSelectedOrder(updated);
+        setOrders((prev) =>
+          prev.map((o) => (o.orderId === updated.orderId ? updated : o))
+        );
+      })
+      .catch(console.error)
+      .finally(() => setUpdating(false));
+  };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Órdenes de Clientes</h1>
+    <div className="p-4 max-w-4xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Órdenes</h1>
+
+      <input
+        type="date"
+        max={formatDateForInput(new Date())}
+        value={selectedDate}
+        onChange={(e) => setSelectedDate(e.target.value)}
+        className="border p-2 mb-4 rounded"
+      />
 
       {loading ? (
-        <div className="space-y-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-10 w-full rounded-md" />
-          ))}
-        </div>
+        <LoadingMessage message="Cargando órdenes..." />
+      ) : orders.length === 0 ? (
+        <LoadingMessage message="No hay órdenes para esta fecha." />
       ) : (
-        <div className="border rounded-md overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>Cliente</TableHead>
-                <TableHead>Fecha</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead>Estado</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {orders.map((order) => (
-                <TableRow key={order.orderId}>
-                  <TableCell>{order.orderId}</TableCell>
-                  <TableCell>{order.contactInfo.fullName}</TableCell>
-                  <TableCell>
-                    {format(new Date(order.createdAt), "dd MMM yyyy HH:mm", {
-                      locale: es,
-                    })}
-                  </TableCell>
-                  <TableCell>S/ {order.totalPrice.toFixed(2)}</TableCell>
-                  <TableCell className="capitalize">
-                    {order.orderStatus.toLowerCase()}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Link href={`/dashboard/orders/${order.orderId}`}>
-                      <Button size="sm" variant="outline">
-                        Ver Detalle
-                      </Button>
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <OrdersTable orders={orders} onViewDetail={openDetail} />
+      )}
+
+      {selectedOrder && (
+        <OrderDetailModal
+          order={selectedOrder}
+          loading={loadingDetail}
+          selectedStatus={selectedStatus}
+          onClose={() => setSelectedOrder(null)}
+          onStatusChange={setSelectedStatus}
+          onApplyStatusChange={applyStatusChange}
+          updating={updating}
+        />
       )}
     </div>
-  )
+  );
 }

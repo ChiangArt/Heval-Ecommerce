@@ -91,7 +91,7 @@ export default function AboutPage() {
       <section className="snap-start h-screen md:hidden snap-always w-full">
         <div className="relative w-full h-[100vh] ">
           <Image
-            src="/Nosotros 2.webp"
+            src="/Foto 1.jpg"
             alt="Tercera"
             fill
             sizes="(max-width: 768px) 100vw, 100vw"
@@ -103,7 +103,7 @@ export default function AboutPage() {
       <section className="snap-start h-screen md:hidden snap-always w-full">
         <div className="relative w-full h-[100vh] ">
           <Image
-            src="/Nosotros 2.webp"
+            src="/Foto 2.jpg"
             alt="Tercera"
             fill
             sizes="(max-width: 768px) 100vw, 100vw"
@@ -115,7 +115,7 @@ export default function AboutPage() {
       <section className="snap-start h-screen md:hidden snap-always w-full">
         <div className="relative w-full h-[100vh] ">
           <Image
-            src="/Nosotros 2.webp"
+            src="/Foto 3.jpg"
             alt="Tercera"
             fill
             sizes="(max-width: 768px) 100vw, 100vw"
@@ -129,7 +129,7 @@ export default function AboutPage() {
       <section className="snap-start hidden h-screen md:grid grid-cols-3 gap-2 snap-always w-full">
         <div className="relative w-full h-[100vh] ">
           <Image
-            src="/Nosotros 2.webp"
+            src="/Foto 1.jpg"
             alt="Tercera"
             fill
             sizes="(max-width: 768px) 100vw, 100vw"
@@ -139,7 +139,7 @@ export default function AboutPage() {
         </div>
         <div className="relative w-full h-[100vh] ">
           <Image
-            src="/Nosotros 2.webp"
+            src="/Foto 2.jpg"
             alt="Tercera"
             fill
             sizes="(max-width: 768px) 100vw, 100vw"
@@ -149,7 +149,7 @@ export default function AboutPage() {
         </div>
         <div className="relative w-full h-[100vh] ">
           <Image
-            src="/Nosotros 2.webp"
+            src="/Foto 3.jpg"
             alt="Tercera"
             fill
             sizes="(max-width: 768px) 100vw, 100vw"

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 
 import Button from "@/components/ui/button/Button";
-import { postAuthSendCode } from "@/core/auth/action/auth.actions"; // Asegúrate de que esta función incluya ?email=...
+import { postAuthSendCode } from "@/core/auth/action/auth.actions"; 
 import {
   registerSchema,
   RegisterValues,

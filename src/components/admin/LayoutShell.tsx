@@ -4,12 +4,10 @@ import { usePathname } from "next/navigation";
 import { useSidebarStore } from "@/store/ui/sidebar-store";
 import {
   LayoutDashboard,
-  Users,
   ShoppingCart,
   Package,
   Tags,
   CreditCard,
-  Settings,
   Mail,
 } from "lucide-react";
 import clsx from "clsx";
@@ -26,13 +24,11 @@ export default function LayoutShell({ children }: Props) {
   console.log("AdminSidebar:", AdminSidebar);
   const links = [
     { title: "Dashboard", icon: LayoutDashboard, href: "/admin" },
-    { title: "Usuarios", icon: Users, href: "/admin/users" },
     { title: "Productos", icon: Package, href: "/admin/products" },
     { title: "Colecciones", icon: Tags, href: "/admin/collections" },
     { title: "Órdenes", icon: ShoppingCart, href: "/admin/orders" },
     { title: "Cupones", icon: CreditCard, href: "/admin/coupons" },
     { title: "Banners", icon: Mail, href: "/admin/banners" },
-    { title: "Configuración", icon: Settings, href: "/admin/settings" },
   ].map((link) => ({
     ...link,
     variant:

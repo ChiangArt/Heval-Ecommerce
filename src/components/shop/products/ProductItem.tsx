@@ -20,7 +20,6 @@ export default function ProductItem({ product, aspectRatio }: Props) {
   const openCart = useCartUIStore((state) => state.openCartSideMenu);
   const [quantity] = useState(1);
   const [isPending, setIsPending] = useState(false);
-
   const [displayImage, setDisplayImage] = useState(
     product.imageUrls?.[0] ?? "/placeholder.jpg"
   );
@@ -35,8 +34,10 @@ export default function ProductItem({ product, aspectRatio }: Props) {
     ? product.currentPrice ?? product.price
     : product.price;
 
+  const isOutOfStock = !product.quantity || product.quantity <= 0;
+
   const handleAdd = async () => {
-    if (isPending) return;
+    if (isPending || isOutOfStock) return;
 
     if (quantity < 1) {
       toast.error("La cantidad debe ser al menos 1");
@@ -63,7 +64,11 @@ export default function ProductItem({ product, aspectRatio }: Props) {
   };
 
   return (
-    <div className="flex flex-col text-[10px] h-full justify-between bg-white overflow-hidden transition">
+    <div
+      className={`flex flex-col text-[10px] h-full justify-between bg-white overflow-hidden transition ${
+        isOutOfStock ? "opacity-70" : ""
+      }`}
+    >
       <div
         className={`relative w-full overflow-hidden group ${
           aspectRatio ?? "aspect-[3/3]"
@@ -94,13 +99,16 @@ export default function ProductItem({ product, aspectRatio }: Props) {
         <button
           type="button"
           onClick={handleAdd}
+          disabled={isPending || isOutOfStock}
           className={`absolute bottom-0 left-0 right-0 p-2 md:px-6 md:py-3 text-[10px] landscape:text-lg md:text-sm font-semibold flex items-center justify-center gap-2
-          text-white bg-secundario landscape:opacity-0 group-hover:opacity-100 transition-opacity duration-300
-          ${
-            isPending
-              ? "pointer-events-none"
-              : "cursor-pointer hover:opacity-90"
-          }`}
+            text-white transition-opacity duration-300
+            ${
+              isOutOfStock
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-secundario cursor-pointer hover:opacity-90"
+            }
+            ${isPending ? "pointer-events-none" : ""}
+          `}
         >
           {isPending && (
             <>
@@ -128,7 +136,11 @@ export default function ProductItem({ product, aspectRatio }: Props) {
             </>
           )}
           <span className="relative z-10">
-            {isPending ? "AGREGANDO..." : "AGREGAR AL CARRITO"}
+            {isOutOfStock
+              ? "SIN STOCK"
+              : isPending
+              ? "AGREGANDO..."
+              : "AGREGAR AL CARRITO"}
           </span>
         </button>
       </div>

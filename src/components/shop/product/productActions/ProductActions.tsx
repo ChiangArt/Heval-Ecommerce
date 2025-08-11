@@ -21,8 +21,10 @@ export default function ProductActions({
   const [quantity, setQuantity] = useState(1);
   const [isPending, setIsPending] = useState(false);
 
+  const isOutOfStock = !stock || stock <= 0;
+
   const handleAdd = async () => {
-    if (isPending) return;
+    if (isPending || isOutOfStock) return;
     if (quantity < 1) {
       toast.error("La cantidad debe ser al menos 1");
       return;
@@ -63,35 +65,55 @@ export default function ProductActions({
         />
       </div>
 
+      {/* Botón comprar ahora */}
       <Link
         className={`w-full ${
-          isPending ? "pointer-events-none cursor-default" : ""
+          isPending || isOutOfStock ? "pointer-events-none cursor-not-allowed" : ""
         }`}
-        href={"/shop/checkout"}
+        href={isOutOfStock ? "#" : "/shop/checkout"}
+        onClick={(e) => {
+          if (isOutOfStock) e.preventDefault();
+        }}
       >
         <Button
           loading={isPending}
-          title={isPending ? "COMPRAR AHORA" : "COMPRAR AHORA"}
+          title={isOutOfStock ? "SIN STOCK" : "COMPRAR AHORA"}
           loadingVariant="fill"
-          className="w-full bg-secundario text-white font-semibold"
+          className={`w-full font-semibold ${
+            isOutOfStock
+              ? "bg-gray-400 text-white cursor-not-allowed"
+              : "bg-secundario text-white"
+          }`}
         />
       </Link>
 
+      {/* Botón agregar al carrito */}
       <Button
         onClick={async () => {
           await handleAdd();
-          openCartSideMenu();
+          if (!isOutOfStock) openCartSideMenu();
         }}
         loading={isPending}
-        title={isPending ? "AGREGANDO..." : "AGREGAR AL CARRITO"}
+        title={
+          isOutOfStock
+            ? "SIN STOCK"
+            : isPending
+            ? "AGREGANDO..."
+            : "AGREGAR AL CARRITO"
+        }
         loadingVariant="fill"
+        disabled={isOutOfStock || isPending}
         className={`border-1 font-semibold ${
-          isPending ? "bg-secundario text-white" : "text-secundario"
+          isOutOfStock
+            ? "bg-gray-400 text-white cursor-not-allowed"
+            : isPending
+            ? "bg-secundario text-white"
+            : "text-secundario"
         }`}
       />
 
       <p className="text-sm text-gray-500">
-        {stock > 0 ? `Stock disponible: ${stock}` : "Agotado"}
+        {isOutOfStock ? "Agotado" : `Stock disponible: ${stock}`}
       </p>
     </div>
   );

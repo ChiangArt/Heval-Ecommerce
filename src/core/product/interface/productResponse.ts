@@ -9,7 +9,7 @@ export interface Product {
   currentPrice:         number;
   discountPercentage:   number;
   discountUntil:        Date;
-  colors:               string[];
+  color:               string[];
   quantity:             number;
   imageUrls:            string[];
   createdAt:            Date;

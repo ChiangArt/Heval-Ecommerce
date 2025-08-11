@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 
 const messages = [
-  "🚚 Envío gratis en compras mayores a $50",
+  "Adquiere cualquier producto con envío gratis 🚚",
   "🎉 ¡Descuentos hasta 70% por tiempo limitado!",
-  "🛍️ Compra ahora y paga después",
-  "🚚 Envío gratis en compras mayores a $110",
-  "🚚 Envío gratis en compras mayores a $50",
+  "Adquiere cualquier producto con envío gratis 🚚",
+  "🎉 ¡Descuentos hasta 70% por tiempo limitado!",
+  "Adquiere cualquier producto con envío gratis 🚚",
 ];
 export default function AnnouncementBar() {
   const [isFixed, setIsFixed] = useState(false);

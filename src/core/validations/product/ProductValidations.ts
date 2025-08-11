@@ -6,7 +6,7 @@ export const productSchema = z.object({
   descriptionArchetype: z.string(),
   material: z.string().min(1, "El material es requerido"),
   price: z.coerce.number().min(0, "El precio debe ser positivo"),
-  colors: z.string().min(1, "Debes ingresar al menos un color"),
+  color: z.string().min(0, "Debes ingresar el color color"),
   quantity: z.coerce.number().min(0, "La cantidad debe ser 0 o más"),
   discountPercentage: z.coerce.number().min(0).max(100),
   discountUntil: z.string().optional(),

@@ -1,6 +1,6 @@
 // WhatsAppButton.tsx
 export const WhatsAppButton = () => (
-  <div className="z-1 fixed bottom-5 right-5">
+  <div className="z-100 fixed bottom-5 right-5">
     <a
       href="https://wa.me/51926982348?text=Hola,%20quiero%20más%20información"
       target="_blank"

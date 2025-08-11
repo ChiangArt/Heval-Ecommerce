@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 export const wholesaleContactSchema = z.object({
-  nombre: z.string().trim().nonempty("El nombre es obligatorio"),
+  name: z.string().trim().nonempty("El nombre es obligatorio"),
   email: z
     .string()
     .trim()
     .nonempty("El correo es obligatorio")
     .email("Correo electrónico inválido"),
-  mensaje: z
+  message: z
     .string()
     .trim()
     .nonempty("El mensaje es obligatorio")

@@ -62,7 +62,7 @@ export function AddProductModal({
     descriptionArchetype: productToEdit?.descriptionArchetype || "",
     material: productToEdit?.material || "",
     price: productToEdit?.price || 0,
-    colors: productToEdit?.colors?.join(", ") || "",
+    color: productToEdit?.color?.join(", ") || "",
     quantity: productToEdit?.quantity || 0,
     discountPercentage: productToEdit?.discountPercentage || 0,
     discountUntil: productToEdit?.discountUntil
@@ -106,7 +106,7 @@ export function AddProductModal({
                 quantity: Number(values.quantity),
                 discountPercentage: Number(values.discountPercentage),
                 collectionId: Number(values.collectionId),
-                colors: values.colors.split(",").map((c) => c.trim()),
+                color: values.color,
                 discountUntil: values.discountUntil || "",
                 imageUrls,
               };
@@ -170,7 +170,7 @@ export function AddProductModal({
                 />
               </div>
 
-              <InputField name="colors" label="Colores" />
+              <InputField name="color" label="Color" />
 
               <div>
                 <Label>Imágenes</Label>

@@ -12,11 +12,11 @@ export default function ProfileLayout({
   return (
     <>
       <AnnouncementBar />
-      <TopMenu showBackdropBlur={false} />
+      <TopMenu bgColorTop="bg-primario" bgColorScrolled="bg-primario" />
       <main>{children}</main>
 
       <footer className="flex flex-col gap-10 p-10 bg-[rgba(232,227,222,0.40)]">
-        <WholesaleContact className="py-5"/>
+        <WholesaleContact className="py-5" />
         <ConsumerInformation />
         <SocialNetworks />
       </footer>

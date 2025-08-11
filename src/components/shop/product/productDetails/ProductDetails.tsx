@@ -1,9 +1,9 @@
-// components/product/ProductDetails.tsx
 "use client";
 
+import { useEffect, useState } from "react";
 import { Product } from "@/core/product/interface/productResponse";
 import StatusRotator from "../status-rotator/StatusRotator";
-
+import { getProductById } from "@/core/product/action/product.actions";
 
 interface Props {
   product: Product;
@@ -11,12 +11,34 @@ interface Props {
   discountEnd: string | null;
   isDiscountValid: boolean;
 }
+
 export default function ProductDetails({
   product,
   discount,
   discountEnd,
   isDiscountValid,
 }: Props) {
+  // Estado local para stock actualizado
+  const [currentStock, setCurrentStock] = useState(product.quantity);
+
+  useEffect(() => {
+    async function fetchStock() {
+      try {
+        const updatedProduct = await getProductById(product.id);
+        setCurrentStock(updatedProduct.quantity);
+      } catch (error) {
+        console.error("Error actualizando stock:", error);
+      }
+    }
+
+    fetchStock();
+
+    // Opcional: actualizar stock cada cierto tiempo (ej. cada 30s)
+    const interval = setInterval(fetchStock, 30000);
+
+    return () => clearInterval(interval);
+  }, [product.id]);
+
   return (
     <div className="flex flex-col w-full">
       <h1 className="font-black uppercase text-2xl text-secundario font-inter pb-2">
@@ -37,7 +59,7 @@ export default function ProductDetails({
         </div>
 
         <StatusRotator
-          quantity={product.quantity}
+          quantity={currentStock} // Usar el stock actualizado aquí
           discountPercentage={product.discountPercentage}
           discountEnd={discountEnd}
         />
@@ -53,7 +75,7 @@ export default function ProductDetails({
         </div>
         <div>
           <span className="font-bold mr-1">Color:</span>
-          <span className="break-words">{product.colors}</span>
+          <span className="break-words">{product.color}</span>
         </div>
         <div>
           <span className="font-bold mr-1">Descripción de Arquetipo:</span>

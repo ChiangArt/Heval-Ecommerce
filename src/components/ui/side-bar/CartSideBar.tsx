@@ -47,7 +47,7 @@ const CartSideBar = () => {
         }`}
       >
         <div className="bg-primario text-white text-center text-sm px-4 py-3">
-          Estás a S/{(100 - total).toFixed(2)} de desbloquear envío gratis 🚚
+          Adquiere cualquier producto con envío gratis 🚚
         </div>
 
         <header className="p-5 text-center text-primario border-b">
@@ -86,7 +86,9 @@ const CartSideBar = () => {
                         typeof product.discountedPrice === "number" &&
                         product.discountedPrice < product.price && (
                           <span className="text-sm text-gray-400 line-through">
-                            S/ {product.price.toFixed(2)}
+                            <span className="font-bold">
+                              S/ {(product.price ?? 0).toFixed(2)}
+                            </span>
                           </span>
                         )}
                     </div>
@@ -95,6 +97,16 @@ const CartSideBar = () => {
                   <QuantitySelector
                     quantity={product.quantity}
                     onQuantityChange={async (newQty) => {
+                      if (newQty > (product.availableStock ?? 0)) {
+                        toast.error(
+                          `Solo hay ${product.availableStock} unidades disponibles de este producto.`
+                        );
+                        return;
+                      }
+                      if (newQty < 1) {
+                        toast.error("La cantidad mínima es 1");
+                        return;
+                      }
                       showOverlay();
                       try {
                         await updateItem(product.productId, newQty);
@@ -124,7 +136,7 @@ const CartSideBar = () => {
         <div className="border-t px-5 py-4">
           <div className="flex justify-between text-sm mb-4">
             <span>Total</span>
-            <span className="font-bold">S/ {total.toFixed(2)}</span>
+            <span className="font-bold">S/ {(total ?? 0).toFixed(2)}</span>
           </div>
 
           <Button

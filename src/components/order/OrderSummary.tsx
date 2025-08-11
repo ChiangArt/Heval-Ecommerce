@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Order } from "@/core/order/interface/order";
 import Link from "next/link";
-import { downloadBoleta } from "@/core/order/action/order.actions";
+// import { downloadBoleta } from "@/core/order/action/order.actions";
 
 interface Props {
   order: Order;
@@ -97,12 +97,12 @@ export default function OrderSummary({ order }: Props) {
         </Link>
 
         {/* 🔻 Botón para descargar boleta en PDF */}
-        <button
+        {/* <button
           onClick={() => downloadBoleta(order.id)}
           className="block mt-4 text-center bg-[#001243] text-white py-4 w-full hover:bg-opacity-90 transition"
         >
           DESCARGAR BOLETA EN PDF
-        </button>
+        </button> */}
       </div>
     </div>
   );

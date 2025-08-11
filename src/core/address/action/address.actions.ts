@@ -26,3 +26,14 @@ export const postAdress = async (payload: AddressRequest
   }
 };
 
+
+export const getAdress = async (): Promise<AddressResponse[]> => {
+  try {
+    const { data } = await productsApi.get("/shipping-adress");
+    return data;
+  } catch (error) {
+    console.error("Error al obtener las direcciones", error);
+    throw error;
+  }
+};
+
