@@ -15,9 +15,9 @@ function capitalize(text: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: Params;
+  params: Promise<Params>;
 }): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const product = await getProductsBySlug(slug);
   const baseUrl = "https://heval.com";
 
