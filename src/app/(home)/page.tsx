@@ -1,11 +1,11 @@
 import HomeClient from "@/components/home/client/HomeClient";
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
+import { getAnonymousToken } from "@/core/auth/action/auth.actions";
 import { getAllBanners } from "@/core/banner/action/banner.actions";
 import { getCollectionById } from "@/core/collection/action/collection.actions";
 import { getProductsByCollectionId } from "@/core/product/action/product.actions";
 import { Product } from "@/core/product/interface/productResponse";
-import { cookies } from "next/headers";
 
 const videos = [
   {
@@ -27,8 +27,7 @@ const videos = [
 
 
 export default async function HomePage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value ?? "";
+  const token = await getAnonymousToken();
 
   let productsByCollection: Product[] = [];
   let firsCollection = null;
@@ -76,4 +75,3 @@ export default async function HomePage() {
     </>
   );
 }
-
