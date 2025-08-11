@@ -5,6 +5,7 @@ import { getAllBanners } from "@/core/banner/action/banner.actions";
 import { getCollectionById } from "@/core/collection/action/collection.actions";
 import { getProductsByCollectionId } from "@/core/product/action/product.actions";
 import { Product } from "@/core/product/interface/productResponse";
+import { cookies } from "next/headers";
 
 const videos = [
   {
@@ -26,19 +27,22 @@ const videos = [
 
 
 export default async function HomePage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value ?? "";
+
   let productsByCollection: Product[] = [];
   let firsCollection = null;
   let banners = [];
   let formattedDate = "(fecha no disponible)";
 
   try {
-    productsByCollection = await getProductsByCollectionId(1);
+    productsByCollection = await getProductsByCollectionId(token, 1);
   } catch (error) {
     console.error("❌ Error al obtener productos:", error);
   }
 
   try {
-    firsCollection = await getCollectionById(1);
+    firsCollection = await getCollectionById(token, 1);
     const rawCreatedAt = firsCollection?.createdAt;
     if (rawCreatedAt) {
       const createdAt = new Date(rawCreatedAt);
@@ -53,8 +57,7 @@ export default async function HomePage() {
   }
 
   try {
-    banners = await getAllBanners();
-    
+    banners = await getAllBanners(token);
   } catch (error) {
     console.error("❌ Error al obtener banners:", error);
   }

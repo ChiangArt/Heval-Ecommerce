@@ -1,25 +1,29 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useEffect, ReactNode } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-export default function TokenInitializer({ children }: { children: React.ReactNode }) {
-  const [tokenReady, setTokenReady] = useState(false);
+interface TokenInitializerProps {
+  children: ReactNode;
+}
 
+export default function TokenInitializer({ children }: TokenInitializerProps) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/anonymous-token`)
-        .then(res => {
-          localStorage.setItem("token", res.data);
-          setTokenReady(true);
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/auth/anonymous-token`)
+        .then((res) => {
+          const token = res.data;
+          localStorage.setItem("token", token);
+          Cookies.set("token", token, { expires: 7, path: "/" });
         })
-        .catch(() => setTokenReady(true)); // aunque falle, continuar
+        .catch(console.error);
     } else {
-      setTokenReady(true);
+      Cookies.set("token", token, { expires: 7, path: "/" });
     }
   }, []);
-
-  if (!tokenReady) return null; // o spinner
 
   return <>{children}</>;
 }

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import productsApi from "@/core/api/productsApi";
 import { PaginatedProductsResponse, Product } from "../interface/productResponse";
 
@@ -97,10 +99,16 @@ export const getProductsBySlug = async (
 
 
 export const getProductsByCollectionId = async (
+  token: string,
   collectionId: number
 ): Promise<Product[]> => {
   try {
-    const { data } = await productsApi.get(`/products/by-collection/${collectionId}`);
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/products/by-collection/${collectionId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     return data;
   } catch (error) {
     console.error("Error al obtener productos por colección", error);
