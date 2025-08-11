@@ -9,18 +9,21 @@ type Params = { slug: string };
 export default async function CollectionBySlugPage({ params }: { params: Params }) {
   const { slug } = params;
 
-  // 1. Obtener todas las colecciones
+  // Obtiene todas las colecciones
   const collections = await getCollections();
 
-  // 2. Buscar la colección que tenga el slug deseado
+  // Busca la colección con el slug dado
   const collection = collections.find((col) => col.slug === slug);
 
   if (!collection) return notFound();
 
-  // 3. Obtener productos por ID de la colección
+  // Obtiene los productos de la colección
   const products = await getProductsByCollectionId(collection.id);
 
-  // Formatear la fecha una vez que confirmamos la colección
+  // Si quieres, valida que productos existan o manejar caso vacío
+  // if (!products.length) return notFound();
+
+  // Formatea la fecha de creación (o usa otra propiedad si prefieres)
   const createdDate = collection.createdAt ? new Date(collection.createdAt) : null;
   const formattedDate = createdDate
     ? createdDate.toLocaleDateString("es-PE", {
