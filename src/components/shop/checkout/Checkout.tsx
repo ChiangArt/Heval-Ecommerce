@@ -1,22 +1,17 @@
 "use client";
-import { ContactFormValues, personalInfoSchema } from "@/core/validations/personal-info/personalInfo";
+import { ContactFormValues, accountDetailsSchema } from "@/core/validations/personal-info/accountDetailsSchema";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
 import { useRouter } from "next/navigation";
 
 const initialValues: ContactFormValues = {
   fullName: "",
-  cel: "",
   email: "",
-  documentType: "DNI",
-  identityDocument: "",
 };
 
 export default function Checkout() {
   const router = useRouter(); 
 
   const handleSubmit = (values: ContactFormValues) => {
-    // Guardar los datos en localStorage
     localStorage.setItem("guest_contact_info", JSON.stringify(values));
     console.log("Guardado en localStorage:", values);
     router.push("");
@@ -25,7 +20,7 @@ export default function Checkout() {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={personalInfoSchema}
+      validationSchema={accountDetailsSchema}
       onSubmit={handleSubmit}
     >
       <Form className="text-secundario bg-white p-10 max-w-lg mx-auto text-sm md:text-md">
