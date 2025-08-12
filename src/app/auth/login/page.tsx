@@ -1,7 +1,10 @@
-// import ClientLoginPage from "@/components/login/ClientLoginPage";
+import ClientLoginPage from "@/components/login/ClientLoginPage";
+import { Suspense } from "react";
 
-// export default function LoginPage({ searchParams }: { searchParams: { from?: string } }) {
-//   const from = typeof searchParams.from === "string" ? searchParams.from : "/";
-
-//   return <ClientLoginPage from={from} />;
-// }
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <ClientLoginPage />
+    </Suspense>
+  );
+}
