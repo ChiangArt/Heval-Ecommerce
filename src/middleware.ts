@@ -4,6 +4,7 @@ import { jwtVerify } from "jose";
 const SECRET_KEY = process.env.JWT_SECRET || "clave-secreta-dev";
 const ENCODED_KEY = new TextEncoder().encode(SECRET_KEY);
 
+//
 const protectedRoutes = ["/shop/checkout", "/admin", "/profile", "/account"];
 const publicAuthRoutes = ["/auth", "/auth/login", "/auth/register"];
 
