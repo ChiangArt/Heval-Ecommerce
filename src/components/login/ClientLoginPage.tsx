@@ -1,11 +1,11 @@
 "use client";
-// import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { postAuthLogin } from "@/core/auth/action/auth.actions";
 import Button from "@/components/ui/button/Button";
 import { Login, loginSchema } from "@/core/validations/login/LoginValidations";
 import { AxiosError } from "axios";
-// import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { LoginResponse } from "@/core/auth/interface/user";
@@ -15,17 +15,17 @@ import { syncGuestCartToUserCart } from "@/core/cart/sync-cart/SyncGuestCartToUs
 
 export default function LoginPage() {
   const { setToken } = useUserStore();
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const router = useRouter();
-  // const from = searchParams.get("from") || "/";
-  // const toastShown = useRef(false);
+  const from = searchParams.get("from") || "/";
+  const toastShown = useRef(false);
 
-  // useEffect(() => {
-  //   if (!toastShown.current && from !== "/") {
-  //     toast.error("Necesitas logearte para continuar");
-  //     toastShown.current = true;
-  //   }
-  // }, [from]);
+  useEffect(() => {
+    if (!toastShown.current && from !== "/") {
+      toast.error("Necesitas logearte para continuar");
+      toastShown.current = true;
+    }
+  }, [from]);
 
   return (
     <div className="max-w-xl text-xs sm:text-sm mx-auto p-4 py-40 font-bold">
@@ -59,9 +59,9 @@ export default function LoginPage() {
 
             if (role === "ADMIN") {
               router.push("/admin");
-            // } else if (from && from !== "/") {
-            //   router.push(from);
-            // } else {
+            } else if (from && from !== "/") {
+              router.push(from);
+            } else {
               router.push("/profile");
             }
           } catch (error) {
