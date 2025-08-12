@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useUserStore } from "@/store/user/use-auth-store";
 import { syncGuestCartToUserCart } from "@/core/cart/sync-cart/SyncGuestCartToUserCart ";
 
-export default function LoginPage() {
+export default function ClientLoginPage() {
   const { setToken } = useUserStore();
   const searchParams = useSearchParams();
   const router = useRouter();
