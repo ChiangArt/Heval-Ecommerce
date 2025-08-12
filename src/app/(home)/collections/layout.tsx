@@ -14,7 +14,7 @@ export default function CollectionLayout({
   return (
     <>
       <AnnouncementBar />
-      <TopMenu showBackdropBlur={false} />
+      <TopMenu bgColorTop="bg-black text-black" bgColorScrolled="bg-primario" />
       <Sidebar />
       {children}
       <CartSideBar />

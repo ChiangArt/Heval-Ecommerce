@@ -13,7 +13,7 @@ export default function ShopLayout({
   return (
     <>
       <AnnouncementBar />
-      <TopMenu showBackdropBlur={false} />
+      <TopMenu bgColorTop="bg-black text-black" bgColorScrolled="bg-primario" />
       <Overlay/>
       <main>{children}</main>
 
