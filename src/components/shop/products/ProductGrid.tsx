@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Product } from "@/core/product/interface/productResponse";
 import dynamic from "next/dynamic";
 import ProductItemSkeleton from "@/components/ui/skeleton/ProductItemSkeleton";
-import { logInfo } from "@/app/utils/logger";
 
 const ProductItem = dynamic(() => import("./ProductItem"), {
   loading: () => <ProductItemSkeleton />,
@@ -20,7 +19,6 @@ export default function ProductGrid({ products }: Props) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowContent(true);
-      logInfo("🌐 API base URL:", process.env.NEXT_PUBLIC_API_URL);
     }, 300);
     return () => clearTimeout(timeout);
   }, []);

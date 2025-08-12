@@ -27,7 +27,7 @@ export default function ProfileMobile() {
         );
       } finally {
         setLoading(false);
-        hideOverlay(); // ← Ocultar overlay al terminar
+        hideOverlay(); 
       }
     };
 
