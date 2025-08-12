@@ -1,5 +1,5 @@
-import LoginWrapper from "@/components/ui/login-wrapper/LoginWrapper";
+import ClientLoginPage from "@/components/login/ClientLoginPage";
 
 export default function LoginPage() {
-  return <LoginWrapper />;
+  return <ClientLoginPage />;
 }
