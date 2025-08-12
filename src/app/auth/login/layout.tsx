@@ -3,7 +3,6 @@ import ConsumerInformation from "@/components/ui/footer/consumer-information/Con
 import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
 import WholesaleContact from "@/components/ui/footer/WholesaleContact";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
-import { Suspense } from "react";
 
 export default function ShopLayout({
   children,
@@ -12,20 +11,15 @@ export default function ShopLayout({
 }) {
   return (
     <>
-      <Suspense fallback={<div>Cargando...</div>}>
-        <AnnouncementBar />
-        <TopMenu
-          bgColorTop="bg-black text-black"
-          bgColorScrolled="bg-primario"
-        />
-        <main>{children}</main>
+      <AnnouncementBar />
+      <TopMenu bgColorTop="bg-black text-black" bgColorScrolled="bg-primario" />
+      <main>{children}</main>
 
-        <footer className="flex flex-col gap-10 p-10 bg-[rgba(232,227,222,0.40)]">
-          <WholesaleContact className="py-5" />
-          <ConsumerInformation />
-          <SocialNetworks />
-        </footer>
-      </Suspense>
+      <footer className="flex flex-col gap-10 p-10 bg-[rgba(232,227,222,0.40)]">
+        <WholesaleContact className="py-5" />
+        <ConsumerInformation />
+        <SocialNetworks />
+      </footer>
     </>
   );
 }

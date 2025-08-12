@@ -5,7 +5,6 @@ import { postAuthLogin } from "@/core/auth/action/auth.actions";
 import Button from "@/components/ui/button/Button";
 import { Login, loginSchema } from "@/core/validations/login/LoginValidations";
 import { AxiosError } from "axios";
-import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { LoginResponse } from "@/core/auth/interface/user";
@@ -13,11 +12,14 @@ import Link from "next/link";
 import { useUserStore } from "@/store/user/use-auth-store";
 import { syncGuestCartToUserCart } from "@/core/cart/sync-cart/SyncGuestCartToUserCart ";
 
-export default function ClientLoginPage() {
+
+ interface ClientLoginPageProps {
+  from: string;
+}
+
+export default function ClientLoginPage({ from }: ClientLoginPageProps) {
   const { setToken } = useUserStore();
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const from = searchParams.get("from") || "/";
   const toastShown = useRef(false);
 
   useEffect(() => {

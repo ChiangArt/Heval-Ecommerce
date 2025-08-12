@@ -1,5 +1,4 @@
 "use client";
-
 import Modal from "@/components/ui/modal/Modal";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -17,11 +16,11 @@ export default function CheckoutFailedPage() {
   useEffect(() => {
     if (!externalReference) return;
 
-    showOverlay(); // Muestra overlay al inicio
+    showOverlay(); 
 
     const timeout = setTimeout(() => {
-      hideOverlay();         // Oculta overlay
-      setIsSuccess(true);    // Muestra el modal de error
+      hideOverlay();       
+      setIsSuccess(true);    
     }, 1500);
 
     return () => clearTimeout(timeout);
