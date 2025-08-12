@@ -20,7 +20,7 @@ export interface CreateProductRequest {
   descriptionArchetype: string;
   material: string;
   price: number;
-  colors: string[];
+  color: string;
   quantity: number;
   discountPercentage: number;
   discountUntil: string; 

@@ -62,7 +62,7 @@ export function AddProductModal({
     descriptionArchetype: productToEdit?.descriptionArchetype || "",
     material: productToEdit?.material || "",
     price: productToEdit?.price || 0,
-    color: productToEdit?.color?.join(", ") || "",
+    color: productToEdit?.color || "",
     quantity: productToEdit?.quantity || 0,
     discountPercentage: productToEdit?.discountPercentage || 0,
     discountUntil: productToEdit?.discountUntil
