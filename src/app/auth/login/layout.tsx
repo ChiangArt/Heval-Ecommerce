@@ -4,7 +4,7 @@ import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetwork
 import WholesaleContact from "@/components/ui/footer/WholesaleContact";
 import TopMenu from "@/components/ui/top-menu/TopMenu";
 
-export default function ShopLayout({
+export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;
