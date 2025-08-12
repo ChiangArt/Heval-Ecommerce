@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ToasterProvider } from "@/components/ui/toaster-provider/ToasterProvider";
+import { Suspense } from "react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,11 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body
-        className={`${inter.variable} ${jetBrainsMono.variable} font-sans`}
-      >
-        <ToasterProvider/>
-        {children}
+      <body className={`${inter.variable} ${jetBrainsMono.variable} font-sans`}>
+        <ToasterProvider />
+        <Suspense>{children}</Suspense>
       </body>
     </html>
   );
