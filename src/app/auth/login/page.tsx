@@ -1,11 +1,5 @@
-import ClientLoginPage from "@/components/login/ClientLoginPage";
-import { Suspense } from "react";
-
+import LoginWrapper from "@/components/ui/login-wrapper/LoginWrapper";
 
 export default function LoginPage() {
-  return (
-    <Suspense fallback={<div>Cargando...</div>}>
-      <ClientLoginPage />
-    </Suspense>
-  );
+  return <LoginWrapper />;
 }
