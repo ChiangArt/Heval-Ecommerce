@@ -1,11 +1,13 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import {
+  //  useSearchParams,
+    useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import Button from "@/components/ui/button/Button";
-import { postAuthResetPassword } from "@/core/auth/action/auth.actions";
+// import { postAuthResetPassword } from "@/core/auth/action/auth.actions";
 
 import { z } from "zod";
 import { AxiosError } from "axios";
@@ -23,15 +25,18 @@ export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  // const searchParams = useSearchParams();
+  // const token = searchParams.get("token");
 
   useEffect(() => {
-    if (!token) {
+    // if (!token) 
+    {
       toast.error("Token inválido o ausente.");
       router.push("/auth/login");
     }
-  }, [token, router]);
+  }
+  // , [token, router]
+);
 
   const validate = (values: ResetPasswordValues) => {
     const result = resetPasswordSchema.safeParse(values);
@@ -53,7 +58,7 @@ export default function ResetPasswordPage() {
         validate={validate}
         onSubmit={async (values, { setSubmitting }) => {
           try {
-            await postAuthResetPassword(token!, values.newPassword);
+            // await postAuthResetPassword(token!, values.newPassword);
             toast.success("¡Contraseña actualizada!");
             router.push("/auth/login");
           } catch (error: unknown) {

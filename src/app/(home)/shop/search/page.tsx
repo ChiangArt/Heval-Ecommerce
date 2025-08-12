@@ -1,12 +1,12 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function SearchPage() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query") ?? "";
+  // const searchParams = useSearchParams();
+  // const query = searchParams.get("query") ?? "";
 
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
@@ -28,7 +28,7 @@ export default function SearchPage() {
         {/* Query destacada */}
         <div className="mb-8">
           <p className="text-lg text-gray-600 dark:text-gray-300">
-            Buscaste: <span className="font-semibold text-primario">{query}</span>
+            {/* Buscaste: <span className="font-semibold text-primario">{query}</span> */}
           </p>
         </div>
 

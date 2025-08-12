@@ -4,7 +4,7 @@ import Modal from "@/components/ui/modal/Modal";
 import PagoSuccessful from "@/components/checkout/PagoSuccessful";
 import OrderDetails from "@/components/order/OrderDetails";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { Order } from "@/core/order/interface/order";
 import { getOrderById } from "@/core/order/action/order.actions";
@@ -25,8 +25,8 @@ export default function CheckoutSuccessPage() {
   const [order, setOrder] = useState<Order | null>(null);
   const [userName, setUserName] = useState("");
 
-  const searchParams = useSearchParams();
-  const externalReference = searchParams.get("external_reference"); // orderId
+  // const searchParams = useSearchParams();
+  // const externalReference = searchParams.get("external_reference"); // orderId
 
   useEffect(() => {
     setIsSuccess(true);
@@ -45,8 +45,8 @@ export default function CheckoutSuccessPage() {
     showOverlay(); 
 
     try {
-      if (!externalReference) throw new Error("No hay external_reference");
-      const order = await getOrderById(externalReference);
+      // if (!externalReference) throw new Error("No hay external_reference");
+      const order = await getOrderById(`externalReference`);
       setOrder(order);
     } catch (error) {
       console.error("Error al obtener la orden:", error);

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { 
+  // useSearchParams,
+   useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -12,8 +14,8 @@ import { useOverlayStore } from "@/store/ui/use-overlay-store";
 
 export default function VerifyCodePage() {
   const { showOverlay, hideOverlay } = useOverlayStore();
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "";
+  // const searchParams = useSearchParams();
+  // const email = searchParams.get("email") || "";
   const router = useRouter();
 
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutos
@@ -48,7 +50,7 @@ export default function VerifyCodePage() {
   return (
     <div className="max-w-xl text-xs mx-auto p-4 py-40 font-bold">
       <h1 className="text-lg">VERIFICA TU CORREO</h1>
-      <p className="md:text-sm text-gray-600">Código enviado a: {email}</p>
+      {/* <p className="md:text-sm text-gray-600">Código enviado a: {email}</p> */}
       <p className="md:text-sm text-gray-600">Tiempo restante: {formatTime()}</p>
 
       <Formik

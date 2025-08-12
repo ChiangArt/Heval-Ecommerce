@@ -1,7 +1,7 @@
 "use client";
 import Modal from "@/components/ui/modal/Modal";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { useOverlayStore } from "@/store/ui/use-overlay-store";
 import FailedPayment from "@/components/checkout/FailedPayment";
 
@@ -10,11 +10,11 @@ export default function CheckoutFailedPage() {
 
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const searchParams = useSearchParams();
-  const externalReference = searchParams.get("external_reference");
+  // const searchParams = useSearchParams();
+  // const externalReference = searchParams.get("external_reference");
 
   useEffect(() => {
-    if (!externalReference) return;
+    // if (!externalReference) return;
 
     showOverlay(); 
 
@@ -24,7 +24,9 @@ export default function CheckoutFailedPage() {
     }, 1500);
 
     return () => clearTimeout(timeout);
-  }, [externalReference, hideOverlay, showOverlay]);
+  }, 
+  // [externalReference, hideOverlay, showOverlay]
+);
 
   const handleClose = () => {
     setIsSuccess(false);
