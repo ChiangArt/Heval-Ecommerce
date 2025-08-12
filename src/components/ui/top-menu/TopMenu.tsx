@@ -12,6 +12,7 @@ import { Collection } from "@/core/collection/interface/collectionResponse";
 import { useSearchUIStore } from "@/store/ui/ui-search-store";
 import { IoSearchSharp } from "react-icons/io5";
 import Logo from "../logo/Logo";
+import { logError } from "@/app/utils/logger";
 
 interface TopMenuProps {
   showBackdropBlur?: boolean;
@@ -64,7 +65,7 @@ export default function TopMenu({
         setCollections(formatted);
       })
       .catch((err) => {
-        console.error("Error cargando colecciones:", err);
+        logError("Error cargando colecciones:", err);
       });
   }, []);
 

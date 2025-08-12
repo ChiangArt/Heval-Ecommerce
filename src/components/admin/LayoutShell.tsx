@@ -13,6 +13,7 @@ import {
 import clsx from "clsx";
 import AdminSidebar from "./AdminSidebar";
 import Logo from "../ui/logo/Logo";
+import { logInfo } from "@/app/utils/logger";
 
 interface Props {
   children: React.ReactNode;
@@ -21,7 +22,7 @@ interface Props {
 export default function LayoutShell({ children }: Props) {
   const collapsed = useSidebarStore((state) => state.collapsed);
   const pathname = usePathname();
-  console.log("AdminSidebar:", AdminSidebar);
+  logInfo("AdminSidebar:", AdminSidebar);
   const links = [
     { title: "Dashboard", icon: LayoutDashboard, href: "/admin" },
     { title: "Productos", icon: Package, href: "/admin/products" },

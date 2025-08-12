@@ -1,5 +1,6 @@
 import productsApi from "@/core/api/productsApi";
 import { AddressResponse } from "../interface/addressResponse";
+import { logError } from "@/app/utils/logger";
 
 
 interface AddressRequest {
@@ -21,7 +22,7 @@ export const postAdress = async (payload: AddressRequest
 
     return data;
   } catch (error) {
-    console.error("Error al enviar los datos", error);
+    logError("Error al enviar los datos", error);
     throw error;
   }
 };
@@ -32,7 +33,7 @@ export const getAdress = async (): Promise<AddressResponse[]> => {
     const { data } = await productsApi.get("/shipping-adress");
     return data;
   } catch (error) {
-    console.error("Error al obtener las direcciones", error);
+    logError("Error al obtener las direcciones", error);
     throw error;
   }
 };

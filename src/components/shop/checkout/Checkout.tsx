@@ -1,4 +1,5 @@
 "use client";
+import { logInfo } from "@/app/utils/logger";
 import { ContactFormValues, accountDetailsSchema } from "@/core/validations/personal-info/accountDetailsSchema";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,7 @@ export default function Checkout() {
 
   const handleSubmit = (values: ContactFormValues) => {
     localStorage.setItem("guest_contact_info", JSON.stringify(values));
-    console.log("Guardado en localStorage:", values);
+    logInfo("Guardado en localStorage:", values);
     router.push("");
   };
 

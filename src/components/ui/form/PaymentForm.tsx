@@ -1,5 +1,6 @@
 "use client";
 
+import { logInfo } from "@/app/utils/logger";
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import { useEffect } from "react";
 
@@ -28,7 +29,7 @@ export default function PaymentForm({ preferenceId }: PaymentFormProps) {
 
       {preferenceId ? (
         <>
-          {console.log("Preference ID:", preferenceId)}
+          {logInfo("Preference ID:", preferenceId)}
           <div className="w-full mt-6">
             <Wallet initialization={{ preferenceId }} />
           </div>

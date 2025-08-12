@@ -35,6 +35,7 @@ import { Product } from "@/core/product/interface/productResponse";
 import Image from "next/image";
 import { AddProductModal } from "@/components/admin/AddProductModal";
 import toast from "react-hot-toast";
+import { logError } from "@/app/utils/logger";
 
 export default function AdminProducts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,7 +67,7 @@ export default function AdminProducts() {
         });
         setProducts(res.content);
       } catch (err) {
-        console.error("Error al cargar productos", err);
+        logError("Error al cargar productos", err);
       } finally {
         setLoading(false);
       }
@@ -249,7 +250,7 @@ export default function AdminProducts() {
                       });
                       setProducts(res.content);
                     } catch (err) {
-                      console.error(err);
+                      logError(err);
                       toast.error("Error al eliminar producto");
                     } finally {
                       setDeleting(false);

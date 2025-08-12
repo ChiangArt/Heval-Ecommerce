@@ -8,6 +8,7 @@ import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
 import { useOverlayStore } from "@/store/ui/use-overlay-store";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { logError } from "@/app/utils/logger";
 
 const CartSideBar = () => {
   const { showOverlay, hideOverlay } = useOverlayStore();
@@ -111,7 +112,7 @@ const CartSideBar = () => {
                       try {
                         await updateItem(product.productId, newQty);
                       } catch (err) {
-                        console.error("Error al actualizar cantidad:", err);
+                        logError("Error al actualizar cantidad:", err);
                       } finally {
                         hideOverlay();
                       }
@@ -121,7 +122,7 @@ const CartSideBar = () => {
                       try {
                         await removeItem(product.productId);
                       } catch (err) {
-                        console.error("Error al eliminar producto:", err);
+                        logError("Error al eliminar producto:", err);
                       } finally {
                         hideOverlay();
                       }

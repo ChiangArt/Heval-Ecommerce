@@ -20,6 +20,7 @@ import { ImageIcon } from "lucide-react";
 import { upload } from "@/core/upload/action/upload.actions";
 import { createBanner } from "@/core/banner/action/banner.actions";
 import Image from "next/image";
+import { logError } from "@/app/utils/logger";
 
 export function AddBannerModal() {
   const [open, setOpen] = useState(false);
@@ -96,7 +97,7 @@ toast.success("Banner agregado correctamente");
     setPreviewWeb(null);
     setPreviewMobile(null);
   } catch (error: unknown) {
-    console.error(error);
+    logError(error);
 
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 400 && error.response.data?.message) {

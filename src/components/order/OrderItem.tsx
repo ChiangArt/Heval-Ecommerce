@@ -8,6 +8,7 @@ import StatusStep, {
 } from "../ui/status-step/StatusStep";
 import { retryOrderFromFailedPayment } from "@/core/order/action/order.actions";
 import { useRouter } from "next/navigation";
+import { logError } from "@/app/utils/logger";
 
 interface Props {
   order: Order;
@@ -40,7 +41,7 @@ export default function OrderItem({ order }: Props) {
       await retryOrderFromFailedPayment(order.orderId.toString());
       router.push("/shop/checkout");
     } catch (error) {
-      console.error("Error al reintentar pedido:", error);
+      logError("Error al reintentar pedido:", error);
     }
   };
 

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { getCollections } from "@/core/collection/action/collection.actions";
 import { Collection } from "@/core/collection/interface/collectionResponse";
+import { logError } from "@/app/utils/logger";
 
 interface CollectionStore {
   collections: Collection[];
@@ -14,7 +15,7 @@ export const useCollectionStore = create<CollectionStore>((set) => ({
       const data = await getCollections();
       set({ collections: data });
     } catch (error) {
-      console.error("Error al cargar colecciones", error);
+      logError("Error al cargar colecciones", error);
     }
   },
 }));

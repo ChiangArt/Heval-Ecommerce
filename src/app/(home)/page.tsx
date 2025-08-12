@@ -5,6 +5,7 @@ import { getAllBanners } from "@/core/banner/action/banner.actions";
 import { getCollectionById } from "@/core/collection/action/collection.actions";
 import { getProductsByCollectionId } from "@/core/product/action/product.actions";
 import { Product } from "@/core/product/interface/productResponse";
+import { logError } from "../utils/logger";
 
 const videos = [
   {
@@ -34,7 +35,7 @@ export default async function HomePage() {
   try {
     productsByCollection = await getProductsByCollectionId(1);
   } catch (error) {
-    console.error("❌ Error al obtener productos:", error);
+    logError("❌ Error al obtener productos:", error);
   }
 
   try {
@@ -49,14 +50,14 @@ export default async function HomePage() {
       }
     }
   } catch (error) {
-    console.error("❌ Error al obtener la colección:", error);
+    logError("❌ Error al obtener la colección:", error);
   }
 
   try {
     banners = await getAllBanners();
     
   } catch (error) {
-    console.error("❌ Error al obtener banners:", error);
+    logError("❌ Error al obtener banners:", error);
   }
 
   return (

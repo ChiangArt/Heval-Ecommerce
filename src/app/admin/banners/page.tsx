@@ -38,6 +38,7 @@ import {
   getAllBanners,
   deleteBanner,
 } from "@/core/banner/action/banner.actions";
+import { logError } from "@/app/utils/logger";
 
 export interface Banner {
   id: number;
@@ -59,7 +60,7 @@ export default function AdminBanners() {
         const res = await getAllBanners();
         setBanners(res);
       } catch (err) {
-        console.error("Error al cargar banners", err);
+        logError("Error al cargar banners", err);
         toast.error("Error al cargar banners");
       } finally {
         setLoading(false);
@@ -243,7 +244,7 @@ export default function AdminBanners() {
                       const updated = await getAllBanners();
                       setBanners(updated);
                     } catch (err) {
-                      console.error(err);
+                      logError(err);
                       toast.error("Error al eliminar banner");
                     } finally {
                       setDeleting(false);

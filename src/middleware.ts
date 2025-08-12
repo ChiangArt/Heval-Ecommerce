@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
+import { logError } from "./app/utils/logger";
 
 const SECRET_KEY = process.env.JWT_SECRET || "clave-secreta-dev";
 const ENCODED_KEY = new TextEncoder().encode(SECRET_KEY);
@@ -46,7 +47,7 @@ export async function middleware(request: NextRequest) {
 
     return NextResponse.next();
   } catch (err) {
-    console.error("❌ Token inválido:", err);
+    logError("❌ Token inválido:", err);
     const loginUrl = new URL("/auth/login", request.url);
     loginUrl.searchParams.set("error", "invalid_token");
     return NextResponse.redirect(loginUrl);

@@ -6,6 +6,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { getProducts } from "@/core/product/action/product.actions";
 import { Product } from "@/core/product/interface/productResponse";
+import { logError } from "@/app/utils/logger";
 
 export default function SearchDropdown() {
   const { isSearchOpen, closeSearch } = useSearchUIStore();
@@ -35,7 +36,7 @@ export default function SearchDropdown() {
         const result = await getProducts(0, 5, { searchText: searchTerm });
         setSuggestions(result.content || []);
       } catch (err) {
-        console.error("Error buscando productos:", err);
+        logError("Error buscando productos:", err);
       } finally {
         setLoading(false);
       }
@@ -59,7 +60,7 @@ export default function SearchDropdown() {
         router.push(`/shop/search?query=${encodeURIComponent(searchTerm)}`); 
       }
     } catch (err) {
-      console.error("Error en búsqueda:", err);
+      logError("Error en búsqueda:", err);
       closeSearch();
       router.push(`/shop/search?query=${encodeURIComponent(searchTerm)}`);
     }

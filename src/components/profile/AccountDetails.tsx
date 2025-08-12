@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { putUser, UserRequest } from "@/core/user/action/user.actions";
 import { useRouter } from "next/navigation";
 import { accountDetailsSchema } from "@/core/validations/personal-info/accountDetailsSchema";
+import { logInfo } from "@/app/utils/logger";
 
 const initialValues = {
   fullName: "",
@@ -46,7 +47,7 @@ export default function AccountDetails() {
       if (values.password?.trim()) {
         payload.password = values.password;
       }
-      console.log("📦 Enviando a putUser():", payload); 
+      logInfo("📦 Enviando a putUser():", payload); 
 
       await putUser(user.id, payload);
 

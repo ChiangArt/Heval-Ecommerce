@@ -1,5 +1,6 @@
 import productsApi from "@/core/api/productsApi";
 import { User } from "../interface/userResponse";
+import { logError, logInfo } from "@/app/utils/logger";
 
 export interface UserRequest {
   name: string;
@@ -12,13 +13,13 @@ export interface UserRequest {
 
 export const putUser = async (userId: number, user: UserRequest) => {
   try {
-    console.log("📡 PUT a:", `/users/${userId}`);
-    console.log("🧾 Body:", user);
+    logInfo("📡 PUT a:", `/users/${userId}`);
+    logInfo("🧾 Body:", user);
 
     const response = await productsApi.put(`/users/${userId}`, user);
     return response.data;
   } catch (error) {
-    console.error("❌ Error al guardar usuario:", error);
+    logError("❌ Error al guardar usuario:", error);
     throw error;
   }
 };
@@ -29,7 +30,7 @@ export const getUsers = async (): Promise<User[]> => {
 
     return data;
   } catch (error) {
-    console.error("Error al obtener productos", error);
+    logError("Error al obtener productos", error);
     throw error;
   }
 };

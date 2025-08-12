@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useOverlayStore } from "@/store/ui/use-overlay-store";
 import { retryOrderFromFailedPayment } from "@/core/order/action/order.actions";
+import { logError } from "@/app/utils/logger";
 
 interface Props {
   onClose: () => void;
@@ -17,7 +18,7 @@ export default function FailedPayment({ onClose, externalReference }: Props) {
       await retryOrderFromFailedPayment(externalReference);
       router.push("/checkout");
     } catch (err) {
-      console.error("Error reintentando la orden:", err);
+      logError("Error reintentando la orden:", err);
     } finally {
       hideOverlay();
       onClose(); 

@@ -21,6 +21,7 @@ import { Gift } from "lucide-react";
 import { couponSchema } from "@/core/validations/promo-coupon/PromoCouponValidations";
 import { postCoupon } from "@/core/coupon/action/coupon.actions";
 import { PromoPreview } from "./coupon/PromoPreview";
+import { logError } from "@/app/utils/logger";
 
 export function AddCouponModal() {
   const [open, setOpen] = useState(false);
@@ -47,7 +48,7 @@ export function AddCouponModal() {
         setOpen(false);
         formik.resetForm();
       } catch (error) {
-        console.error(error);
+        logError(error);
         toast.error("Error al crear el cupón");
       } finally {
         setLoading(false);

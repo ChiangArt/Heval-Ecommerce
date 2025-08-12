@@ -21,6 +21,7 @@ import { Tags } from "lucide-react";
 import { postCollection } from "@/core/collection/action/collection.actions";
 import { Title } from "../ui/title/Title";
 import { useCollectionStore } from "@/store/admin/collection-store";
+import { logError } from "@/app/utils/logger";
 
 // 📌 Validación con Zod
 const collectionSchema = z.object({
@@ -54,7 +55,7 @@ export function AddCollectionModal() {
         setOpen(false);
         formik.resetForm();
       } catch (error) {
-        console.error(error);
+        logError(error);
         toast.error("Error al crear la colección");
       } finally {
         setLoading(false);

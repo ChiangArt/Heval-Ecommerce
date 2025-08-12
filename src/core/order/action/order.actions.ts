@@ -1,6 +1,7 @@
 import productsApi from "@/core/api/productsApi";
 import { Order } from "../interface/order";
 import { useUnifiedCartStore } from "@/store/cart/use-unified-cart-store";
+import { logError, logInfo } from "@/app/utils/logger";
 
 export interface OrderRequest {
   fullName: string;
@@ -22,7 +23,7 @@ export const getOrdersByUser = async (): Promise<Order[]> => {
     const { data } = await productsApi.get("/orders");
     return data;
   } catch (error) {
-    console.error("Error al obtener órdenes del usuario", error);
+    logError("Error al obtener órdenes del usuario", error);
     throw error;
   }
 };
@@ -32,7 +33,7 @@ export async function getOrdersByAdmin(startDate: string, endDate: string): Prom
     const start = startDate + "T00:00:00";
     const end = endDate + "T23:59:59";
 
-    console.log("Fechas enviadas al backend:", { start, end });
+    logInfo("Fechas enviadas al backend:", { start, end });
 
     const { data } = await productsApi.get("/orders/admin", {
       params: { start, end },
@@ -40,7 +41,7 @@ export async function getOrdersByAdmin(startDate: string, endDate: string): Prom
 
     return data;
   } catch (error) {
-    console.error("Error al obtener órdenes:", error);
+    logError("Error al obtener órdenes:", error);
     throw error;
   }
 }
@@ -54,7 +55,7 @@ export const getOrderById = async (orderId: string): Promise<Order> => {
     const { data } = await productsApi.get(`/orders/${orderId}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener la orden:", error);
+    logError("Error al obtener la orden:", error);
     throw error;
   }
 };
@@ -64,7 +65,7 @@ export const postOrder = async (orders: OrderRequest) => {
     const { data } = await productsApi.post("/orders", orders);
     return data;
   } catch (error) {
-    console.error("Error al crear orden", error);
+    logError("Error al crear orden", error);
     throw error;
   }
 };
@@ -76,7 +77,7 @@ export const createPreference = async (orderId: string): Promise<string> => {
     );
     return data;
   } catch (error) {
-    console.error("Error al generar preferencia de pago:", error);
+    logError("Error al generar preferencia de pago:", error);
     throw error;
   }
 };
@@ -101,7 +102,7 @@ export const updateOrderStatus = async (orderId: string, newStatus: string) => {
     const { data } = await productsApi.put(`/orders/status/${orderId}?status=${newStatus}`);
     return data;
   } catch (error) {
-    console.error("Error al actualizar el estado de la orden", error);
+    logError("Error al actualizar el estado de la orden", error);
     throw error;
   }
 };

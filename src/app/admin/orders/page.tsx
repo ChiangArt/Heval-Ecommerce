@@ -9,6 +9,7 @@ import { Order } from "@/core/order/interface/order";
 import { OrderDetailModal } from "@/components/admin/orders/OrderDetailModalProps";
 import { OrdersTable } from "@/components/admin/orders/OrdersTable"; // asumiendo que tienes este componente
 import { LoadingMessage } from "@/components/ui/loading/LoadingMessage";
+import { logError } from "@/app/utils/logger";
 
 const formatDateForInput = (date: Date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000)
@@ -39,7 +40,7 @@ export default function AdminOrdersPage() {
 
       setOrders(filteredOrders);
     } catch (error) {
-      console.error("Error completo:", error);
+      logError("Error completo:", error);
       setOrders([]);
     } finally {
       setLoading(false);
@@ -71,7 +72,7 @@ export default function AdminOrdersPage() {
           prev.map((o) => (o.orderId === updated.orderId ? updated : o))
         );
       })
-      .catch(console.error)
+      .catch(logError)
       .finally(() => setUpdating(false));
   };
 

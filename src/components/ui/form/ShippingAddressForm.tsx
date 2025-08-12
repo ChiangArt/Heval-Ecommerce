@@ -6,6 +6,7 @@ import {
   shippingInfoSchema,
 } from "@/core/validations/shipping-info/shippingInfo";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { logError } from "@/app/utils/logger";
 
 type District = {
   ubigeo: string;
@@ -123,7 +124,7 @@ export default function ShippingAddressForm() {
       const initPoint = await createPreference(orderId);
       window.location.href = initPoint;
     } catch (error) {
-      console.error("Error durante el proceso de checkout:", error);
+      logError("Error durante el proceso de checkout:", error);
       alert("Ocurrió un error al finalizar el pedido.");
     }
   };

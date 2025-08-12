@@ -5,6 +5,7 @@ import { getCollections } from "@/core/collection/action/collection.actions";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import ProductGrid from "@/components/shop/products/ProductGrid";
+import { logError } from "@/app/utils/logger";
 
 const ShopSection = dynamic(() => import("@/components/shop/ShopSection"));
 const Filters = dynamic(() => import("@/components/ui/filter/Filters"), {
@@ -93,7 +94,7 @@ export default async function ShopPage({
       </div>
     );
   } catch (error) {
-    console.error("Error al obtener datos del backend:", error);
+    logError("Error al obtener datos del backend:", error);
 
     return (
       <div className="w-full h-screen flex flex-col justify-center items-center text-center text-red-600">

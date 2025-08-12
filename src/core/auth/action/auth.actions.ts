@@ -5,12 +5,13 @@ import {
   RegisterRequest,
   RegisterResponse,
 } from "../interface/user";
+import { logError, logInfo } from "@/app/utils/logger";
 
 export const postAuthRegister = async (
   payload: RegisterRequest
 ): Promise<RegisterResponse> => {
   try {
-    console.log("Datos enviados a la API:", payload);
+    logInfo("Datos enviados a la API:", payload);
     const { data } = await productsApi.post<RegisterResponse>(
       "/auth/register",
       payload
@@ -18,7 +19,7 @@ export const postAuthRegister = async (
 
     return data;
   } catch (error) {
-    console.error("Error al registrarse", error);
+    logError("Error al registrarse", error);
     throw error;
   }
 };
@@ -34,7 +35,7 @@ export const postAuthLogin = async (
 
     return data;
   } catch (error) {
-    console.error("Error al loguearse", error);
+    logError("Error al loguearse", error);
     throw error;
   }
 };
@@ -47,7 +48,7 @@ export const postAuthForgotPassword = async (email: string) => {
 
     return data;
   } catch (error) {
-    console.error("Error al enviar el código de recuperación", error);
+    logError("Error al enviar el código de recuperación", error);
     throw error;
   }
 };
@@ -63,7 +64,7 @@ export const postAuthResetPassword = async (
     });
     return data;
   } catch (error) {
-    console.error("Error al enviar el código de creación de cuenta", error);
+    logError("Error al enviar el código de creación de cuenta", error);
     throw error;
   }
 };
@@ -76,7 +77,7 @@ export const postAuthSendCode = async (email: string) => {
     );
     return data;
   } catch (error) {
-    console.error("Error al enviar el código de creación de cuenta", error);
+    logError("Error al enviar el código de creación de cuenta", error);
     throw error;
   }
 };

@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { deleteCollectionById, getCollections } from "@/core/collection/action/collection.actions";
 import { Collection } from "@/core/collection/interface/collectionResponse";
+import { logError } from "@/app/utils/logger";
 
 export default function AdminCollections() {
   const [collections, setCollections] = useState<Collection[]>([]);
@@ -38,7 +39,7 @@ export default function AdminCollections() {
         const res = await getCollections();
         setCollections(res);
       } catch (err) {
-        console.error("Error al cargar colecciones", err);
+        logError("Error al cargar colecciones", err);
       } finally {
         setLoading(false);
       }
@@ -132,7 +133,7 @@ export default function AdminCollections() {
                       const updated = await getCollections();
                       setCollections(updated);
                     } catch (err) {
-                      console.error(err);
+                      logError(err);
                       toast.error("Error al eliminar colección");
                     } finally {
                       setDeleting(false);

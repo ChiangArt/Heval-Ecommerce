@@ -12,6 +12,7 @@ import { LoginResponse } from "@/core/auth/interface/user";
 import Link from "next/link";
 import { useUserStore } from "@/store/user/use-auth-store";
 import { syncGuestCartToUserCart } from "@/core/cart/sync-cart/SyncGuestCartToUserCart ";
+import { logInfo } from "@/app/utils/logger";
 
 export default function ClientLoginPage() {
   const { setToken } = useUserStore();
@@ -47,7 +48,7 @@ export default function ClientLoginPage() {
         onSubmit={async (values, { setSubmitting }) => {
           try {
             const response: LoginResponse = await postAuthLogin(values);
-            console.log("esta es la respuesta", response);
+            logInfo("esta es la respuesta", response);
             const { token, role } = response;
 
             document.cookie = `token=${token}; path=/;`;

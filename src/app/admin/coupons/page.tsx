@@ -29,6 +29,7 @@ import {
 import { getCoupons, deleteCouponById } from "@/core/coupon/action/coupon.actions";
 import { Badge } from "@/components/ui/badge";
 import { Coupon } from "@/core/coupon/interface/CouponResponse";
+import { logError } from "@/app/utils/logger";
 
 export default function AdminCoupons() {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
@@ -44,7 +45,7 @@ export default function AdminCoupons() {
         const res = await getCoupons();
         setCoupons(res);
       } catch (err) {
-        console.error("Error al cargar cupones", err);
+        logError("Error al cargar cupones", err);
       } finally {
         setLoading(false);
       }
@@ -149,7 +150,7 @@ export default function AdminCoupons() {
                       const updated = await getCoupons();
                       setCoupons(updated);
                     } catch (err) {
-                      console.error(err);
+                      logError(err);
                       toast.error("Error al eliminar cupón");
                     } finally {
                       setDeleting(false);

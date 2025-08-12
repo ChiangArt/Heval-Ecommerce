@@ -7,6 +7,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import Logo from "../logo/Logo";
 import { useEffect, useState } from "react";
 import { Collection } from "@/core/collection/interface/collectionResponse";
+import { logError } from "@/app/utils/logger";
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
@@ -26,7 +27,7 @@ export const Sidebar = () => {
         setCollections(formatted);
       })
       .catch((err) => {
-        console.error("Error cargando colecciones:", err);
+        logError("Error cargando colecciones:", err);
       });
   }, []);
 

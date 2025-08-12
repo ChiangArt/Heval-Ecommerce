@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Product } from "@/core/product/interface/productResponse";
 import StatusRotator from "../status-rotator/StatusRotator";
 import { getProductById } from "@/core/product/action/product.actions";
+import { logError } from "@/app/utils/logger";
 
 interface Props {
   product: Product;
@@ -27,7 +28,7 @@ export default function ProductDetails({
         const updatedProduct = await getProductById(product.id);
         setCurrentStock(updatedProduct.quantity);
       } catch (error) {
-        console.error("Error actualizando stock:", error);
+        logError("Error actualizando stock:", error);
       }
     }
 

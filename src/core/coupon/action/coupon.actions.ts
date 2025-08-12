@@ -1,6 +1,7 @@
 import productsApi from "@/core/api/productsApi";
 import { AxiosError } from "axios";
 import { Coupon } from "../interface/CouponResponse";
+import { logError } from "@/app/utils/logger";
 
 // 🔹 Obtener todos los cupones
 export const getCoupons = async (): Promise<Coupon[]> => {
@@ -8,7 +9,7 @@ export const getCoupons = async (): Promise<Coupon[]> => {
     const { data } = await productsApi.get("/coupon");
     return data;
   } catch (error) {
-    console.error("Error al obtener los cupones", error);
+    logError("Error al obtener los cupones", error);
     throw error;
   }
 };
@@ -26,7 +27,7 @@ export const getCouponById = async (couponId: number): Promise<Coupon | null> =>
       return null;
     }
 
-    console.error("Error al obtener el cupón por ID:", error);
+    logError("Error al obtener el cupón por ID:", error);
     return null;
   }
 };
@@ -39,7 +40,7 @@ export const postCoupon = async (
     const { data } = await productsApi.post("/coupon", payload);
     return data;
   } catch (error) {
-    console.error("Error al crear el cupón", error);
+    logError("Error al crear el cupón", error);
     throw error;
   }
 };
@@ -53,7 +54,7 @@ export const putCouponById = async (
     const { data } = await productsApi.put(`/coupon/${couponId}`, payload);
     return data;
   } catch (error) {
-    console.error("Error al actualizar el cupón por ID", error);
+    logError("Error al actualizar el cupón por ID", error);
     throw error;
   }
 };
@@ -64,7 +65,7 @@ export const deleteCouponById = async (couponId: number): Promise<Coupon> => {
     const { data } = await productsApi.delete(`/coupon/${couponId}`);
     return data;
   } catch (error) {
-    console.error("Error al eliminar el cupón", error);
+    logError("Error al eliminar el cupón", error);
     throw error;
   }
 };

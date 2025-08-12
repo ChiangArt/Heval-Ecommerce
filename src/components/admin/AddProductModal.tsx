@@ -26,6 +26,7 @@ import { InputField } from "../ui/form/InputField";
 import { SelectField } from "../ui/form/SelectField";
 import { TextareaField } from "../ui/form/TextareaField";
 import { useImageUpload } from "@/hooks/useImageUpload";
+import { logError } from "@/app/utils/logger";
 
 interface AddProductModalProps {
   open: boolean;
@@ -124,7 +125,7 @@ export function AddProductModal({
               resetImages();
               onUpdate?.();
             } catch (err) {
-              console.error(err);
+              logError(err);
               toast.error("Error al guardar producto");
             } finally {
               setLoading(false);

@@ -8,6 +8,7 @@ import { OrderItem } from "@/core/order/interface/order";
 import { DashboardSummary } from "@/components/admin/dashboard/DashboardSummary";
 import { RecentOrders } from "@/components/admin/dashboard/RecentOrders";
 import { QuickActions } from "@/components/admin/dashboard/QuickActions";
+import { logError } from "../utils/logger";
 
 export default function AdminDashboard() {
   const [userCount, setUserCount] = useState(0);
@@ -58,7 +59,7 @@ export default function AdminDashboard() {
     setTotalRevenue(total);
 
   } catch (err) {
-    console.error("Error al obtener datos del dashboard", err);
+    logError("Error al obtener datos del dashboard", err);
   } finally {
     setLoadingUsers(false);
     setLoadingProducts(false);

@@ -10,6 +10,7 @@ import { Order } from "@/core/order/interface/order";
 import { getOrderById } from "@/core/order/action/order.actions";
 import OrderSummary from "@/components/order/OrderSummary";
 import { useOverlayStore } from "@/store/ui/use-overlay-store";
+import { logError } from "@/app/utils/logger";
 
 interface JwtPayload {
   name: string;
@@ -49,7 +50,7 @@ export default function CheckoutSuccessPage() {
       const order = await getOrderById(externalReference);
       setOrder(order);
     } catch (error) {
-      console.error("Error al obtener la orden:", error);
+      logError("Error al obtener la orden:", error);
     } finally {
       hideOverlay(); 
     }

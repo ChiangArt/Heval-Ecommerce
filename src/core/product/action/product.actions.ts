@@ -1,5 +1,6 @@
 import productsApi from "@/core/api/productsApi";
 import { PaginatedProductsResponse, Product } from "../interface/productResponse";
+import { logError } from "@/app/utils/logger";
 
 export interface ProductFilters {
   colors?: string;
@@ -47,7 +48,7 @@ export const getProducts = async (
     const { data } = await productsApi.get(`/products?${params.toString()}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener productos", error);
+    logError("Error al obtener productos", error);
     throw error;
   }
 };
@@ -68,7 +69,7 @@ export const getAdminProducts = async (
     const { data } = await productsApi.get(`/products/admin?${params.toString()}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener productos del admin", error);
+    logError("Error al obtener productos del admin", error);
     throw error;
   }
 };
@@ -79,7 +80,7 @@ export const getProductById = async (id: number): Promise<Product> => {
     const { data } = await productsApi.get(`/products/${id}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener producto por ID", error);
+    logError("Error al obtener producto por ID", error);
     throw error;
   }
 };
@@ -90,7 +91,7 @@ export const getProductsBySlug = async (slug: string): Promise<Product> => {
     const { data } = await productsApi.get(`/products/slug/${slug}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener productos por slug", error);
+    logError("Error al obtener productos por slug", error);
     throw error;
   }
 };
@@ -101,7 +102,7 @@ export const getProductsByCollectionId = async (collectionId: number): Promise<P
     const { data } = await productsApi.get(`/products/by-collection/${collectionId}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener productos de la colección", error);
+    logError("Error al obtener productos de la colección", error);
     throw error;
   }
 };
@@ -112,7 +113,7 @@ export const getProductByColors = async (): Promise<string[]> => {
     const { data } = await productsApi.get(`/products/colors`);
     return data;
   } catch (error) {
-    console.error("Error al obtener productos por colores", error);
+    logError("Error al obtener productos por colores", error);
     throw error;
   }
 };
@@ -123,7 +124,7 @@ export const createProduct = async (product: CreateProductRequest): Promise<Prod
     const { data } = await productsApi.post("/products", product);
     return data;
   } catch (error) {
-    console.error("❌ Error al crear el producto:", error);
+    logError("❌ Error al crear el producto:", error);
     throw error;
   }
 };
@@ -137,7 +138,7 @@ export const updateProduct = async (
     const { data } = await productsApi.put(`/products/${id}`, updatedProduct);
     return data;
   } catch (error) {
-    console.error("❌ Error al actualizar el producto:", error);
+    logError("❌ Error al actualizar el producto:", error);
     throw error;
   }
 };
@@ -147,7 +148,7 @@ export const deleteProduct = async (id: number): Promise<void> => {
   try {
     await productsApi.delete(`/products/${id}`);
   } catch (error) {
-    console.error("❌ Error al eliminar el producto:", error);
+    logError("❌ Error al eliminar el producto:", error);
     throw error;
   }
 };

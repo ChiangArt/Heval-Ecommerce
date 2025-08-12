@@ -1,5 +1,6 @@
 import productsApi from '@/core/api/productsApi';
 import { Cart } from '../interface/cart';
+import { logError } from '@/app/utils/logger';
 
 // 🔹 Agregar item al carrito
 export const addItemToCart = async (
@@ -13,7 +14,7 @@ export const addItemToCart = async (
     });
     return response.data;
   } catch (error) {
-    console.error('Error al agregar al carrito:', error);
+    logError('Error al agregar al carrito:', error);
     throw error;
   }
 };
@@ -24,7 +25,7 @@ export const getCart = async (): Promise<Cart> => {
     const response = await productsApi.get<Cart>('/cart');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener el carrito:', error);
+    logError('Error al obtener el carrito:', error);
     throw error;
   }
 };

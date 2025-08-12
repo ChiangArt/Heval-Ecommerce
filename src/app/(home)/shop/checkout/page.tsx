@@ -10,6 +10,7 @@ import {
   applyCouponToCart,
   removeCouponFromCart,
 } from "@/core/cart/action/cart.actions";
+import { logError } from "@/app/utils/logger";
 
 export default function ContactFormPage() {
   const {
@@ -44,7 +45,7 @@ export default function ContactFormPage() {
       toast.success("Cupón aplicado exitosamente");
       setCouponInput("");
     } catch (error) {
-      console.error("❌ Error al aplicar cupón:", error);
+      logError("❌ Error al aplicar cupón:", error);
       toast.error("Cupón inválido o expirado");
     } finally {
       setIsApplying(false);
@@ -57,7 +58,7 @@ export default function ContactFormPage() {
       await fetchItems();
       toast.success("Cupón eliminado");
     } catch (error) {
-      console.error("❌ Error al eliminar cupón:", error);
+      logError("❌ Error al eliminar cupón:", error);
       toast.error("No se pudo quitar el cupón");
     }
   };

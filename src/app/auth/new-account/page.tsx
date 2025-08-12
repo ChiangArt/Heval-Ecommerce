@@ -15,6 +15,7 @@ import {
 import { useUserStore } from "@/store/user/use-auth-store";
 import Link from "next/link";
 import { useOverlayStore } from "@/store/ui/use-overlay-store";
+import { logError } from "@/app/utils/logger";
 
 export default function NewAccountPage() {
   const { showOverlay, hideOverlay } = useOverlayStore();
@@ -74,7 +75,7 @@ export default function NewAccountPage() {
       const err = error as AxiosError<{ message: string }>;
       const msg = err.response?.data?.message;
       toast.error(msg || "Error al enviar código. Intenta de nuevo.");
-      console.error("Error al enviar código:", err);
+      logError("Error al enviar código:", err);
     } finally {
       setSubmitting(false);
       hideOverlay(); // 👉 Ocultar overlay al terminar

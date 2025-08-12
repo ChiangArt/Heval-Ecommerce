@@ -17,6 +17,7 @@ import Button from "@/components/ui/button/Button";
 import { getCoupons } from "@/core/coupon/action/coupon.actions";
 import { Coupon } from "@/core/coupon/interface/CouponResponse";
 import Logo from "@/components/ui/logo/Logo";
+import { logError, logInfo } from "@/app/utils/logger";
 
 export function PromoModal() {
   const [open, setOpen] = useState(false);
@@ -34,7 +35,7 @@ export function PromoModal() {
           setOpen(true);
         }
       } catch (error) {
-        console.error("No se pudieron obtener los cupones:", error);
+        logError("No se pudieron obtener los cupones:", error);
       }
     };
 
@@ -45,7 +46,7 @@ export function PromoModal() {
     initialValues: { email: "" },
     validationSchema: toFormikValidationSchema(promoSchema),
     onSubmit: (values) => {
-      console.log("Correo registrado:", values.email);
+      logInfo("Correo registrado:", values.email);
       toast.success("¡Gracias por registrarte!");
       formik.resetForm();
       setOpen(false);

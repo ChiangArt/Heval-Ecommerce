@@ -1,5 +1,6 @@
 import { useGuestCartStore } from "@/store/cart/use-guest-cart-store";
 import { addItemToCart } from "../action/cart.actions";
+import { logError } from "@/app/utils/logger";
 
 export const syncGuestCartToUserCart = async () => {
   const items = useGuestCartStore.getState().items;
@@ -8,7 +9,7 @@ export const syncGuestCartToUserCart = async () => {
     try {
       await addItemToCart(item.productId, item.quantity);
     } catch (err) {
-      console.error(`Error al sincronizar producto ${item.productId}:`, err);
+      logError(`Error al sincronizar producto ${item.productId}:`, err);
     }
   }
 

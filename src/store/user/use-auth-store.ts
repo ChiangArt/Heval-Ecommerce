@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode"; // ✅ Correcto
 import axios from "axios";
 import { useGuestCartStore } from "../cart/use-guest-cart-store";
 import { useUnifiedCartStore } from "../cart/use-unified-cart-store";
+import { logError } from "@/app/utils/logger";
 
 interface TokenPayload {
   userId: number;
@@ -41,7 +42,7 @@ export const useUserStore = create<UserState>()(
           };
           set({ user, token });
         } catch (err) {
-          console.error("❌ Token inválido al decodificar", err);
+          logError("❌ Token inválido al decodificar", err);
           set({ user: null, token: null });
         }
       },
