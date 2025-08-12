@@ -1,8 +1,9 @@
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import ClientLoginPage from "@/components/login/ClientLoginPage";
 
-export const dynamic = "force-dynamic";
-
+const ClientLoginPage = dynamic(() => import("@/components/login/ClientLoginPage"), {
+  ssr: false,
+});
 
 export default function LoginPage() {
   return (
