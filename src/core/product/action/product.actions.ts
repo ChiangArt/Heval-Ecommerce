@@ -14,7 +14,6 @@ export interface ProductAdminFilters {
   size?: number;
 }
 
-
 export interface CreateProductRequest {
   title: string;
   description: string;
@@ -29,7 +28,7 @@ export interface CreateProductRequest {
   collectionId: number;
 }
 
-
+// GET /api/v1/products
 export const getProducts = async (
   page = 0,
   size = 20,
@@ -37,18 +36,13 @@ export const getProducts = async (
 ): Promise<PaginatedProductsResponse> => {
   try {
     const params = new URLSearchParams();
-
     params.set("page", page.toString());
     params.set("size", size.toString());
 
     if (filters.colors) params.set("colors", filters.colors);
     if (filters.coleccionId) params.set("coleccion", filters.coleccionId.toString());
-
-    if (filters.searchText) params.set("searchText", filters.searchText); // 👈 esto es clave
-
-    if (filters.sortDirection) {
-      params.set("sort", `price,${filters.sortDirection}`);
-    }
+    if (filters.searchText) params.set("searchText", filters.searchText);
+    if (filters.sortDirection) params.set("sort", `price,${filters.sortDirection}`);
 
     const { data } = await productsApi.get(`/products?${params.toString()}`);
     return data;
@@ -58,7 +52,7 @@ export const getProducts = async (
   }
 };
 
-
+// GET /api/v1/products/admin
 export const getAdminProducts = async (
   page = 0,
   size = 20,
@@ -66,13 +60,10 @@ export const getAdminProducts = async (
 ): Promise<PaginatedProductsResponse> => {
   try {
     const params = new URLSearchParams();
-
     params.set("page", page.toString());
     params.set("size", size.toString());
 
-    if (filters.searchText) {
-      params.set("searchText", filters.searchText);
-    }
+    if (filters.searchText) params.set("searchText", filters.searchText);
 
     const { data } = await productsApi.get(`/products/admin?${params.toString()}`);
     return data;
@@ -82,10 +73,8 @@ export const getAdminProducts = async (
   }
 };
 
-
-export const getProductById = async (
-  id: number 
-): Promise<Product> => {
+// GET /api/v1/products/{id}
+export const getProductById = async (id: number): Promise<Product> => {
   try {
     const { data } = await productsApi.get(`/products/${id}`);
     return data;
@@ -95,37 +84,41 @@ export const getProductById = async (
   }
 };
 
-
-export const getProductsBySlug = async (
-  slug : string 
-): Promise<Product> => {
+// GET /api/v1/products/slug/{slug}
+export const getProductsBySlug = async (slug: string): Promise<Product> => {
   try {
     const { data } = await productsApi.get(`/products/slug/${slug}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener los productos de la collecion por ID", error);
+    console.error("Error al obtener productos por slug", error);
     throw error;
   }
 };
 
-
-
-export const getProductsByCollectionId = async (
-  collectionId : number 
-): Promise<Product[]> => {
+// GET /api/v1/products/by-collection/{collectionId}
+export const getProductsByCollectionId = async (collectionId: number): Promise<Product[]> => {
   try {
     const { data } = await productsApi.get(`/products/by-collection/${collectionId}`);
     return data;
   } catch (error) {
-    console.error("Error al obtener los productos de la collecion por ID", error);
+    console.error("Error al obtener productos de la colección", error);
     throw error;
   }
 };
 
+// GET /api/v1/products/colors
+export const getProductByColors = async (): Promise<string[]> => {
+  try {
+    const { data } = await productsApi.get(`/products/colors`);
+    return data;
+  } catch (error) {
+    console.error("Error al obtener productos por colores", error);
+    throw error;
+  }
+};
 
-export const createProduct = async (
-  product: CreateProductRequest
-): Promise<Product> => {
+// POST /api/v1/products
+export const createProduct = async (product: CreateProductRequest): Promise<Product> => {
   try {
     const { data } = await productsApi.post("/products", product);
     return data;
@@ -135,7 +128,7 @@ export const createProduct = async (
   }
 };
 
-
+// PUT /api/v1/products/{id}
 export const updateProduct = async (
   id: number,
   updatedProduct: Partial<CreateProductRequest>
@@ -149,11 +142,8 @@ export const updateProduct = async (
   }
 };
 
-
-
-export const deleteProduct = async (
-  id: number
-): Promise<void> => {
+// DELETE /api/v1/products/{id}
+export const deleteProduct = async (id: number): Promise<void> => {
   try {
     await productsApi.delete(`/products/${id}`);
   } catch (error) {
