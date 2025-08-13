@@ -1,22 +1,20 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useMemo } from "react";
 
 interface Props {
   urls: string[]; // [desktopUrl, mobileUrl]
   poster?: string; // url imagen para fallback o poster
 }
 
-const isVideoUrl = (url: string) => {
-  return /\.(mp4|webm|ogg)$/i.test(url);
-};
-
-const isImageUrl = (url: string) => {
-  return /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
-};
+const isVideoUrl = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
+const isImageUrl = (url: string) => /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
 
 export const HeroVideoSection = ({ urls, poster }: Props) => {
-  const [desktopUrl, mobileUrl] = urls;
+  // Generamos URLs únicas para forzar recarga solo cuando cambien los urls
+  const [desktopUrl, mobileUrl] = useMemo(() => {
+    return urls.map(url => url ? `${url}?v=${Date.now()}` : url);
+  }, [urls]);
 
   const renderMedia = (url: string | undefined, isDesktop: boolean) => {
     if (!url) return null;
@@ -42,9 +40,7 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
 
     if (isImageUrl(url)) {
       return (
-        <div
-          className={`relative w-full h-screen ${isDesktop ? "hidden lg:block" : "block lg:hidden"}`}
-        >
+        <div className={`relative w-full h-screen ${isDesktop ? "hidden lg:block" : "block lg:hidden"}`}>
           <Image
             src={url}
             alt={isDesktop ? "Imagen escritorio" : "Imagen móvil"}
