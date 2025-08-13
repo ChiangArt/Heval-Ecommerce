@@ -2,13 +2,13 @@ import productsApi from "@/core/api/productsApi";
 
 // Para crear banner (no necesitas el id)
 export interface CreateBannerDto {
-  url: string[];
+  urls: string[];
 }
 
 // Para actualizar banner
 export interface UpdateBannerDto {
   id: number;
-  url: string[];
+  urls: string[];
 }
 
 
@@ -18,8 +18,8 @@ export const createBanner = async (data: CreateBannerDto): Promise<void> => {
 };
 
 // Actualizar banner
-export const updateBanner = async ({ id, url }: UpdateBannerDto): Promise<void> => {
-  await productsApi.put(`/banners/${id}`, { id, url });
+export const updateBanner = async ({ id, urls }: UpdateBannerDto): Promise<void> => {
+  await productsApi.put(`/banners/${id}`, { id, urls });
 };
 
 // Eliminar banner

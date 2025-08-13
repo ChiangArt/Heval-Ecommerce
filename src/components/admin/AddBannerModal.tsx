@@ -87,7 +87,7 @@ const renderPreview = (file: File | null, preview: string | null, label: string)
       ]);
 
       await createBanner({
-        url: [urlWeb, urlMobile],
+        urls: [urlWeb, urlMobile],
       });
 
 toast.success("Banner agregado correctamente");
