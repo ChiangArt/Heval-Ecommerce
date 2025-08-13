@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useMemo } from "react";
+import React, { useState, useEffect } from "react";
 
 interface Props {
   urls: string[]; // [desktopUrl, mobileUrl]
@@ -11,12 +11,16 @@ const isVideoUrl = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
 const isImageUrl = (url: string) => /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
 
 export const HeroVideoSection = ({ urls, poster }: Props) => {
-  // Generamos URLs únicas para forzar recarga solo cuando cambien los urls
-  const [desktopUrl, mobileUrl] = useMemo(() => {
-    return urls.map(url => url ? `${url}?v=${Date.now()}` : url);
+  const [keyDesktop, setKeyDesktop] = useState(0);
+  const [keyMobile, setKeyMobile] = useState(0);
+
+  useEffect(() => {
+    // Cada vez que cambien los URLs, actualizamos los keys para forzar recarga
+    setKeyDesktop(prev => prev + 1);
+    setKeyMobile(prev => prev + 1);
   }, [urls]);
 
-  const renderMedia = (url: string | undefined, isDesktop: boolean) => {
+  const renderMedia = (url: string | undefined, isDesktop: boolean, key: number) => {
     if (!url) return null;
 
     const baseClasses = `${
@@ -26,6 +30,7 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
     if (isVideoUrl(url)) {
       return (
         <video
+          key={key}
           src={url}
           poster={isDesktop ? poster : undefined}
           preload="none"
@@ -40,7 +45,7 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
 
     if (isImageUrl(url)) {
       return (
-        <div className={`relative w-full h-screen ${isDesktop ? "hidden lg:block" : "block lg:hidden"}`}>
+        <div key={key} className={`relative w-full h-screen ${isDesktop ? "hidden lg:block" : "block lg:hidden"}`}>
           <Image
             src={url}
             alt={isDesktop ? "Imagen escritorio" : "Imagen móvil"}
@@ -55,14 +60,15 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
     return null;
   };
 
+  const [desktopUrl, mobileUrl] = urls;
   const hasAnyMedia = desktopUrl || mobileUrl;
 
   return (
     <section className="snap-start snap-always w-full h-screen min-h-[100dvh] lg:h-screen relative">
       {hasAnyMedia ? (
         <>
-          {renderMedia(desktopUrl, true)}
-          {renderMedia(mobileUrl, false)}
+          {renderMedia(desktopUrl, true, keyDesktop)}
+          {renderMedia(mobileUrl, false, keyMobile)}
         </>
       ) : poster ? (
         <Image
