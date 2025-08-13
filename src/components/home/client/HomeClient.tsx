@@ -20,7 +20,7 @@ interface Props {
   productsByCollection: Product[];
   firsCollection: Collection | null;
   formattedDate: string;
-  banners: { id: number; urls: string[] }[];
+  banners: { id: number; url: string[] }[];
 }
 
 export default function HomeClient({
@@ -37,8 +37,8 @@ export default function HomeClient({
   useEnableAudioOnVisible(videoRef2);
   useEnableAudioOnVisible(videoRef3);
 
-const videoBanner = banners.find(b => b.urls.length >= 2) ?? { urls: ["", ""] };
-const [desktopUrl, mobileUrl] = videoBanner.urls;
+const videoBanner = banners.find(b => b.url.length >= 2) ?? { url: ["", ""] };
+const [desktopUrl, mobileUrl] = videoBanner.url;
 
   return (
     <main className="snap-y snap-mandatory h-screen min-h-[100dvh] lg:h-screen">
