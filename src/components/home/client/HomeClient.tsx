@@ -1,27 +1,27 @@
 "use client";
 import { useRef } from "react";
-import ConsumerInformation from "@/components/ui/footer/consumer-information/ConsumerInformation";
-import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
 import { Product } from "@/core/product/interface/productResponse";
 import { Collection } from "@/core/collection/interface/collectionResponse";
+import { Banner } from "@/core/banner/interface/bannerResponse";
 import { useEnableAudioOnVisible } from "@/hooks/use-Enable-Audio-On-Visible";
+import { HeroVideoSection } from "../hero-video-section/HeroVideoSection";
 import { NewCollectionSection } from "../new-collection-section/NewCollectionSection";
 import { EssentialsSection } from "../essentials-section/EssentialsSection";
 import { MobileVideoSection } from "../mobile-video-section/MobileVideoSection";
-import { HeroVideoSection } from "../hero-video-section/HeroVideoSection";
 import { DesktopVideoSection } from "../desktop-video-section/DesktopVideoSection";
 import { AboutUsSection } from "../about-us-section/AboutUsSection";
 import { WhatsAppButton } from "@/components/ui/whatsApp-button/WhatsAppButton";
 import { PromoModal } from "../promo-modal/PromoModal";
+import ConsumerInformation from "@/components/ui/footer/consumer-information/ConsumerInformation";
+import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
 import WholesaleContact from "@/components/ui/footer/WholesaleContact";
-import { Banner } from "@/core/banner/interface/bannerResponse";
 
 interface Props {
   videos: { id: string; url: string; title: string }[];
   productsByCollection: Product[];
   firsCollection: Collection | null;
   formattedDate: string;
-  banners : Banner[];
+  banners: Banner[];
 }
 
 export default function HomeClient({
@@ -38,32 +38,29 @@ export default function HomeClient({
   useEnableAudioOnVisible(videoRef2);
   useEnableAudioOnVisible(videoRef3);
 
-  const videoBanner =
-    Array.isArray(banners) && banners.length > 0
-      ? banners.find((b) => Array.isArray(b.urls) && b.urls.length >= 2) ?? {
-          urls: ["", ""],
-        }
-      : { urls: ["", ""] };
-
-  const [desktopUrl, mobileUrl] = videoBanner.urls;
+  const videoBanner = banners.find(
+    (b) => Array.isArray(b.urls) && b.urls.length >= 2
+  ) ?? { urls: ["", ""] };
+  const [desktopUrl, mobileUrl] = videoBanner.urls.map((url) =>
+    url ? `${url}?t=${Date.now()}` : ""
+  );
 
   return (
     <main className="snap-y snap-mandatory h-screen min-h-[100dvh] lg:h-screen">
-      {/* SECCION 1 */}
-      <HeroVideoSection urls={[desktopUrl, mobileUrl]} />
+      <HeroVideoSection
+        urls={[desktopUrl, mobileUrl]}
+        key={desktopUrl + mobileUrl}
+      />
 
-      {/* SECCION 2 */}
       <NewCollectionSection
         firsCollection={firsCollection}
         products={productsByCollection}
         formattedDate={formattedDate}
       />
-      {/* SECCION 3 */}
       <EssentialsSection products={productsByCollection} />
       <AboutUsSection />
-      {/* VIDEO DE REDES SOCIALES PARA WEB */}
       <DesktopVideoSection videos={videos} />
-      {/* VIDEO DE REDES SOCIALES PARA MOBILE */}
+
       <MobileVideoSection
         videoRef={videoRef1}
         videoUrl={videos?.[0]?.url}
@@ -86,7 +83,7 @@ export default function HomeClient({
         linkText="SÍGUENOS EN INSTAGRAM"
         linkHref="/"
       />
-      {/* <ContactSection /> */}
+
       <footer className="bg-[#F7F3F3]">
         <section className="snap-start snap-always landscape:px-20 w-full flex items-center justify-center h-screen min-h-[100dvh] lg:h-screen">
           <WholesaleContact className="py-5 sm:p-15" />
@@ -96,8 +93,8 @@ export default function HomeClient({
           <SocialNetworks />
         </section>
       </footer>
-      <WhatsAppButton />
 
+      <WhatsAppButton />
       <PromoModal />
     </main>
   );

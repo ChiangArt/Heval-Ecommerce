@@ -11,21 +11,19 @@ const isVideoUrl = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
 const isImageUrl = (url: string) => /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
 
 export const HeroVideoSection = ({ urls, poster }: Props) => {
-  const [keyDesktop, setKeyDesktop] = useState(0);
-  const [keyMobile, setKeyMobile] = useState(0);
+  const [desktopKey, setDesktopKey] = useState(0);
+  const [mobileKey, setMobileKey] = useState(0);
 
+  // Forzar recarga cuando cambien los urls
   useEffect(() => {
-    // Cada vez que cambien los URLs, actualizamos los keys para forzar recarga
-    setKeyDesktop(prev => prev + 1);
-    setKeyMobile(prev => prev + 1);
+    setDesktopKey(prev => prev + 1);
+    setMobileKey(prev => prev + 1);
   }, [urls]);
 
   const renderMedia = (url: string | undefined, isDesktop: boolean, key: number) => {
     if (!url) return null;
 
-    const baseClasses = `${
-      isDesktop ? "hidden lg:block" : "block lg:hidden"
-    } w-full h-screen object-cover`;
+    const baseClasses = `${isDesktop ? "hidden lg:block" : "block lg:hidden"} w-full h-screen object-cover`;
 
     if (isVideoUrl(url)) {
       return (
@@ -67,23 +65,15 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
     <section className="snap-start snap-always w-full h-screen min-h-[100dvh] lg:h-screen relative">
       {hasAnyMedia ? (
         <>
-          {renderMedia(desktopUrl, true, keyDesktop)}
-          {renderMedia(mobileUrl, false, keyMobile)}
+          {renderMedia(desktopUrl, true, desktopKey)}
+          {renderMedia(mobileUrl, false, mobileKey)}
         </>
       ) : poster ? (
-        <Image
-          src={poster}
-          alt="Imagen de portada"
-          className="w-full h-full object-cover"
-          fill
-          unoptimized
-        />
+        <Image src={poster} alt="Imagen de portada" className="w-full h-full object-cover" fill unoptimized />
       ) : (
         <div className="h-full w-full flex items-center justify-center bg-black text-white text-center animate-fadeZoomIn px-6">
           <div>
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-              ¡Sin video ni imagen disponible!
-            </h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-4">¡Sin video ni imagen disponible!</h2>
             <p className="text-base md:text-lg font-medium">
               Estamos trabajando para traerte una experiencia visual única.
             </p>
