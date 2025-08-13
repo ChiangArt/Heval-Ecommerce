@@ -1,34 +1,33 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 interface Props {
-  urls: string[]; // [desktopUrl, mobileUrl]
-  poster?: string; // url imagen para fallback o poster
+  urls: string[];
+  poster?: string; 
 }
 
-const isVideoUrl = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
-const isImageUrl = (url: string) => /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
+const isVideoUrl = (url: string) => {
+  return /\.(mp4|webm|ogg)$/i.test(url);
+};
+
+const isImageUrl = (url: string) => {
+  return /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
+};
 
 export const HeroVideoSection = ({ urls, poster }: Props) => {
-  const [desktopKey, setDesktopKey] = useState(0);
-  const [mobileKey, setMobileKey] = useState(0);
+  const [desktopUrl, mobileUrl] = urls;
 
-  // Forzar recarga cuando cambien los urls
-  useEffect(() => {
-    setDesktopKey(prev => prev + 1);
-    setMobileKey(prev => prev + 1);
-  }, [urls]);
-
-  const renderMedia = (url: string | undefined, isDesktop: boolean, key: number) => {
+  const renderMedia = (url: string | undefined, isDesktop: boolean) => {
     if (!url) return null;
 
-    const baseClasses = `${isDesktop ? "hidden lg:block" : "block lg:hidden"} w-full h-screen object-cover`;
+    const baseClasses = `${
+      isDesktop ? "hidden lg:block" : "block lg:hidden"
+    } w-full h-screen object-cover`;
 
     if (isVideoUrl(url)) {
       return (
         <video
-          key={key}
           src={url}
           poster={isDesktop ? poster : undefined}
           preload="none"
@@ -43,7 +42,9 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
 
     if (isImageUrl(url)) {
       return (
-        <div key={key} className={`relative w-full h-screen ${isDesktop ? "hidden lg:block" : "block lg:hidden"}`}>
+        <div
+          className={`relative w-full h-screen ${isDesktop ? "hidden lg:block" : "block lg:hidden"}`}
+        >
           <Image
             src={url}
             alt={isDesktop ? "Imagen escritorio" : "Imagen móvil"}
@@ -58,22 +59,29 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
     return null;
   };
 
-  const [desktopUrl, mobileUrl] = urls;
   const hasAnyMedia = desktopUrl || mobileUrl;
 
   return (
     <section className="snap-start snap-always w-full h-screen min-h-[100dvh] lg:h-screen relative">
       {hasAnyMedia ? (
         <>
-          {renderMedia(desktopUrl, true, desktopKey)}
-          {renderMedia(mobileUrl, false, mobileKey)}
+          {renderMedia(desktopUrl, true)}
+          {renderMedia(mobileUrl, false)}
         </>
       ) : poster ? (
-        <Image src={poster} alt="Imagen de portada" className="w-full h-full object-cover" fill unoptimized />
+        <Image
+          src={poster}
+          alt="Imagen de portada"
+          className="w-full h-full object-cover"
+          fill
+          unoptimized
+        />
       ) : (
         <div className="h-full w-full flex items-center justify-center bg-black text-white text-center animate-fadeZoomIn px-6">
           <div>
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-4">¡Sin video ni imagen disponible!</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
+              ¡Sin video ni imagen disponible!
+            </h2>
             <p className="text-base md:text-lg font-medium">
               Estamos trabajando para traerte una experiencia visual única.
             </p>
