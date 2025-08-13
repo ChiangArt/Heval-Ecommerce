@@ -6,6 +6,7 @@ import { getCollectionById } from "@/core/collection/action/collection.actions";
 import { getProductsByCollectionId } from "@/core/product/action/product.actions";
 import { Product } from "@/core/product/interface/productResponse";
 import { logError } from "../utils/logger";
+import { Banner } from "@/core/banner/interface/bannerResponse";
 
 const videos = [
   {
@@ -29,7 +30,7 @@ const videos = [
 export default async function HomePage() {
   let productsByCollection: Product[] = [];
   let firsCollection = null;
-  let banners = [];
+  let banners: Banner[] = [];
   let formattedDate = "(fecha no disponible)";
 
   try {

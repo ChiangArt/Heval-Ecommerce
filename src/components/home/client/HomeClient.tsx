@@ -14,13 +14,14 @@ import { AboutUsSection } from "../about-us-section/AboutUsSection";
 import { WhatsAppButton } from "@/components/ui/whatsApp-button/WhatsAppButton";
 import { PromoModal } from "../promo-modal/PromoModal";
 import WholesaleContact from "@/components/ui/footer/WholesaleContact";
+import { Banner } from "@/core/banner/interface/bannerResponse";
 
 interface Props {
   videos: { id: string; url: string; title: string }[];
   productsByCollection: Product[];
   firsCollection: Collection | null;
   formattedDate: string;
-  banners: { id: number; url: string[] }[];
+  banners : Banner[];
 }
 
 export default function HomeClient({
@@ -39,12 +40,12 @@ export default function HomeClient({
 
   const videoBanner =
     Array.isArray(banners) && banners.length > 0
-      ? banners.find((b) => Array.isArray(b.url) && b.url.length >= 2) ?? {
-          url: ["", ""],
+      ? banners.find((b) => Array.isArray(b.urls) && b.urls.length >= 2) ?? {
+          urls: ["", ""],
         }
-      : { url: ["", ""] };
+      : { urls: ["", ""] };
 
-  const [desktopUrl, mobileUrl] = videoBanner.url;
+  const [desktopUrl, mobileUrl] = videoBanner.urls;
 
   return (
     <main className="snap-y snap-mandatory h-screen min-h-[100dvh] lg:h-screen">

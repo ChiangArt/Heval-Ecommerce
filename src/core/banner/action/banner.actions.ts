@@ -1,4 +1,5 @@
 import productsApi from "@/core/api/productsApi";
+import { Banner } from "../interface/bannerResponse";
 
 // Para crear banner (no necesitas el id)
 export interface CreateBannerDto {
@@ -28,13 +29,13 @@ export const deleteBanner = async (id: number): Promise<void> => {
 };
 
 // Obtener banner por ID
-export const getBanner = async (id: number) => {
-  const response = await productsApi.get(`/banners/${id}`);
+export const getBanner = async (id: number): Promise<Banner[]> => {
+  const response = await productsApi.get<Banner[]>(`/banners/${id}`);
   return response.data;
 };
 
 // Obtener todos los banners
-export const getAllBanners = async () => {
-  const response = await productsApi.get("/banners");
+export const getAllBanners = async (): Promise<Banner[]> => {
+  const response = await productsApi.get<Banner[]>("/banners");
   return response.data;
 };
