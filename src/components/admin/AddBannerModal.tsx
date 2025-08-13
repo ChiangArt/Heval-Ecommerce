@@ -65,7 +65,7 @@ const renderPreview = (file: File | null, preview: string | null, label: string)
             alt={label}
             fill
             className="object-contain rounded-md"
-            unoptimized // Para permitir preview de archivos locales
+            unoptimized 
           />
         </div>
       )}
