@@ -37,8 +37,14 @@ export default function HomeClient({
   useEnableAudioOnVisible(videoRef2);
   useEnableAudioOnVisible(videoRef3);
 
-const videoBanner = banners.find(b => b.url.length >= 2) ?? { url: ["", ""] };
-const [desktopUrl, mobileUrl] = videoBanner.url;
+  const videoBanner =
+    Array.isArray(banners) && banners.length > 0
+      ? banners.find((b) => Array.isArray(b.url) && b.url.length >= 2) ?? {
+          url: ["", ""],
+        }
+      : { url: ["", ""] };
+
+  const [desktopUrl, mobileUrl] = videoBanner.url;
 
   return (
     <main className="snap-y snap-mandatory h-screen min-h-[100dvh] lg:h-screen">
