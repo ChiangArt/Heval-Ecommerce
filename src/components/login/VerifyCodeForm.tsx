@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
 import Button from "@/components/ui/button/Button";
 import { postAuthRegister } from "@/core/auth/action/auth.actions";
 import { RegisterValues } from "@/core/validations/register/RegisterValidations";
 import { useOverlayStore } from "@/store/ui/use-overlay-store";
-import axios from "axios";
+// import axios from "axios";
 
 export default function VerifyCodeForm() {
   const { showOverlay, hideOverlay } = useOverlayStore();
@@ -35,7 +34,7 @@ export default function VerifyCodeForm() {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         const newTime = prev <= 1 ? 0 : prev - 1;
-        console.log("Tiempo restante del código:", newTime);
+        // console.log("Tiempo restante del código:", newTime);
         return newTime;
       });
     }, 1000);
@@ -71,19 +70,19 @@ export default function VerifyCodeForm() {
             showOverlay();
 
             if (!pendingData) {
-              console.warn(
-                "pendingData vacío:",
-                localStorage.getItem("pending_register")
-              );
+              // console.warn(
+              //   "pendingData vacío:",
+              //   localStorage.getItem("pending_register")
+              // );
 
               toast.error("Datos incompletos del registro");
               return;
             }
 
-            console.log("Datos a registrar:", {
-              ...pendingData,
-              code: values.code,
-            });
+            // console.log("Datos a registrar:", {
+            //   ...pendingData,
+            //   code: values.code,
+            // });
 
             await postAuthRegister({
               ...pendingData,
@@ -93,11 +92,11 @@ export default function VerifyCodeForm() {
             toast.success("Registro exitoso");
             localStorage.removeItem("pending_register");
             router.push("/auth/login");
-          } catch (error) {
-            if (axios.isAxiosError(error)) {
-              console.log("Error response:", error.response?.data);
-              console.log("Status:", error.response?.status);
-            }
+          } catch  {
+            // if (axios.isAxiosError(error)) {
+            //   console.log("Error response:", error.response?.data);
+            //   console.log("Status:", error.response?.status);
+            // }
             toast.error("Código incorrecto o expirado");
           } finally {
             setSubmitting(false);
