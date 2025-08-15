@@ -29,14 +29,28 @@ interface Video {
 }
 
 const defaultVideos: Video[] = [
-  { id: "1", url: "https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/ALFA+%2B+otro+modelo.mp4", title: "SÍGUENOS EN TIK TOK" },
-  { id: "2", url: "https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/Toda+la+coleccion+ALFA.mp4", title: "SÍGUENOS EN FACEBOOK" },
-  { id: "3", url: "https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/WhatsApp+Video+2025-06-18+at+10.36.16+PM.mp4", title: "SÍGUENOS EN INSTAGRAM" },
+  {
+    id: "1",
+    url: "https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/ALFA+%2B+otro+modelo.mp4",
+    title: "SÍGUENOS EN TIK TOK",
+  },
+  {
+    id: "2",
+    url: "https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/Toda+la+coleccion+ALFA.mp4",
+    title: "SÍGUENOS EN FACEBOOK",
+  },
+  {
+    id: "3",
+    url: "https://heval-group-rrgaeg144.s3.us-east-2.amazonaws.com/videos/WhatsApp+Video+2025-06-18+at+10.36.16+PM.mp4",
+    title: "SÍGUENOS EN INSTAGRAM",
+  },
 ];
 
 export default function HomeClient() {
   const [banners, setBanners] = useState<Banner[]>([]);
-  const [productsByCollection, setProductsByCollection] = useState<Product[]>([]);
+  const [productsByCollection, setProductsByCollection] = useState<Product[]>(
+    []
+  );
   const [firsCollection, setFirsCollection] = useState<Collection | null>(null);
   const [formattedDate, setFormattedDate] = useState("(fecha no disponible)");
   const [videos] = useState<Video[]>(defaultVideos);
@@ -72,7 +86,11 @@ export default function HomeClient() {
         if (rawCreatedAt) {
           const createdAt = new Date(rawCreatedAt);
           if (!isNaN(createdAt.getTime())) {
-            setFormattedDate(`(${(createdAt.getMonth() + 1).toString().padStart(2, "0")} / ${createdAt.getFullYear()})`);
+            setFormattedDate(
+              `(${(createdAt.getMonth() + 1)
+                .toString()
+                .padStart(2, "0")} / ${createdAt.getFullYear()})`
+            );
           }
         }
       } catch (error) {
@@ -85,7 +103,9 @@ export default function HomeClient() {
 
   const videoBanner =
     Array.isArray(banners) && banners.length > 0
-      ? banners.find((b) => Array.isArray(b.urls) && b.urls.length >= 2) ?? { urls: ["", ""] }
+      ? banners.find((b) => Array.isArray(b.urls) && b.urls.length >= 2) ?? {
+          urls: ["", ""],
+        }
       : { urls: ["", ""] };
 
   const [desktopUrl, mobileUrl] = videoBanner.urls;
@@ -93,13 +113,36 @@ export default function HomeClient() {
   return (
     <main className="snap-y snap-mandatory h-screen min-h-[100dvh] lg:h-screen">
       <HeroVideoSection urls={[desktopUrl, mobileUrl]} />
-      <NewCollectionSection firsCollection={firsCollection} products={productsByCollection} formattedDate={formattedDate} />
+      <NewCollectionSection
+        firsCollection={firsCollection}
+        products={productsByCollection}
+        formattedDate={formattedDate}
+      />
       <EssentialsSection products={productsByCollection} />
       <AboutUsSection />
       <DesktopVideoSection videos={videos} />
-      <MobileVideoSection videoRef={videoRef1} videoUrl={videos[0]?.url} showTitle pretitle="Gorras en su mejor ángulo" title="Inspírate, comparte y únete" description1="Tu próxima gorra favorita está en estos clips" linkText="SÍGUENOS EN TIK TOK" linkHref="/" />
-      <MobileVideoSection videoRef={videoRef2} videoUrl={videos[1]?.url} linkText="SÍGUENOS EN FACEBOOK" linkHref="/" />
-      <MobileVideoSection videoRef={videoRef3} videoUrl={videos[2]?.url} linkText="SÍGUENOS EN INSTAGRAM" linkHref="/" />
+      <MobileVideoSection
+        videoRef={videoRef1}
+        videoUrl={videos[0]?.url}
+        showTitle
+        pretitle="Gorras en su mejor ángulo"
+        title="Inspírate, comparte y únete"
+        description1="Tu próxima gorra favorita está en estos clips"
+        linkText="SÍGUENOS EN TIK TOK"
+        linkHref="/"
+      />
+      <MobileVideoSection
+        videoRef={videoRef2}
+        videoUrl={videos[1]?.url}
+        linkText="SÍGUENOS EN FACEBOOK"
+        linkHref="/"
+      />
+      <MobileVideoSection
+        videoRef={videoRef3}
+        videoUrl={videos[2]?.url}
+        linkText="SÍGUENOS EN INSTAGRAM"
+        linkHref="/"
+      />
 
       <footer className="bg-[#F7F3F3]">
         <section className="snap-start snap-always landscape:px-20 w-full flex items-center justify-center h-screen min-h-[100dvh] lg:h-screen">

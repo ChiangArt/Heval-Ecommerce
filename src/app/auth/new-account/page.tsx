@@ -23,14 +23,12 @@ export default function NewAccountPage() {
   const router = useRouter();
   const user = useUserStore((state) => state.user);
 
-  // Si ya está logueado, redirige a home
   useEffect(() => {
     if (user && user.email) {
       router.replace("/");
     }
   }, [user, router]);
 
-  // Usamos registerSchema (sin code) para validar name, email, password, role
   const step1Schema = registerSchema;
   type Step1Values = RegisterValues;
 
@@ -59,7 +57,7 @@ export default function NewAccountPage() {
     { setSubmitting }: { setSubmitting: (b: boolean) => void }
   ) => {
     try {
-      showOverlay(); // 👉 Mostrar overlay
+      showOverlay(); 
 
       await postAuthSendCode(values.email);
       toast.success("Código enviado a tu correo");
@@ -78,7 +76,7 @@ export default function NewAccountPage() {
       logError("Error al enviar código:", err);
     } finally {
       setSubmitting(false);
-      hideOverlay(); // 👉 Ocultar overlay al terminar
+      hideOverlay(); 
     }
   };
 
