@@ -28,7 +28,7 @@ export default function TopMenu({
   fixedOnScroll = true,
   logoHref = "/",
   bgColorTop = "bg-transparent",
-  bgColorScrolled = "bg-primario",
+  bgColorScrolled = "bg-white",
 }: TopMenuProps) {
   const openSearch = useSearchUIStore((state) => state.openSearch);
   const [isFixed, setIsFixed] = useState(false);
@@ -88,7 +88,7 @@ export default function TopMenu({
       <nav className="font-inter px-4 py-3 flex justify-between items-center">
         {/* Botón menú lateral en mobile */}
         <button onClick={closeMenu} className="lg:hidden">
-          <FiMenu className="text-white text-2xl" />
+          <FiMenu className="text-black text-2xl" />
         </button>
 
         {/* Menú Desktop */}
@@ -99,20 +99,20 @@ export default function TopMenu({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <span className="cursor-pointer font-semibold hover:opacity-90">
+            <span className="cursor-pointer font-semibold hover:opacity-90 text-black">
               TIENDA
             </span>
 
             {shopMenuOpen && (
-              <div className="absolute top-full left-0 bg-white text-black shadow-lg rounded mt-2 z-50 min-w-[200px]">
+              <div className="absolute top-full left-0 bg-black text-white shadow-lg rounded mt-2 z-50 min-w-[200px]">
                 {/* Contenedor con hover para mostrar el submenú a la derecha */}
                 <div className="relative group">
-                  <div className="py-2 px-4 font-semibold group-hover:bg-gray-100 cursor-pointer">
+                  <div className="py-2 px-4 font-semibold group-hover:bg-gray-700 cursor-pointer">
                     COLECCIONES
                   </div>
 
                   {/* Submenú que aparece a la derecha al hacer hover */}
-                  <div className="absolute top-0 left-full bg-white border border-gray-200 shadow-lg rounded min-w-[200px] hidden group-hover:block z-50">
+                  <div className="absolute top-0 left-full bg-white border border-gray-700 shadow-lg rounded min-w-[200px] hidden group-hover:block z-50">
                     {collections.map((col) => (
                       <Link
                         key={col.href}
@@ -128,7 +128,7 @@ export default function TopMenu({
                 {/* Todos los productos, debajo de COLECCIONES */}
                 <Link
                   href="/shop"
-                  className="block px-4 py-2 hover:bg-gray-100"
+                  className="block px-4 py-2 hover:bg-gray-700 text-white"
                 >
                   TIENDA
                 </Link>
@@ -137,7 +137,7 @@ export default function TopMenu({
           </div>
 
           {/* Otros enlaces */}
-          <Link href="/about" className="hover:opacity-90 font-semibold">
+          <Link href="/about" className="hover:opacity-90 font-semibold text-black">
             NOSOTROS
           </Link>
         </div>
@@ -150,10 +150,10 @@ export default function TopMenu({
         {/* Acciones de usuario */}
         <div className="flex items-center gap-6">
           <button className="cursor-pointer" onClick={openSearch}>
-            <IoSearchSharp className="text-2xl" />
+            <IoSearchSharp className="text-2xl text-black" />
           </button>
           <Link className="hidden sm:block" href="/profile">
-            <FaRegCircleUser className="text-2xl" />
+            <FaRegCircleUser className="text-2xl text-black" />
           </Link>
 
           <button
@@ -165,7 +165,7 @@ export default function TopMenu({
                 {cartItemsCount}
               </span>
             )}
-            <MdOutlineShoppingCart className="text-2xl" />
+            <MdOutlineShoppingCart className="text-2xl text-black" />
           </button>
         </div>
       </nav>

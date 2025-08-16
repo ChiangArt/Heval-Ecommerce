@@ -1,7 +1,7 @@
 import React from "react";
 
 const Logo = ({
-  className = "w-[130px] md:w-[190px] lg:w-[200px] text-white",
+  className = "w-[130px] md:w-[190px] lg:w-[200px] text-black",
 }) => {
   return (
     <svg
