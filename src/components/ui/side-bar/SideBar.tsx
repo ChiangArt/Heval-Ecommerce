@@ -100,7 +100,7 @@ export const Sidebar = () => {
 
         {/* Submenú desplegable */}
         {showCollections && (
-          <div className="flex flex-col justify-center mt-2">
+          <div className="flex flex-col items-center mt-2">
             {collections.map((col) => (
               <Link
                 key={col.href}
