@@ -27,7 +27,7 @@ export default function TopMenu({
   initialMargin = true,
   fixedOnScroll = true,
   logoHref = "/",
-  bgColorTop = "bg-transparent",
+  bgColorTop = "bg-transparent hover:bg-white",
   bgColorScrolled = "bg-white",
 }: TopMenuProps) {
   const openSearch = useSearchUIStore((state) => state.openSearch);
