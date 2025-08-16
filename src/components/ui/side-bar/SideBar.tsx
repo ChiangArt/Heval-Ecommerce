@@ -106,7 +106,7 @@ export const Sidebar = () => {
                 key={col.href}
                 href={col.href}
                 onClick={closeMenu}
-                className="px-4 py-2 bg-gray-100 mt-1 hover:bg-gray-200 text-base font-normal"
+                className="px-4 py-2 bg-gray-100 mt-1 hover:bg-gray-200 text-base text-center font-normal"
               >
                 {col.name}
               </Link>
