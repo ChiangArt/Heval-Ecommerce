@@ -8,7 +8,7 @@ import Button from "@/components/ui/button/Button";
 import { postAuthRegister } from "@/core/auth/action/auth.actions";
 import { RegisterValues } from "@/core/validations/register/RegisterValidations";
 import { useOverlayStore } from "@/store/ui/use-overlay-store";
-// import axios from "axios";
+import axios from "axios";
 
 export default function VerifyCodeForm() {
   const { showOverlay, hideOverlay } = useOverlayStore();
@@ -70,19 +70,19 @@ export default function VerifyCodeForm() {
             showOverlay();
 
             if (!pendingData) {
-              // console.warn(
-              //   "pendingData vacío:",
-              //   localStorage.getItem("pending_register")
-              // );
+              console.warn(
+                "pendingData vacío:",
+                localStorage.getItem("pending_register")
+              );
 
               toast.error("Datos incompletos del registro");
               return;
             }
 
-            // console.log("Datos a registrar:", {
-            //   ...pendingData,
-            //   code: values.code,
-            // });
+            console.log("Datos a registrar:", {
+              ...pendingData,
+              code: values.code,
+            });
 
             await postAuthRegister({
               ...pendingData,
@@ -93,10 +93,10 @@ export default function VerifyCodeForm() {
             localStorage.removeItem("pending_register");
             router.push("/auth/login");
           } catch  {
-            // if (axios.isAxiosError(error)) {
-            //   console.log("Error response:", error.response?.data);
-            //   console.log("Status:", error.response?.status);
-            // }
+            if (axios.isAxiosError(Error)) {
+              console.log("Error response:", Error.response?.data);
+              console.log("Status:", Error.response?.status);
+            }
             toast.error("Código incorrecto o expirado");
           } finally {
             setSubmitting(false);
