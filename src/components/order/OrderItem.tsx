@@ -53,10 +53,7 @@ export default function OrderItem({ order }: Props) {
   const discount = subtotal - order.totalDiscountedPrice;
 
   return (
-    
     <div className="bg-white shadow-sm overflow-hidden">
-    
-
       <button
         className="w-full text-left px-6 py-4 border-b flex justify-between items-center hover:bg-[rgba(232,227,222,0.40)] transition"
         onClick={() => setExpanded(!expanded)}
@@ -206,9 +203,17 @@ export default function OrderItem({ order }: Props) {
 
                 <div>
                   <h4 className="font-semibold text-secundario">💳 Pago</h4>
-                  <p>{order.paymentDetails.paymentType}</p>
-                  <p>{order.paymentDetails.status}</p>
-                  <p>{order.paymentDetails.payerEmail}</p>
+                  {order.paymentDetails ? (
+                    <>
+                      <p>{order.paymentDetails.paymentType}</p>
+                      <p>{order.paymentDetails.status}</p>
+                      <p>{order.paymentDetails.payerEmail}</p>
+                    </>
+                  ) : (
+                    <p className="text-gray-500 italic">
+                      Aún sin datos de pago
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
