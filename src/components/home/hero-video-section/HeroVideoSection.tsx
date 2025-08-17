@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
   urls: string[];
-  poster?: string; 
+  poster?: string;
 }
 
 const isVideoUrl = (url: string) => {
@@ -30,7 +30,7 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
         <video
           src={url}
           poster={isDesktop ? poster : undefined}
-          preload="none"
+          preload="auto"
           autoPlay
           loop
           muted
@@ -43,7 +43,9 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
     if (isImageUrl(url)) {
       return (
         <div
-          className={`relative w-full h-screen ${isDesktop ? "hidden lg:block" : "block lg:hidden"}`}
+          className={`relative w-full h-screen ${
+            isDesktop ? "hidden lg:block" : "block lg:hidden"
+          }`}
         >
           <Image
             src={url}

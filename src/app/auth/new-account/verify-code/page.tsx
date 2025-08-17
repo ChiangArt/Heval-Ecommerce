@@ -1,3 +1,4 @@
+'use client'
 import VerifyCodeForm from "@/components/login/VerifyCodeForm";
 import { Suspense } from "react";
 

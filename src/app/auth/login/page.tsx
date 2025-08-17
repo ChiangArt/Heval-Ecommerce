@@ -1,3 +1,4 @@
+'use client'
 import ClientLoginPage from "@/components/login/ClientLoginPage";
 import { Suspense } from "react";
 

@@ -1,3 +1,4 @@
+'use client'
 import AnnouncementBar from "@/components/ui/announcement-bar/AnnouncementBar";
 import ConsumerInformation from "@/components/ui/footer/consumer-information/ConsumerInformation";
 import SocialNetworks from "@/components/ui/footer/social-networks/SocialNetworks";
@@ -12,7 +13,7 @@ export default function LoginLayout({
   return (
     <>
       <AnnouncementBar />
-      <TopMenu bgColorTop="bg-black text-black" bgColorScrolled="bg-primario" />
+      <TopMenu/>
       <main>{children}</main>
       <footer className="flex flex-col gap-10 p-10 bg-[rgba(232,227,222,0.40)]">
         <WholesaleContact className="py-5" />

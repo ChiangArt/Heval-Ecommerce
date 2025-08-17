@@ -112,7 +112,7 @@ export default function TopMenu({
                   </div>
 
                   {/* Submenú que aparece a la derecha al hacer hover */}
-                  <div className="absolute top-0 left-full bg-white border border-gray-700 shadow-lg rounded min-w-[200px] hidden group-hover:block z-50">
+                  <div className="absolute top-0 left-full bg-black text-white border border-gray-700 shadow-lg rounded min-w-[200px] hidden group-hover:block z-50">
                     {collections.map((col) => (
                       <Link
                         key={col.href}
