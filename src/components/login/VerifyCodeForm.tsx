@@ -92,12 +92,18 @@ export default function VerifyCodeForm() {
             toast.success("Registro exitoso");
             localStorage.removeItem("pending_register");
             router.push("/auth/login");
-          } catch  {
-            if (axios.isAxiosError(Error)) {
-              console.log("Error response:", Error.response?.data);
-              console.log("Status:", Error.response?.status);
+          } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+              console.log("Error response:", error.response?.data);
+              console.log("Status:", error.response?.status);
+
+              toast.error(
+                error.response?.data?.message || "Código incorrecto o expirado"
+              );
+            } else {
+              console.error("Error inesperado:", error);
+              toast.error("Ocurrió un error inesperado");
             }
-            toast.error("Código incorrecto o expirado");
           } finally {
             setSubmitting(false);
             hideOverlay();
