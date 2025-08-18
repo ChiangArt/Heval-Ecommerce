@@ -79,16 +79,7 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
           unoptimized
         />
       ) : (
-        <div className="h-full w-full flex items-center justify-center bg-white text-black text-center animate-fadeZoomIn px-6">
-          <div>
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-              ¡Sin video ni imagen disponible!
-            </h2>
-            <p className="text-base md:text-lg font-medium">
-              Estamos trabajando para traerte una experiencia visual única.
-            </p>
-          </div>
-        </div>
+        <div className="h-full w-full flex items-center justify-center bg-white text-black text-center animate-fadeZoomIn px-6"></div>
       )}
     </section>
   );

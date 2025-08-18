@@ -9,7 +9,7 @@ export default function AboutLayout({
   return (
     <>
       <AnnouncementBar />
-      <TopMenu bgColorTop="bg-black text-black" bgColorScrolled="bg-primario" />
+      <TopMenu />
       {children}
     </>
   );
