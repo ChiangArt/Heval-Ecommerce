@@ -3,7 +3,6 @@ import { z } from "zod"
 export const productSchema = z.object({
   title: z.string().min(1, "El título es requerido"),
   description: z.string().min(1, "La descripción es requerida"),
-  descriptionArchetype: z.string(),
   material: z.string().min(1, "El material es requerido"),
   price: z.coerce.number().min(0, "El precio debe ser positivo"),
   color: z.string().min(0, "Debes ingresar el color color"),
