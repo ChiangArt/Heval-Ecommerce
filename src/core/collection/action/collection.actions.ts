@@ -33,7 +33,7 @@ export const getCollectionById = async (
   }
 };
 
-export const postCollection = async (  payload: Omit<Collection, "id" | "createdAt" | "slug">
+export const postCollection = async (  payload: Omit<Collection, "id" | "createdAt" | "slug" | "active" >
 ): Promise<Collection[]> => {
   try {
     const { data } = await productsApi.post("/collections", payload);
