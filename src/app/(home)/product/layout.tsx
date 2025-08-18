@@ -13,7 +13,7 @@ export default function HomeLayout({
   return (
     <>
       <AnnouncementBar />
-      <TopMenu bgColorTop="bg-black text-black" bgColorScrolled="bg-primario" />
+      <TopMenu  />
       <main>{children}</main>
       <footer className="flex flex-col gap-10 p-10 bg-[rgba(232,227,222,0.40)]">
         <WholesaleContact className="py-5" />

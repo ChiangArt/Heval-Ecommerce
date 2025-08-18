@@ -14,7 +14,7 @@ import { PromoModal } from "../promo-modal/PromoModal";
 import { useEnableAudioOnVisible } from "@/hooks/use-Enable-Audio-On-Visible";
 
 import { getAllBanners } from "@/core/banner/action/banner.actions";
-import { getCollectionById } from "@/core/collection/action/collection.actions";
+import { getCollections } from "@/core/collection/action/collection.actions";
 import { getProductsByCollectionId } from "@/core/product/action/product.actions";
 
 import { Product } from "@/core/product/interface/productResponse";
@@ -72,29 +72,35 @@ export default function HomeClient() {
       }
 
       try {
-        const products = await getProductsByCollectionId(1);
-        setProductsByCollection(products);
-      } catch (error) {
-        logError("❌ Error al obtener productos:", error);
-      }
+        // Traemos todas las colecciones
+        const collections = await getCollections();
 
-      try {
-        const collection = await getCollectionById(1);
-        setFirsCollection(collection);
+        // Buscamos la colección activa
+        const activeCollection =
+          collections.find((c) => c.active) || collections[0] || null;
 
-        const rawCreatedAt = collection?.createdAt;
-        if (rawCreatedAt) {
-          const createdAt = new Date(rawCreatedAt);
-          if (!isNaN(createdAt.getTime())) {
-            setFormattedDate(
-              `(${(createdAt.getMonth() + 1)
-                .toString()
-                .padStart(2, "0")} / ${createdAt.getFullYear()})`
-            );
+        setFirsCollection(activeCollection);
+
+        // Si existe, traemos los productos de esa colección
+        if (activeCollection) {
+          const products = await getProductsByCollectionId(activeCollection.id);
+          setProductsByCollection(products);
+
+          // Formateamos la fecha
+          const rawCreatedAt = activeCollection.createdAt;
+          if (rawCreatedAt) {
+            const createdAt = new Date(rawCreatedAt);
+            if (!isNaN(createdAt.getTime())) {
+              setFormattedDate(
+                `(${(createdAt.getMonth() + 1)
+                  .toString()
+                  .padStart(2, "0")} / ${createdAt.getFullYear()})`
+              );
+            }
           }
         }
       } catch (error) {
-        logError("❌ Error al obtener la colección:", error);
+        logError("❌ Error al obtener la colección activa:", error);
       }
     };
 

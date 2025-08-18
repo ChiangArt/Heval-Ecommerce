@@ -4,7 +4,6 @@ export interface Product {
   description:          string;
   slug:                 string;
   price:                number;
-  descriptionArchetype: string;
   material:             string;
   currentPrice:         number;
   discountPercentage:   number;

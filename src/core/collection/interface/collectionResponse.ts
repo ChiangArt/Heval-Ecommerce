@@ -6,4 +6,5 @@ export interface Collection {
     headlineTitle:    string;
     descriptionLine1: string;
     descriptionLine2: string;
+    active: boolean;
 }

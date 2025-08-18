@@ -18,7 +18,6 @@ export interface ProductAdminFilters {
 export interface CreateProductRequest {
   title: string;
   description: string;
-  descriptionArchetype: string;
   material: string;
   price: number;
   color: string;

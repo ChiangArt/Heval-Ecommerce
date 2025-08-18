@@ -60,7 +60,6 @@ export function AddProductModal({
   const initialValues = {
     title: productToEdit?.title || "",
     description: productToEdit?.description || "",
-    descriptionArchetype: productToEdit?.descriptionArchetype || "",
     material: productToEdit?.material || "",
     price: productToEdit?.price || 0,
     color: productToEdit?.color || "",
@@ -148,10 +147,7 @@ export function AddProductModal({
               </div>
 
               <TextareaField name="description" label="Descripción" />
-              <InputField
-                name="descriptionArchetype"
-                label="Descripción Archetype"
-              />
+ 
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <InputField name="price" label="Precio" type="number" />

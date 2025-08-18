@@ -78,10 +78,7 @@ export default function ProductDetails({
           <span className="font-bold mr-1">Color:</span>
           <span className="break-words">{product.color}</span>
         </div>
-        <div>
-          <span className="font-bold mr-1">Descripción de Arquetipo:</span>
-          <span className="break-words">{product.descriptionArchetype}</span>
-        </div>
+       
       </div>
     </div>
   );
