@@ -25,8 +25,9 @@ export const createProductSchema = z.object({
   }).min(1, "Selecciona una colección"),
 
   imageUrls: z.array(
-    z.string().nonempty("La URL de la imagen no puede estar vacía")
-  ).nonempty("Debes subir al menos una imagen"),
+  z.string().nonempty("La URL de la imagen no puede estar vacía")
+).min(1, "Debes subir al menos una imagen"),
+
 });
 
-export type ProductFormValues = z.infer<typeof createProductSchema>;
+export type createProductFormValues = z.infer<typeof createProductSchema>;

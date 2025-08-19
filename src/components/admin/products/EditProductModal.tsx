@@ -22,7 +22,7 @@ import { InputField } from "@/components/ui/form/InputField";
 import { TextareaField } from "@/components/ui/form/TextareaField";
 import { SelectField } from "@/components/ui/form/SelectField";
 import { Input } from "@/components/ui/input";
-import { editProductSchema } from "@/core/validations/product/editProductValidatios";
+import { EditProductFormValues, editProductSchema } from "@/core/validations/product/editProductValidatios";
 
 interface EditProductModalProps {
   open: boolean;
@@ -77,7 +77,7 @@ export function EditProductModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Formik
+        <Formik<EditProductFormValues>
           initialValues={initialValues}
           enableReinitialize
           validationSchema={toFormikValidationSchema(editProductSchema)}
@@ -102,10 +102,10 @@ export function EditProductModal({
           }}
         >
           <Form className="grid gap-6 py-4">
-            <InputField name="title" label="Título" />
-            <TextareaField name="description" label="Descripción" />
-            <InputField name="price" label="Precio" type="number" />
-            <InputField name="quantity" label="Cantidad" type="number" />
+            <InputField<EditProductFormValues> name="title" label="Título" />
+            <TextareaField<EditProductFormValues> name="description" label="Descripción" />
+            <InputField<EditProductFormValues> name="price" label="Precio" type="number" />
+            <InputField<EditProductFormValues> name="quantity" label="Cantidad" type="number" />
             <SelectField
               name="collectionId"
               label="Colección"

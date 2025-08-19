@@ -22,7 +22,7 @@ import { useImageUpload } from "@/hooks/useImageUpload";
 import { InputField } from "@/components/ui/form/InputField";
 import { SelectField } from "@/components/ui/form/SelectField";
 import { TextareaField } from "@/components/ui/form/TextareaField";
-import { createProductSchema } from "@/core/validations/product/createProductValidations";
+import { createProductFormValues, createProductSchema } from "@/core/validations/product/createProductValidations";
 
 interface CreateProductModalProps {
   open: boolean;
@@ -54,13 +54,13 @@ export function CreateProductModal({
     title: "",
     description: "",
     material: "",
-    price: 0,
     color: "",
+    price: 0,
     quantity: 0,
     discountPercentage: 0,
     discountUntil: "",
     collectionId: 0,
-    imageUrls: [],
+    imageUrls: [""],
   };
 
   return (
@@ -73,7 +73,7 @@ export function CreateProductModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Formik
+        <Formik<createProductFormValues>
           initialValues={initialValues}
           validationSchema={toFormikValidationSchema(createProductSchema)}
           onSubmit={async (values, { resetForm }) => {
@@ -114,18 +114,39 @@ export function CreateProductModal({
             <TextareaField name="description" label="Descripción" />
             <InputField name="price" label="Precio" type="number" />
             <InputField name="quantity" label="Cantidad" type="number" />
-            <InputField name="discountPercentage" label="Descuento (%)" type="number" />
-            <InputField name="discountUntil" label="Fecha de descuento" type="datetime-local" />
+            <InputField
+              name="discountPercentage"
+              label="Descuento (%)"
+              type="number"
+            />
+            <InputField
+              name="discountUntil"
+              label="Fecha de descuento"
+              type="datetime-local"
+            />
             <InputField name="color" label="Color" />
 
             <div>
               <Label>Imágenes</Label>
-              <Input type="file" multiple accept="image/*" onChange={handleFileChange} />
+              <Input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleFileChange}
+              />
               {imagePreviews.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                   {imagePreviews.map((src, idx) => (
-                    <div key={idx} className="relative w-full h-32 border rounded overflow-hidden">
-                      <Image src={src} alt={`Imagen ${idx + 1}`} fill className="object-cover" />
+                    <div
+                      key={idx}
+                      className="relative w-full h-32 border rounded overflow-hidden"
+                    >
+                      <Image
+                        src={src}
+                        alt={`Imagen ${idx + 1}`}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                   ))}
                 </div>

@@ -23,7 +23,7 @@ export interface CreateProductRequest {
   color: string;
   quantity: number;
   discountPercentage: number;
-  discountUntil: string; 
+  discountUntil?: string; 
   imageUrls: string[];
   collectionId: number;
 }

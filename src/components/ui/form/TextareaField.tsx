@@ -1,17 +1,18 @@
 "use client";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ProductFormValues } from "@/core/validations/product/ProductValidations";
 import { useFormikContext } from "formik";
 
-interface TextareaFieldProps {
-  name: keyof ProductFormValues;
+interface TextareaFieldProps<T> {
+  name: keyof T;
   label: string;
 }
 
-export const TextareaField = ({ name, label }: TextareaFieldProps) => {
-  const { values, handleChange, errors, touched } =
-    useFormikContext<ProductFormValues>();
+export const TextareaField = <T extends object>({
+  name,
+  label,
+}: TextareaFieldProps<T>) => {
+  const { values, handleChange, errors, touched } = useFormikContext<T>();
 
   const value = values[name];
   const error = errors[name];
@@ -19,11 +20,11 @@ export const TextareaField = ({ name, label }: TextareaFieldProps) => {
 
   return (
     <div>
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={name as string}>{label}</Label>
       <Textarea
-        id={name}
-        name={name}
-        value={typeof value === "string" ? value : ""}
+        id={name as string}
+        name={name as string}
+        value={typeof value === "string" ? (value as string) : ""}
         onChange={handleChange}
       />
       {error && isTouched && (
