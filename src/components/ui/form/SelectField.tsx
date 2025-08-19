@@ -13,11 +13,23 @@ export const SelectField = <T extends FormikValues>({
   label,
   options,
 }: SelectFieldProps<T>) => {
-  const { values, handleChange, errors, touched } = useFormikContext<T>();
+  const { values, setFieldValue, errors, touched } = useFormikContext<T>();
 
   const value = values[name];
   const error = errors[name];
   const isTouched = touched[name];
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+
+    if (selectedValue === "") {
+      setFieldValue(name as string, undefined);
+    } else if (!isNaN(Number(selectedValue))) {
+      setFieldValue(name as string, Number(selectedValue));
+    } else {
+      setFieldValue(name as string, selectedValue);
+    }
+  };
 
   return (
     <div>
@@ -29,9 +41,7 @@ export const SelectField = <T extends FormikValues>({
         onChange={handleChange}
         className="w-full border rounded px-2 py-2"
       >
-        <option value="0" disabled>
-          Selecciona una opción
-        </option>
+        <option value="">Selecciona una opción</option>
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
