@@ -106,7 +106,7 @@ export function EditProductModal({
             <TextareaField<EditProductFormValues> name="description" label="Descripción" />
             <InputField<EditProductFormValues> name="price" label="Precio" type="number" />
             <InputField<EditProductFormValues> name="quantity" label="Cantidad" type="number" />
-            <SelectField
+            <SelectField<EditProductFormValues>
               name="collectionId"
               label="Colección"
               options={collections.map((col) => ({

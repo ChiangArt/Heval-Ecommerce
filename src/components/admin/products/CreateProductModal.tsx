@@ -99,9 +99,9 @@ export function CreateProductModal({
         >
           <Form className="grid gap-6 py-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <InputField name="title" label="Título" />
-              <InputField name="material" label="Material" />
-              <SelectField
+              <InputField<createProductFormValues> name="title" label="Título" />
+              <InputField<createProductFormValues> name="material" label="Material" />
+              <SelectField<createProductFormValues>
                 name="collectionId"
                 label="Colección"
                 options={collections.map((col) => ({
@@ -111,20 +111,20 @@ export function CreateProductModal({
               />
             </div>
 
-            <TextareaField name="description" label="Descripción" />
-            <InputField name="price" label="Precio" type="number" />
-            <InputField name="quantity" label="Cantidad" type="number" />
-            <InputField
+            <TextareaField<createProductFormValues> name="description" label="Descripción" />
+            <InputField<createProductFormValues> name="price" label="Precio" type="number" />
+            <InputField<createProductFormValues> name="quantity" label="Cantidad" type="number" />
+            <InputField<createProductFormValues>
               name="discountPercentage"
               label="Descuento (%)"
               type="number"
             />
-            <InputField
+            <InputField<createProductFormValues>
               name="discountUntil"
               label="Fecha de descuento"
               type="datetime-local"
             />
-            <InputField name="color" label="Color" />
+            <InputField<createProductFormValues> name="color" label="Color" />
 
             <div>
               <Label>Imágenes</Label>

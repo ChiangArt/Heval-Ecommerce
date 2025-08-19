@@ -1,17 +1,19 @@
 "use client";
 import { Label } from "@/components/ui/label";
-import { ProductFormValues } from "@/core/validations/product/ProductValidations";
-import { useFormikContext } from "formik";
+import { useFormikContext, FormikValues } from "formik";
 
-interface SelectFieldProps {
-  name: keyof ProductFormValues;
+interface SelectFieldProps<T extends FormikValues> {
+  name: keyof T;
   label: string;
   options: { value: number | string; label: string }[];
 }
 
-export const SelectField = ({ name, label, options }: SelectFieldProps) => {
-  const { values, handleChange, errors, touched } =
-    useFormikContext<ProductFormValues>();
+export const SelectField = <T extends FormikValues>({
+  name,
+  label,
+  options,
+}: SelectFieldProps<T>) => {
+  const { values, handleChange, errors, touched } = useFormikContext<T>();
 
   const value = values[name];
   const error = errors[name];
@@ -19,10 +21,10 @@ export const SelectField = ({ name, label, options }: SelectFieldProps) => {
 
   return (
     <div>
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={name as string}>{label}</Label>
       <select
-        id={name}
-        name={name}
+        id={name as string}
+        name={name as string}
         value={value?.toString() ?? ""}
         onChange={handleChange}
         className="w-full border rounded px-2 py-2"
