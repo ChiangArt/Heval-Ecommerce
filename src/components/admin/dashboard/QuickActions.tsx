@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Package } from "lucide-react";
-import { AddProductModal } from "@/components/admin/AddProductModal";
 import { AddCollectionModal } from "@/components/admin/AddCollectionModal";
 import { AddCouponModal } from "@/components/admin/AddCouponModal";
 import { AddBannerModal } from "@/components/admin/AddBannerModal";
+import { CreateProductModal } from "../products/CreateProductModal";
 
 interface QuickActionsProps {
   onOpenProductModal: () => void;
@@ -29,10 +29,10 @@ export function QuickActions({
         <span>Agregar producto</span>
       </Button>
 
-      <AddProductModal
+      <CreateProductModal
         open={isProductModalOpen}
         onOpenChange={onProductModalChange}
-        onUpdate={onUpdate}
+        onCreated={onUpdate}
       />
       <AddCollectionModal />
       <AddCouponModal />

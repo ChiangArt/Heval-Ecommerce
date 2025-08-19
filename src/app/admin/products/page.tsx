@@ -33,9 +33,11 @@ import {
 import { Plus, Search, MoreVertical, Edit, Trash } from "lucide-react";
 import { Product } from "@/core/product/interface/productResponse";
 import Image from "next/image";
-import { AddProductModal } from "@/components/admin/AddProductModal";
+// import { AddProductModal } from "@/components/admin/AddProductModal";
 import toast from "react-hot-toast";
 import { logError } from "@/app/utils/logger";
+import { EditProductModal } from "@/components/admin/products/EditProductModal";
+import { CreateProductModal } from "@/components/admin/products/CreateProductModal";
 
 export default function AdminProducts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -207,18 +209,33 @@ export default function AdminProducts() {
             </Button>
           </div>
 
-          <AddProductModal
-            open={isModalOpen}
-            onOpenChange={setIsModalOpen}
-            productToEdit={productToEdit}
-            onUpdate={() => {
-              setIsModalOpen(false);
-              setProductToEdit(undefined);
-              getProducts(0, 20, {
-                searchText: debouncedSearchTerm,
-              }).then((res) => setProducts(res.content));
-            }}
-          />
+     {/* Modal para crear producto */}
+<CreateProductModal
+  open={isModalOpen && !productToEdit}
+  onOpenChange={setIsModalOpen}
+  onCreated={async () => {
+    const res = await getProducts(0, 20, { searchText: debouncedSearchTerm });
+    setProducts(res.content);
+  }}
+/>
+
+{/* Modal para editar producto */}
+{productToEdit && (
+  <EditProductModal
+    open={isModalOpen && !!productToEdit}
+    onOpenChange={(open) => {
+      if (!open) {
+        setIsModalOpen(false);
+        setProductToEdit(undefined);
+      }
+    }}
+    product={productToEdit}
+    onUpdated={async () => {
+      const res = await getProducts(0, 20, { searchText: debouncedSearchTerm });
+      setProducts(res.content);
+    }}
+  />
+)}
 
           <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
             <DialogContent className="max-w-sm">
