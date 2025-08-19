@@ -13,7 +13,6 @@ import { Label } from "@/components/ui/label";
 import toast from "react-hot-toast";
 import { Formik, Form } from "formik";
 import { createProduct } from "@/core/product/action/product.actions";
-import { productSchema } from "@/core/validations/product/ProductValidations";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useCollectionStore } from "@/store/admin/collection-store";
 import { logError } from "@/app/utils/logger";
@@ -23,6 +22,7 @@ import { useImageUpload } from "@/hooks/useImageUpload";
 import { InputField } from "@/components/ui/form/InputField";
 import { SelectField } from "@/components/ui/form/SelectField";
 import { TextareaField } from "@/components/ui/form/TextareaField";
+import { createProductSchema } from "@/core/validations/product/createProductValidations";
 
 interface CreateProductModalProps {
   open: boolean;
@@ -75,7 +75,7 @@ export function CreateProductModal({
 
         <Formik
           initialValues={initialValues}
-          validationSchema={toFormikValidationSchema(productSchema)}
+          validationSchema={toFormikValidationSchema(createProductSchema)}
           onSubmit={async (values, { resetForm }) => {
             setLoading(true);
             try {
