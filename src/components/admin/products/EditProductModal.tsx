@@ -69,6 +69,7 @@ export function EditProductModal({
     collectionId: product.collectionId,
     imageUrls: product.imageUrls,
   };
+console.log("Valores iniciales del formulario:", initialValues);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -91,7 +92,6 @@ export function EditProductModal({
                 files.length > 0 ? await uploadFiles() : values.imageUrls;
 
               await updateProduct(product.id, { ...values, imageUrls });
-              console.log("Descripción del producto:", values.description);
 
               toast.success("Producto actualizado exitosamente");
 
