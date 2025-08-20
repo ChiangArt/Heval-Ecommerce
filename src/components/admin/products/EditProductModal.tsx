@@ -22,7 +22,10 @@ import { InputField } from "@/components/ui/form/InputField";
 import { TextareaField } from "@/components/ui/form/TextareaField";
 import { SelectField } from "@/components/ui/form/SelectField";
 import { Input } from "@/components/ui/input";
-import { EditProductFormValues, editProductSchema } from "@/core/validations/product/editProductValidatios";
+import {
+  EditProductFormValues,
+  editProductSchema,
+} from "@/core/validations/product/editProductValidatios";
 
 interface EditProductModalProps {
   open: boolean;
@@ -88,7 +91,7 @@ export function EditProductModal({
                 files.length > 0 ? await uploadFiles() : values.imageUrls;
 
               await updateProduct(product.id, { ...values, imageUrls });
-              console.log("Descripción del producto:", product.description);
+              console.log("Descripción del producto:", values.description);
 
               toast.success("Producto actualizado exitosamente");
 
@@ -102,13 +105,20 @@ export function EditProductModal({
               setLoading(false);
             }
           }}
-          
         >
           <Form className="grid gap-6 py-4">
             <InputField<EditProductFormValues> name="title" label="Título" />
             <TextareaField name="description" label="Descripción" />
-            <InputField<EditProductFormValues> name="price" label="Precio" type="number" />
-            <InputField<EditProductFormValues> name="quantity" label="Cantidad" type="number" />
+            <InputField<EditProductFormValues>
+              name="price"
+              label="Precio"
+              type="number"
+            />
+            <InputField<EditProductFormValues>
+              name="quantity"
+              label="Cantidad"
+              type="number"
+            />
             <SelectField<EditProductFormValues>
               name="collectionId"
               label="Colección"
