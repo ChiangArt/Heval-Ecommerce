@@ -113,7 +113,7 @@ export function CreateProductModal({
                 />
               </div>
 
-              <TextareaField<createProductFormValues> name="description" label="Descripción" />
+              <TextareaField name="description" label="Descripción" />
               <InputField<createProductFormValues> name="price" label="Precio" type="number" />
               <InputField<createProductFormValues> name="quantity" label="Cantidad" type="number" />
               <InputField<createProductFormValues>

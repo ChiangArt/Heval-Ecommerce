@@ -106,7 +106,7 @@ export function EditProductModal({
         >
           <Form className="grid gap-6 py-4">
             <InputField<EditProductFormValues> name="title" label="Título" />
-            <TextareaField<EditProductFormValues> name="description" label="Descripción" />
+            <TextareaField name="description" label="Descripción" />
             <InputField<EditProductFormValues> name="price" label="Precio" type="number" />
             <InputField<EditProductFormValues> name="quantity" label="Cantidad" type="number" />
             <SelectField<EditProductFormValues>
