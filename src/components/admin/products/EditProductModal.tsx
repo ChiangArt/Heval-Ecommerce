@@ -88,6 +88,8 @@ export function EditProductModal({
                 files.length > 0 ? await uploadFiles() : values.imageUrls;
 
               await updateProduct(product.id, { ...values, imageUrls });
+              console.log("Descripción del producto:", product.description);
+
               toast.success("Producto actualizado exitosamente");
 
               onOpenChange(false);
@@ -100,6 +102,7 @@ export function EditProductModal({
               setLoading(false);
             }
           }}
+          
         >
           <Form className="grid gap-6 py-4">
             <InputField<EditProductFormValues> name="title" label="Título" />

@@ -50,7 +50,7 @@ export function CreateProductModal({
     fetchCollections();
   }, [fetchCollections]);
 
-  const initialValues = {
+  const initialValues: createProductFormValues = {
     title: "",
     description: "",
     material: "",
@@ -60,7 +60,7 @@ export function CreateProductModal({
     discountPercentage: 0,
     discountUntil: "",
     collectionId: 0,
-    imageUrls: [""],
+    imageUrls: [],
   };
 
   return (
@@ -79,8 +79,9 @@ export function CreateProductModal({
           onSubmit={async (values, { resetForm }) => {
             setLoading(true);
             try {
+              // Subimos las imágenes si hay
               const imageUrls =
-                files.length > 0 ? await uploadFiles() : imagePreviews;
+                files.length > 0 ? await uploadFiles() : values.imageUrls;
 
               await createProduct({ ...values, imageUrls });
               toast.success("Producto agregado exitosamente");
@@ -97,68 +98,77 @@ export function CreateProductModal({
             }
           }}
         >
-          <Form className="grid gap-6 py-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <InputField<createProductFormValues> name="title" label="Título" />
-              <InputField<createProductFormValues> name="material" label="Material" />
-              <SelectField<createProductFormValues>
-                name="collectionId"
-                label="Colección"
-                options={collections.map((col) => ({
-                  value: col.id,
-                  label: col.name,
-                }))}
+          {({ setFieldValue }) => (
+            <Form className="grid gap-6 py-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <InputField<createProductFormValues> name="title" label="Título" />
+                <InputField<createProductFormValues> name="material" label="Material" />
+                <SelectField<createProductFormValues>
+                  name="collectionId"
+                  label="Colección"
+                  options={collections.map((col) => ({
+                    value: col.id,
+                    label: col.name,
+                  }))}
+                />
+              </div>
+
+              <TextareaField<createProductFormValues> name="description" label="Descripción" />
+              <InputField<createProductFormValues> name="price" label="Precio" type="number" />
+              <InputField<createProductFormValues> name="quantity" label="Cantidad" type="number" />
+              <InputField<createProductFormValues>
+                name="discountPercentage"
+                label="Descuento (%)"
+                type="number"
               />
-            </div>
-
-            <TextareaField<createProductFormValues> name="description" label="Descripción" />
-            <InputField<createProductFormValues> name="price" label="Precio" type="number" />
-            <InputField<createProductFormValues> name="quantity" label="Cantidad" type="number" />
-            <InputField<createProductFormValues>
-              name="discountPercentage"
-              label="Descuento (%)"
-              type="number"
-            />
-            <InputField<createProductFormValues>
-              name="discountUntil"
-              label="Fecha de descuento"
-              type="datetime-local"
-            />
-            <InputField<createProductFormValues> name="color" label="Color" />
-
-            <div>
-              <Label>Imágenes</Label>
-              <Input
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleFileChange}
+              <InputField<createProductFormValues>
+                name="discountUntil"
+                label="Fecha de descuento"
+                type="datetime-local"
               />
-              {imagePreviews.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-                  {imagePreviews.map((src, idx) => (
-                    <div
-                      key={idx}
-                      className="relative w-full h-32 border rounded overflow-hidden"
-                    >
-                      <Image
-                        src={src}
-                        alt={`Imagen ${idx + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+              <InputField<createProductFormValues> name="color" label="Color" />
 
-            <DialogFooter>
-              <Button type="submit" disabled={loading}>
-                {loading ? "Agregando..." : "Agregar producto"}
-              </Button>
-            </DialogFooter>
-          </Form>
+              <div>
+                <Label>Imágenes</Label>
+                <Input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => {
+                    handleFileChange(e);
+                    // Actualizamos Formik para pasar la validación
+                    const urls = Array.from(e.target.files || []).map((file) =>
+                      URL.createObjectURL(file)
+                    );
+                    setFieldValue("imageUrls", urls);
+                  }}
+                />
+                {imagePreviews.length > 0 && (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                    {imagePreviews.map((src, idx) => (
+                      <div
+                        key={idx}
+                        className="relative w-full h-32 border rounded overflow-hidden"
+                      >
+                        <Image
+                          src={src}
+                          alt={`Imagen ${idx + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <DialogFooter>
+                <Button type="submit" disabled={loading}>
+                  {loading ? "Agregando..." : "Agregar producto"}
+                </Button>
+              </DialogFooter>
+            </Form>
+          )}
         </Formik>
       </DialogContent>
     </Dialog>
