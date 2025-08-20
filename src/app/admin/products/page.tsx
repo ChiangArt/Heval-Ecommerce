@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import {
   deleteProduct,
+  getProductById,
   getProducts,
 } from "@/core/product/action/product.actions";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -41,7 +42,9 @@ import { CreateProductModal } from "@/components/admin/products/CreateProductMod
 
 export default function AdminProducts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productToEdit, setProductToEdit] = useState<Product | undefined>(undefined);
+  const [productToEdit, setProductToEdit] = useState<Product | undefined>(
+    undefined
+  );
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,7 +67,6 @@ export default function AdminProducts() {
       try {
         setLoading(true);
         const res = await getProducts(0, 20, {
-          
           searchText: debouncedSearchTerm,
         });
         setProducts(res.content);
@@ -138,7 +140,9 @@ export default function AdminProducts() {
                             {product.imageUrls.slice(0, 4).map((url, index) => (
                               <div
                                 key={index}
-                                className={`relative w-10 h-10 border-2 border-white rounded-full overflow-hidden ${index > 0 ? "-ml-3" : ""}`}
+                                className={`relative w-10 h-10 border-2 border-white rounded-full overflow-hidden ${
+                                  index > 0 ? "-ml-3" : ""
+                                }`}
                               >
                                 <Image
                                   src={url}
@@ -151,12 +155,20 @@ export default function AdminProducts() {
                             ))}
                           </div>
                         </TableCell>
-                        <TableCell className="font-medium">{product.title}</TableCell>
+                        <TableCell className="font-medium">
+                          {product.title}
+                        </TableCell>
                         <TableCell>${product.price.toFixed(2)}</TableCell>
-                        <TableCell>${product.currentPrice.toFixed(2)}</TableCell>
+                        <TableCell>
+                          ${product.currentPrice.toFixed(2)}
+                        </TableCell>
                         <TableCell>{product.quantity}</TableCell>
                         <TableCell>
-                          <Badge variant={product.quantity > 0 ? "default" : "destructive"}>
+                          <Badge
+                            variant={
+                              product.quantity > 0 ? "default" : "destructive"
+                            }
+                          >
                             {product.quantity > 0 ? "Activo" : "Sin stock"}
                           </Badge>
                         </TableCell>
@@ -170,14 +182,23 @@ export default function AdminProducts() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem
                                 className="gap-2 cursor-pointer"
-                                onClick={() => {
-                                  setProductToEdit(product);
-                                  setIsModalOpen(true);
+                                onClick={async () => {
+                                  try {
+                                    const fullProduct = await getProductById(
+                                      product.id
+                                    ); 
+                                    setProductToEdit(fullProduct);
+                                    setIsModalOpen(true);
+                                  } catch (err) {
+                                    toast.error("Error al cargar el producto");
+                                    logError(err);
+                                  }
                                 }}
                               >
                                 <Edit className="h-4 w-4" />
                                 Editar
                               </DropdownMenuItem>
+
                               <DropdownMenuItem
                                 className="gap-2 text-destructive cursor-pointer"
                                 onClick={() => {
@@ -209,41 +230,52 @@ export default function AdminProducts() {
             </Button>
           </div>
 
-     {/* Modal para crear producto */}
-<CreateProductModal
-  open={isModalOpen && !productToEdit}
-  onOpenChange={setIsModalOpen}
-  onCreated={async () => {
-    const res = await getProducts(0, 20, { searchText: debouncedSearchTerm });
-    setProducts(res.content);
-  }}
-/>
+          {/* Modal para crear producto */}
+          <CreateProductModal
+            open={isModalOpen && !productToEdit}
+            onOpenChange={setIsModalOpen}
+            onCreated={async () => {
+              const res = await getProducts(0, 20, {
+                searchText: debouncedSearchTerm,
+              });
+              setProducts(res.content);
+            }}
+          />
 
-{/* Modal para editar producto */}
-{productToEdit && (
-  <EditProductModal
-    open={isModalOpen && !!productToEdit}
-    onOpenChange={(open) => {
-      if (!open) {
-        setIsModalOpen(false);
-        setProductToEdit(undefined);
-      }
-    }}
-    product={productToEdit}
-    onUpdated={async () => {
-      const res = await getProducts(0, 20, { searchText: debouncedSearchTerm });
-      setProducts(res.content);
-    }}
-  />
-)}
+          {/* Modal para editar producto */}
+          {productToEdit && (
+            <EditProductModal
+              open={isModalOpen && !!productToEdit}
+              onOpenChange={(open) => {
+                if (!open) {
+                  setIsModalOpen(false);
+                  setProductToEdit(undefined);
+                }
+              }}
+              product={productToEdit}
+              onUpdated={async () => {
+                const res = await getProducts(0, 20, {
+                  searchText: debouncedSearchTerm,
+                });
+                setProducts(res.content);
+              }}
+            />
+          )}
 
-          <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <Dialog
+            open={isDeleteDialogOpen}
+            onOpenChange={setIsDeleteDialogOpen}
+          >
             <DialogContent className="max-w-sm">
               <DialogHeader>
                 <DialogTitle>Eliminar producto</DialogTitle>
                 <DialogDescription>
                   ¿Estás seguro que deseas eliminar
-                  <span className="font-semibold"> {productToDelete?.title}</span>?
+                  <span className="font-semibold">
+                    {" "}
+                    {productToDelete?.title}
+                  </span>
+                  ?
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter className="mt-4">
