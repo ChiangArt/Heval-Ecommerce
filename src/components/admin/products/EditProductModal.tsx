@@ -55,7 +55,7 @@ export function EditProductModal({
     fetchCollections();
   }, [fetchCollections]);
 
-  const initialValues = {
+  const initialValues: EditProductFormValues = {
     title: product.title,
     description: product.description,
     material: product.material,
@@ -69,7 +69,6 @@ export function EditProductModal({
     collectionId: product.collectionId,
     imageUrls: product.imageUrls,
   };
-console.log("Valores iniciales del formulario:", initialValues);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -110,6 +109,10 @@ console.log("Valores iniciales del formulario:", initialValues);
             <InputField<EditProductFormValues> name="title" label="Título" />
             <TextareaField name="description" label="Descripción" />
             <InputField<EditProductFormValues>
+              name="material"
+              label="Material"
+            />
+            <InputField<EditProductFormValues>
               name="price"
               label="Precio"
               type="number"
@@ -119,6 +122,20 @@ console.log("Valores iniciales del formulario:", initialValues);
               label="Cantidad"
               type="number"
             />
+            <InputField<EditProductFormValues>
+              name="color"
+              label="Color"
+            />
+            <InputField<EditProductFormValues>
+              name="discountPercentage"
+              label="Descuento (%)"
+              type="number"
+            />
+            <InputField<EditProductFormValues>
+              name="discountUntil"
+              label="Fecha de descuento"
+              type="datetime-local"
+            />
             <SelectField<EditProductFormValues>
               name="collectionId"
               label="Colección"
@@ -127,6 +144,7 @@ console.log("Valores iniciales del formulario:", initialValues);
                 label: col.name,
               }))}
             />
+
             {/* imágenes */}
             <div>
               <Input
