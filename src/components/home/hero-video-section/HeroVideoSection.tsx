@@ -29,8 +29,6 @@ export const HeroVideoSection = ({ urls, poster }: Props) => {
       return (
         <video
           src={url}
-          poster={isDesktop ? poster : undefined}
-          preload="auto"
           autoPlay
           loop
           muted
