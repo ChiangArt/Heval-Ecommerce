@@ -16,7 +16,7 @@ export default function ShopSection() {
         </p>
         <p className="z-0">
           <span className="inline-block text-sm md:text-xl bg-terciario px-2 py-1">
-            Especial Día del Padre
+            Pensadas para tu día a día 
           </span>
         </p>
       </div>
