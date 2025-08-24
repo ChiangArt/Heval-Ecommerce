@@ -1,43 +1,46 @@
 <h1 align="left">
   Ecommerce Tienda "Heval"
-  <img src="/public/nextjs3.webp" alt="App" width="50" style="vertical-align: middle;">
-</h1>
+<img src="/public/nextjs3.webp" 
+     alt="App" 
+     width="70" 
+     style="vertical-align: middle; border-radius: 50%;">
 
 ## 🚀 Demo en Vivo
 
-Puedes ver la aplicación funcionando en este link:  
+Puedes ver la aplicación funcionando en este link:
 
-↪️ **[Heval Ecommerce](https://heval.com)** ↩️ 
+↪️ **[Heval Ecommerce](https://heval.com)** ↩️
 
 ## 📌 Descripción del Proyecto
 
 **Heval Ecommerce** es una aplicación web desarrollada con **Next.js + TypeScript**, pensada para ser **rápida, escalable y segura**.  
-Permite a los usuarios explorar productos, gestionar un carrito de compras y realizar un proceso de compra con una interfaz moderna y responsiva.  
-
+Permite a los usuarios explorar productos, gestionar un carrito de compras y realizar un proceso de compra con una interfaz moderna y responsiva.
 
 ### 🔑 Funcionalidades principales
-- ✅ Catálogo dinámico de productos con filtros y categorías  
-- 🛍️ Carrito de compras persistente  
-- 💳 Checkout seguro (simulado o integrado con pasarela de pago)  
-- 👤 Autenticación y gestión de usuarios  
-- ⭐ Valoraciones y reseñas de productos  
-- 📦 Control de inventario  
-- 📊 Panel de administración (opcional, para gestionar productos y ventas)  
-- 🌐 SEO optimizado y carga ultrarrápida gracias a Next.js  
+
+- ✅ Catálogo dinámico de productos con filtros y categorías
+- 🛍️ Carrito de compras persistente
+- 💳 Checkout seguro (simulado o integrado con pasarela de pago)
+- 👤 Autenticación y gestión de usuarios
+- ⭐ Valoraciones y reseñas de productos
+- 📦 Control de inventario
+- 📊 Panel de administración (opcional, para gestionar productos y ventas)
+- 🌐 SEO optimizado y carga ultrarrápida gracias a Next.js
 
 ---
 
-##  Tecnologías utilizadas
+## Tecnologías utilizadas
 
-- **Next.js** → Framework de React con renderizado híbrido (SSR/SSG)  
-- **TypeScript** → Tipado estático para mayor robustez  
-- **Tailwind CSS** → Estilos rápidos y modernos  
-- **Prisma / SQL Server** → ORM para la base de datos (adaptable)  
-- **NextAuth** → Autenticación de usuarios  
-- **Axios / Fetch API** → Consumo de APIs  
-- **Zod / Yup** → Validación de formularios  
-- **Lucide Icons** → Iconografía moderna  
+- **Next.js** → Framework de React con renderizado híbrido (SSR/SSG)
+- **TypeScript** → Tipado estático para mayor robustez
+- **Tailwind CSS** → Estilos rápidos y modernos
+- **Prisma / SQL Server** → ORM para la base de datos (adaptable)
+- **NextAuth** → Autenticación de usuarios
+- **Axios / Fetch API** → Consumo de APIs
+- **Zod / Yup** → Validación de formularios
+- **Lucide Icons** → Iconografía moderna
 - **Vercel** → Despliegue y hosting
+
 ---
 
 ## 🗂️ Estructura del Proyecto
@@ -70,10 +73,11 @@ src/
 ├── prisma/               # Esquema de la base de datos
 ├── styles/               # Configuración de estilos globales
 ├── App.tsx
-└── main.tsx              
+└── main.tsx
 
 ```
-##  Instalación y Uso
+
+## Instalación y Uso
 
 ### 1. Clona el repositorio
 
@@ -89,7 +93,6 @@ npm install o npm i
 
 ```
 
-
 ### 3. Instala las dependencias
 
 ```bash
@@ -101,15 +104,13 @@ npm run dev
 
 [http://localhost:3000](http://localhost:3000)
 
-
-##  Imagenes
+## Imagenes
 
 ### Desktop
+
 ![App](/public/image.png)
 
-
-
-##  Funcionalidades destacadas
+## Funcionalidades destacadas
 
 - Catálogo dinámico de productos
 
@@ -123,10 +124,7 @@ npm run dev
 
 - SEO optimizado y despliegue en Vercel
 
-
-
-##  Autor
+## Autor
 
 [Bryan Lee Chiang Arteaga]
 bryan_94tj@hotmail.com
-
