@@ -2,15 +2,17 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# pasar la variable de entorno al build
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
 # copia package y lock para aprovechar cache
 COPY package*.json ./
 RUN npm ci --production=false
 COPY . .
+
 # crea build
 RUN npm run build
-
-
-
 
 # Stage 2: runtime
 FROM node:20-alpine
@@ -25,10 +27,10 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/package-lock.json ./package-lock.json  
+
 # instala sólo deps de producción
 RUN npm ci --production=true
 
 USER app
 EXPOSE 3000
 CMD ["npm", "start"]
-
