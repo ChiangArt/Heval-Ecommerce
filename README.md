@@ -3,7 +3,7 @@
 <img src="/public/nextjs3.webp" 
      alt="App" 
      width="70" 
-     style="vertical-align: middle; border-radius: 50%;">
+     style="vertical-align: middle">
 
 ## 🚀 Demo en Vivo
 
