@@ -1,34 +1,38 @@
-# Stage 1: build
+# =========================
+# STAGE 1: BUILD
+# =========================
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# pasar la variable de entorno al build
+# Variable de entorno para el build
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
-# copia package y lock para aprovechar cache
+# Copiar dependencias y lock
 COPY package*.json ./
 RUN npm ci --production=false
 COPY . .
 
-# crea build
+# Build de Next.js
 RUN npm run build
 
-# Stage 2: runtime
+# =========================
+# STAGE 2: RUNTIME
+# =========================
 FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 
-# crea usuario no-root por seguridad
+# Usuario no-root
 RUN addgroup -S app && adduser -S app -G app
 
-# copia artefactos necesarios
+# Copiar artefactos necesarios
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/package-lock.json ./package-lock.json  
+COPY --from=builder /app/package-lock.json ./package-lock.json
 
-# instala sólo deps de producción
+# Instalar deps de producción
 RUN npm ci --production=true
 
 USER app
