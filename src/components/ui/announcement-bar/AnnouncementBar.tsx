@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 
 const messages = [
   "Adquiere cualquier producto con envío gratis 🚚",
-  "🎉 ¡Descuentos hasta 70% por tiempo limitado!",
+  "🎉Adquiere cualquier producto con envío gratis",
   "Adquiere cualquier producto con envío gratis 🚚",
-  "🎉 ¡Descuentos hasta 70% por tiempo limitado!",
+  "🎉Adquiere cualquier producto con envío gratis",
   "Adquiere cualquier producto con envío gratis 🚚",
 ];
 export default function AnnouncementBar() {
