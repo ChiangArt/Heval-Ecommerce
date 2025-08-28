@@ -1,40 +1,19 @@
-# =========================
-# STAGE 1: BUILD
-# =========================
 FROM node:20-alpine AS builder
 WORKDIR /app
-
-# Variable de entorno para el build
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-
-# Copiar dependencias y lock
 COPY package*.json ./
-RUN npm ci --production=false
+RUN npm ci
 COPY . .
 
-# Build de Next.js
+# Build con la URL de producción del backend
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 RUN npm run build
+RUN npm run export
 
-# =========================
-# STAGE 2: RUNTIME
-# =========================
-FROM node:20-alpine
-WORKDIR /app
-ENV NODE_ENV=production
-
-# Usuario no-root
-RUN addgroup -S app && adduser -S app -G app
-
-# Copiar artefactos necesarios
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/package-lock.json ./package-lock.json
-
-# Instalar deps de producción
-RUN npm ci --production=true
-
-USER app
-EXPOSE 3000
-CMD ["npm", "start"]
+# Stage final: usar Nginx para servir HTML estático
+FROM nginx:alpine
+COPY --from=builder /app/out /usr/share/nginx/html
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
