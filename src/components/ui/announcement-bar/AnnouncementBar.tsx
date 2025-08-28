@@ -8,6 +8,7 @@ const messages = [
   "🎉Adquiere cualquier producto con envío gratis",
   "Adquiere cualquier producto con envío gratis 🚚",
 ];
+
 export default function AnnouncementBar() {
   const [isFixed, setIsFixed] = useState(false);
 
