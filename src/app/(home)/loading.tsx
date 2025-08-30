@@ -1,4 +1,4 @@
-import Logo from "@/components/ui/logo/Logo";
+import Image from "next/image";
 
 export default function Loading() {
   return (
@@ -9,13 +9,24 @@ export default function Loading() {
 
         {/* Fondo del logo con efecto suave */}
         <div className="z-10 w-20 h-20 rounded-full bg-zinc-900 shadow-inner flex items-center justify-center animate-fadeZoomIn">
-          <Logo />
+          <Image
+            src="/ISOTIPO HEVAL.png"
+            alt="Tercera"
+            fill
+            sizes="(max-width: 768px) 100vw, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
       </div>
 
       <div className="absolute bottom-12 text-center animate-fadeZoomIn">
-        <p className="text-lg font-semibold tracking-wider">Cargando página...</p>
-        <p className="text-sm text-gray-400 mt-1">Un momento, estamos preparando todo para ti</p>
+        <p className="text-lg font-semibold tracking-wider">
+          Cargando página...
+        </p>
+        <p className="text-sm text-gray-400 mt-1">
+          Un momento, estamos preparando todo para ti
+        </p>
       </div>
     </div>
   );
