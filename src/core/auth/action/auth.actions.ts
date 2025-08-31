@@ -28,17 +28,32 @@ export const postAuthLogin = async (
   payload: LoginRequest
 ): Promise<LoginResponse> => {
   try {
-    const { data } = await productsApi.post<LoginResponse>(
+    logInfo("Intentando login con payload:", payload);
+
+    const { data, status } = await productsApi.post<LoginResponse>(
       "/auth/login",
       payload
     );
 
+    logInfo("Respuesta del login:", { status, data });
     return data;
-  } catch (error) {
-    logError("Error al loguearse", error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      // error.message existe
+      logError("Error al loguearse - Error:", error.message);
+    }
+
+    // Si es un error de Axios
+    if (typeof error === "object" && error !== null && "response" in error) {
+      const err = error as { response?: { data: unknown; status: number } };
+      logError("Error al loguearse - Backend respondió:", err.response?.data);
+      logError("Status Code:", err.response?.status);
+    }git
+
     throw error;
   }
 };
+
 
 export const postAuthForgotPassword = async (email: string) => {
   try {
