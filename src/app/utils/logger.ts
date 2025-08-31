@@ -1,12 +1,21 @@
+// logger.ts
 
-export function logInfo(...args: unknown[]) {
-  console.log(...args);
-}
+const isDev = process.env.NODE_ENV === "development";
 
 export function logError(...args: unknown[]) {
-  console.error(...args);
+  if (isDev) {
+    console.error(...args);
+  }
+}
+
+export function logInfo(...args: unknown[]) {
+  if (isDev) {
+    console.log(...args);
+  }
 }
 
 export function logWarn(...args: unknown[]) {
-  console.warn(...args);
+  if (isDev) {
+    console.warn(...args);
+  }
 }
