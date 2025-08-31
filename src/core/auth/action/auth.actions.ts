@@ -6,6 +6,7 @@ import {
   RegisterResponse,
 } from "../interface/user";
 import { logError, logInfo } from "@/app/utils/logger";
+import { AxiosError } from "axios";
 
 export const postAuthRegister = async (
   payload: RegisterRequest
@@ -36,20 +37,24 @@ export const postAuthLogin = async (
     );
 
     logInfo("Respuesta del login:", { status, data });
+
     return data;
   } catch (error: unknown) {
+    // Si es un error genérico de JavaScript
     if (error instanceof Error) {
-      // error.message existe
       logError("Error al loguearse - Error:", error.message);
     }
 
     // Si es un error de Axios
-    if (typeof error === "object" && error !== null && "response" in error) {
-      const err = error as { response?: { data: unknown; status: number } };
-      logError("Error al loguearse - Backend respondió:", err.response?.data);
-      logError("Status Code:", err.response?.status);
-    }git
+    if (error instanceof AxiosError) {
+      logError(
+        "Error al loguearse - Backend respondió:",
+        error.response?.data
+      );
+      logError("Status Code:", error.response?.status);
+    }
 
+    // Siempre relanzamos el error para que quien llame a esta función lo maneje
     throw error;
   }
 };
