@@ -4,10 +4,8 @@ export default function Loading() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-zinc-900 to-black text-white">
       <div className="relative w-32 h-32 flex items-center justify-center">
-        {/* Aura Giratorio */}
         <div className="absolute w-full h-full rounded-full border-[6px] border-t-primary border-b-primary animate-spin-slow" />
 
-        {/* Fondo del logo con efecto suave */}
         <div className="z-10 w-20 h-20 rounded-full bg-zinc-900 shadow-inner flex items-center justify-center animate-fadeZoomIn">
           <Image
             src="/ISOTIPO HEVAL.png"
