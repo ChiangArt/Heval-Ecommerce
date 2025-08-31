@@ -33,12 +33,11 @@ export const Sidebar = () => {
 
   return (
     <div>
-      {/* Fondo negro */}
+  
       {isSideMenuOpen && (
         <div className="fixed top-0 right-0 w-screen h-screen z-35 bg-black opacity-30" />
       )}
 
-      {/* Blur */}
       {isSideMenuOpen && (
         <div
           onClick={closeMenu}
@@ -46,7 +45,6 @@ export const Sidebar = () => {
         />
       )}
 
-      {/* Menú lateral */}
       <nav
         className={clsx(
           "fixed font-bold p-5 left-0 top-0 w-[80%] pt-10 h-screen bg-primario text-secundario z-40 shadow-2xl transform transition-all duration-300 overflow-y-auto",
@@ -90,7 +88,7 @@ export const Sidebar = () => {
           <span className="ml-3 text-xl">TIENDA</span>
         </Link>
 
-        {/* Botón de Colecciones */}
+       
         <div
           onClick={() => setShowCollections(!showCollections)}
           className="flex justify-center mt-3 p-2 bg-white transition-all cursor-pointer"
@@ -98,7 +96,7 @@ export const Sidebar = () => {
           <span className="ml-3 text-xl">COLECCIONES</span>
         </div>
 
-        {/* Submenú desplegable */}
+       
         {showCollections && (
           <div className="flex flex-col items-center justify-center mt-2">
             {collections.map((col) => (

@@ -117,7 +117,7 @@ export default function TopMenu({
                       <Link
                         key={col.href}
                         href={col.href}
-                        className="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
+                        className="block px-4 py-2 hover:bg-gray-700 whitespace-nowrap"
                       >
                         {col.name}
                       </Link>
